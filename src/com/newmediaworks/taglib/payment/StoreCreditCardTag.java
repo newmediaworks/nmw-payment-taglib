@@ -1,0 +1,229 @@
+/*
+ * new-payment-taglib - Java taglib encapsulating the ao-credit-cards API.
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013  New Media Works
+ *     info@newmediaworks.com
+ *     PO BOX 853
+ *     Napa, CA 94559
+ *
+ * This file is part of new-payment-taglib.
+ *
+ * new-payment-taglib is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * new-payment-taglib is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package com.newmediaworks.taglib.payment;
+
+import com.aoindustries.creditcards.CreditCard;
+import com.aoindustries.creditcards.MerchantServicesProvider;
+import java.io.IOException;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyTagSupport;
+
+/**
+ * Stores a credit card in the processor-specific storage.  All values are provided by nested tags.
+ *
+ * @author  New Media Works &lt;info@newmediaworks.com&gt;
+ */
+public class StoreCreditCardTag extends BodyTagSupport {
+
+    private static final long serialVersionUID = 1L;
+
+    // Set by nested tags
+    private String cardNumber;
+    private byte expirationMonth;
+    private short expirationYear;
+    private String cardCode;
+    private String firstName;
+    private String lastName;
+    private String companyName;
+    private String email;
+    private String phone;
+    private String fax;
+    private String customerId;
+    private String customerTaxId;
+    private String streetAddress1;
+    private String streetAddress2;
+    private String city;
+    private String state;
+    private String postalCode;
+    private String countryCode;
+    private String comment;
+
+    public StoreCreditCardTag() {
+        init();
+    }
+
+    @Override
+    public int doStartTag() throws JspException {
+        // Make sure the processor is set
+        MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
+        if(processor==null) throw new JspException("processor not set, please set processor with the useProcessor tag first");
+        return EVAL_BODY_INCLUDE;
+    }
+
+    /**
+     * Stores the card at end tag because values are provided by nested tags.
+     */
+    @Override
+    public int doEndTag() throws JspException {
+        try {
+            // Get the current processor
+            MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
+            if(processor==null) throw new JspException("processor not set, please set processor with the useProcessor tag first");
+
+            // Add credit card
+            String providerUniqueId = processor.storeCreditCard(
+                new CreditCard(
+                    null,
+                    null,
+                    null,
+                    processor.getProviderId(),
+                    null,
+                    cardNumber,
+                    null,
+                    expirationMonth,
+                    expirationYear,
+                    cardCode,
+                    firstName,
+                    lastName,
+                    companyName,
+                    email,
+                    phone,
+                    fax,
+                    customerId,
+                    customerTaxId,
+                    streetAddress1,
+                    streetAddress2,
+                    city,
+                    state,
+                    postalCode,
+                    countryCode,
+                    comment
+                )
+            );
+
+            // Write the unique ID
+            pageContext.getOut().write(providerUniqueId);
+
+            // Get ready for the next iteration
+            return EVAL_PAGE;
+        } catch(IOException err) {
+            throw new JspException(err);
+        } finally {
+            init();
+        }
+    }
+
+    @Override
+    public void release() {
+        super.release();
+        init();
+    }
+
+    private void init() {
+        cardNumber=null;
+        expirationMonth=(byte)-1;
+        expirationYear=(short)-1;
+        cardCode=null;
+        firstName=null;
+        lastName=null;
+        companyName=null;
+        email=null;
+        phone=null;
+        fax=null;
+        customerId=null;
+        customerTaxId=null;
+        streetAddress1=null;
+        streetAddress2=null;
+        city=null;
+        state=null;
+        postalCode=null;
+        countryCode=null;
+        comment=null;
+    }
+
+    void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    void setExpirationMonth(byte expirationMonth) {
+        this.expirationMonth = expirationMonth;
+    }
+
+    void setExpirationYear(short expirationYear) {
+        this.expirationYear = expirationYear;
+    }
+
+    void setCardCode(String cardCode) {
+        this.cardCode = cardCode;
+    }
+
+    void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    void setEmail(String email) {
+        this.email = email;
+    }
+
+    void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    void setCustomerTaxId(String customerTaxId) {
+        this.customerTaxId = customerTaxId;
+    }
+
+    void setStreetAddress1(String streetAddress1) {
+        this.streetAddress1 = streetAddress1;
+    }
+
+    void setStreetAddress2(String streetAddress2) {
+        this.streetAddress2 = streetAddress2;
+    }
+
+    void setCity(String city) {
+        this.city = city;
+    }
+
+    void setState(String state) {
+        this.state = state;
+    }
+
+    void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    void setComment(String comment) {
+        this.comment = comment;
+    }
+}
