@@ -48,7 +48,7 @@ public class AmountTag extends BodyTagSupport {
         String amountString = getBodyContent().getString().trim();
         BigDecimal amount;
         try {
-            amount = new BigDecimal(amountString);
+            amount = Currency.parseCurrency(amountString);
         } catch(NumberFormatException err) {
             throw new JspException("Invalid amount: "+amountString, err);
         }

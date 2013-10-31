@@ -48,7 +48,7 @@ public class DutyAmountTag extends BodyTagSupport {
         String dutyAmountString = getBodyContent().getString().trim();
         BigDecimal dutyAmount;
         try {
-            dutyAmount = new BigDecimal(dutyAmountString);
+            dutyAmount = Currency.parseCurrency(dutyAmountString);
         } catch(NumberFormatException err) {
             throw new JspException("Invalid dutyAmount: "+dutyAmountString, err);
         }

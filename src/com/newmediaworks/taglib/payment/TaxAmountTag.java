@@ -48,7 +48,7 @@ public class TaxAmountTag extends BodyTagSupport {
         String taxAmountString = getBodyContent().getString().trim();
         BigDecimal taxAmount;
         try {
-            taxAmount = new BigDecimal(taxAmountString);
+            taxAmount = Currency.parseCurrency(taxAmountString);
         } catch(NumberFormatException err) {
             throw new JspException("Invalid taxAmount: "+taxAmountString, err);
         }

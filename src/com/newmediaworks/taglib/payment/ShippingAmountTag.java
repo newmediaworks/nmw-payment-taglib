@@ -48,7 +48,7 @@ public class ShippingAmountTag extends BodyTagSupport {
         String shippingAmountString = getBodyContent().getString().trim();
         BigDecimal shippingAmount;
         try {
-            shippingAmount = new BigDecimal(shippingAmountString);
+            shippingAmount = Currency.parseCurrency(shippingAmountString);
         } catch(NumberFormatException err) {
             throw new JspException("Invalid shippingAmount: "+shippingAmountString, err);
         }
