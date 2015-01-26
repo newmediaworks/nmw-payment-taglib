@@ -77,6 +77,11 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
                 Parameters:
                     x_login - The merchant's unique API Login ID
                     x_tran_key - The merchant's unique Transaction Key
+            "Stripe" - https://stripe.com/
+                Parameters:
+                    apiKey - the API secret key
+                        Obtain your secret key from:
+                        https://dashboard.stripe.com/account/apikeys
                         
     </description>
     <name>useProcessor</name>

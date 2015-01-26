@@ -26,6 +26,7 @@ import com.aoindustries.creditcards.MerchantServicesProvider;
 import com.aoindustries.creditcards.authorizeNet.AuthorizeNet;
 import com.aoindustries.creditcards.payflowPro.PayflowPro;
 import com.aoindustries.creditcards.sagePayments.SagePayments;
+import com.aoindustries.creditcards.stripe.Stripe;
 import com.aoindustries.creditcards.test.TestMerchantServicesProvider;
 import com.aoindustries.creditcards.usaepay.USAePay;
 import com.aoindustries.lang.ObjectUtils;
@@ -48,7 +49,7 @@ public class UseProcessorTag extends BodyTagSupport {
 
     /** The previously created processors are reused. */
     private final static List<SagePayments> sagePayments = new ArrayList<SagePayments>();
-    private final static SagePayments getSagePayments(String merchantID, String merchantKey) {
+    private static SagePayments getSagePayments(String merchantID, String merchantKey) {
         synchronized(sagePayments) {
             for(SagePayments sp : sagePayments) {
                 if(
@@ -64,7 +65,7 @@ public class UseProcessorTag extends BodyTagSupport {
 
     /** The previously created processors are reused. */
     private final static List<TestMerchantServicesProvider> testMerchantServicesProviders = new ArrayList<TestMerchantServicesProvider>();
-    private final static TestMerchantServicesProvider getTestMerchantServicesProvider(byte errorChance, byte rejectionChance) {
+    private static TestMerchantServicesProvider getTestMerchantServicesProvider(byte errorChance, byte rejectionChance) {
         synchronized(testMerchantServicesProviders) {
             for(TestMerchantServicesProvider tmsp : testMerchantServicesProviders) {
                 if(
@@ -80,7 +81,7 @@ public class UseProcessorTag extends BodyTagSupport {
 
     /** The previously created processors are reused. */
     private final static List<PayflowPro> payflowPros = new ArrayList<PayflowPro>();
-    private final static PayflowPro getPayflowPro(String user, String vendor, String partner, String password, ServletContext servletContext) {
+    private static PayflowPro getPayflowPro(String user, String vendor, String partner, String password, ServletContext servletContext) {
         synchronized(payflowPros) {
             for(PayflowPro payflowPro : payflowPros) {
                 if(
@@ -98,7 +99,7 @@ public class UseProcessorTag extends BodyTagSupport {
 
     /** The previously created processors are reused. */
     private final static List<USAePay> usaePays = new ArrayList<USAePay>();
-    private final static USAePay getUSAePay(String postUrl, String key, String pin) {
+    private static USAePay getUSAePay(String postUrl, String key, String pin) {
         synchronized(usaePays) {
             for(USAePay usaePay : usaePays) {
                 if(
@@ -115,7 +116,7 @@ public class UseProcessorTag extends BodyTagSupport {
 
     /** The previously created processors are reused. */
     private final static List<AuthorizeNet> authorizeNets = new ArrayList<AuthorizeNet>();
-    private final static AuthorizeNet getAuthorizeNet(String x_login, String x_tran_key) {
+    private static AuthorizeNet getAuthorizeNet(String x_login, String x_tran_key) {
         synchronized(authorizeNets) {
             for(AuthorizeNet authorizeNet : authorizeNets) {
                 if(
@@ -129,7 +130,22 @@ public class UseProcessorTag extends BodyTagSupport {
         }
     }
 
-    // Set by nested tags
+    /** The previously created processors are reused. */
+    private final static List<Stripe> stripes = new ArrayList<Stripe>();
+    private static Stripe getStripe(String apiKey) {
+        synchronized(stripes) {
+            for(Stripe stripe : stripes) {
+                if(
+                    ObjectUtils.equals(stripe.getApiKey(), apiKey)
+                ) return stripe;
+            }
+            Stripe stripe = new Stripe("Stripe", apiKey);
+            stripes.add(stripe);
+            return stripe;
+        }
+    }
+
+	// Set by nested tags
     private String connectorName;
     final private Map<String,String> parameters = new HashMap<String,String>();
 
@@ -176,6 +192,10 @@ public class UseProcessorTag extends BodyTagSupport {
             provider = getAuthorizeNet(
                 parameters.get("x_login"),
                 parameters.get("x_tran_key")
+            );
+        } else if("Stripe".equalsIgnoreCase(connectorName)) {
+            provider = getStripe(
+                parameters.get("apiKey")
             );
         } else {
             throw new JspException("Unsupported connectorName: "+connectorName);
