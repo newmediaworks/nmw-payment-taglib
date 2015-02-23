@@ -54,7 +54,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
                 Parameters:
                     user -
                         If you set up one or more additional users on the account, this value is the ID of the user authorized to process transactions.
-                        If, however, you have not sest up additional users on the account, user has the same value as vendor.
+                        If, however, you have not set up additional users on the account, user has the same value as vendor.
                     vendor - Your merchant login ID that you created when you registered for the Payflow Pro account.  This value is case sensitive.
                     partner -
                         The ID provided to you by the authorized PayPal Reseller who registered you for the Payflow Pro service.
