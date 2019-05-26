@@ -24,7 +24,7 @@
 	</a>
 </p>
 
-JSP taglib encapsulating the [AO Credit Cards API](https://github.com/aoindustries/ao-credit-cards).
+JSP taglib encapsulating the [AO Credit Cards API](https://github.com/aoindustries/ao-credit-cards-api).
 
 ## Project Links
 * [Project Home](https://oss.newmediaworks.com/payment-taglib/)
@@ -33,6 +33,9 @@ JSP taglib encapsulating the [AO Credit Cards API](https://github.com/aoindustri
 * [API Docs](https://oss.newmediaworks.com/payment-taglib/apidocs/)
 * [Maven Central Repository](https://search.maven.org/#search%7Cgav%7C1%7Cg:%22com.newmediaworks%22%20AND%20a:%22nmw-payment-taglib%22)
 * [GitHub](https://github.com/newmediaworks/nmw-payment-taglib)
+
+## Related Projects
+* [AO Credit Cards](https://github.com/aoindustries/ao-credit-cards)
 
 ## Contact Us
 For questions or support, please [contact us](https://www.newmediaworks.com/html/contact.html):
