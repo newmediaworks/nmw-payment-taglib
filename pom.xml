@@ -62,8 +62,14 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 							<links>
 								<link>${javac.link.javaApi}</link>
 								<link>${javac.link.javaeeApi.6}</link>
+								<link>https://aoindustries.com/ao-credit-cards/api/apidocs/</link>
+								<link>https://aoindustries.com/ao-credit-cards/authorizeNet/apidocs/</link>
+								<link>https://aoindustries.com/ao-credit-cards/payflowPro/apidocs/</link>
+								<link>https://aoindustries.com/ao-credit-cards/sagePayments/apidocs/</link>
+								<link>https://aoindustries.com/ao-credit-cards/stripe/apidocs/</link>
+								<link>https://aoindustries.com/ao-credit-cards/test/apidocs/</link>
+								<link>https://aoindustries.com/ao-credit-cards/usaepay/apidocs/</link>
 								<link>https://aoindustries.com/ao-lang/apidocs/</link>
-								<link>https://aoindustries.com/aocode-public/apidocs/</link>
 							</links>
 						</configuration>
 					</plugin>
@@ -72,16 +78,47 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		</profile>
 	</profiles>
 
-	<!-- TODO: Review -->
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>com.aoindustries</groupId><artifactId>ao-tempfiles</artifactId><version>1.0.0-validation-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>aocode-public</artifactId><version>2.1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.axis</groupId><artifactId>axis</artifactId><version>1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.axis</groupId><artifactId>axis-jaxrpc</artifactId><version>1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-beanutils</groupId><artifactId>commons-beanutils</artifactId><version>1.9.3</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-collections</groupId><artifactId>commons-collections</artifactId><version>3.2.2</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-digester</groupId><artifactId>commons-digester</artifactId><version>2.1</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-validator</groupId><artifactId>commons-validator</artifactId><version>1.6</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.code.gson</groupId><artifactId>gson</artifactId><version>2.8.5</version>
+			</dependency>
+			<dependency>
+				<groupId>com.paypal</groupId><artifactId>payflow</artifactId><version>v440</version>
+			</dependency>
+			<dependency>
+				<groupId>com.stripe</groupId><artifactId>stripe-java</artifactId><version>9.7.0</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
-	<!-- TODO: Review -->
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><version>3.0.1</version>
@@ -92,10 +129,28 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId><version>2.1.0-SNAPSHOT</version>
+			<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-api</artifactId><version>1.1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.aoindustries</groupId><artifactId>aocode-public</artifactId><version>2.1.0-SNAPSHOT</version>
+			<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-authorizeNet</artifactId><version>1.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-payflowPro</artifactId><version>1.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-sagePayments</artifactId><version>1.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-stripe</artifactId><version>1.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-test</artifactId><version>1.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-usaepay</artifactId><version>1.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId><version>2.1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>
