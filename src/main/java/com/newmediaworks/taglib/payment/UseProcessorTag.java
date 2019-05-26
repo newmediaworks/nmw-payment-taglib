@@ -29,11 +29,11 @@ import com.aoindustries.creditcards.sagePayments.SagePayments;
 import com.aoindustries.creditcards.stripe.Stripe;
 import com.aoindustries.creditcards.test.TestMerchantServicesProvider;
 import com.aoindustries.creditcards.usaepay.USAePay;
-import com.aoindustries.lang.ObjectUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import javax.servlet.ServletContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -85,10 +85,10 @@ public class UseProcessorTag extends BodyTagSupport {
 		synchronized(payflowPros) {
 			for(PayflowPro payflowPro : payflowPros) {
 				if(
-					ObjectUtils.equals(payflowPro.getUser(), user)
-					&& ObjectUtils.equals(payflowPro.getVendor(), vendor)
-					&& ObjectUtils.equals(payflowPro.getPartner(), partner)
-					&& ObjectUtils.equals(payflowPro.getPassword(), password)
+					Objects.equals(payflowPro.getUser(), user)
+					&& Objects.equals(payflowPro.getVendor(), vendor)
+					&& Objects.equals(payflowPro.getPartner(), partner)
+					&& Objects.equals(payflowPro.getPassword(), password)
 				) return payflowPro;
 			}
 			PayflowPro payflowPro = new PayflowPro("Payflow Pro", user, vendor, partner, password);
@@ -103,9 +103,9 @@ public class UseProcessorTag extends BodyTagSupport {
 		synchronized(usaePays) {
 			for(USAePay usaePay : usaePays) {
 				if(
-					ObjectUtils.equals(usaePay.getPostUrl(), postUrl)
-					&& ObjectUtils.equals(usaePay.getKey(), key)
-					&& ObjectUtils.equals(usaePay.getPin(), pin)
+					Objects.equals(usaePay.getPostUrl(), postUrl)
+					&& Objects.equals(usaePay.getKey(), key)
+					&& Objects.equals(usaePay.getPin(), pin)
 				) return usaePay;
 			}
 			USAePay usaePay = new USAePay("USAePay", postUrl, key, pin);
@@ -120,8 +120,8 @@ public class UseProcessorTag extends BodyTagSupport {
 		synchronized(authorizeNets) {
 			for(AuthorizeNet authorizeNet : authorizeNets) {
 				if(
-					ObjectUtils.equals(authorizeNet.getX_login(), x_login)
-					&& ObjectUtils.equals(authorizeNet.getX_tran_key(), x_tran_key)
+					Objects.equals(authorizeNet.getX_login(), x_login)
+					&& Objects.equals(authorizeNet.getX_tran_key(), x_tran_key)
 				) return authorizeNet;
 			}
 			AuthorizeNet authorizeNet = new AuthorizeNet("Authorize.Net", x_login, x_tran_key);
@@ -136,7 +136,7 @@ public class UseProcessorTag extends BodyTagSupport {
 		synchronized(stripes) {
 			for(Stripe stripe : stripes) {
 				if(
-					ObjectUtils.equals(stripe.getApiKey(), apiKey)
+					Objects.equals(stripe.getApiKey(), apiKey)
 				) return stripe;
 			}
 			Stripe stripe = new Stripe("Stripe", apiKey);

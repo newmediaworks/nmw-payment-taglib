@@ -108,6 +108,11 @@ public class VoidTag extends BodyTagSupport {
 					null,
 					null,
 					null,
+					null,
+					null,
+					null,
+					null,
+					null,
 					null
 				),
 				0,
