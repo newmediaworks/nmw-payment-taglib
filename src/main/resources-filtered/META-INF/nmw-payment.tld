@@ -36,7 +36,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 	<short-name>payment</short-name>
 	<uri>http://taglibs.newmediaworks.com/payment</uri>
 	<tag>
-		<description>
+		<description><![CDATA[
 			Selects the processor that will be used for subsequent transactions.
 			Must contain a Payment:connectorName to provide the connector name.
 			May contain any number of Payment:parameter tags to provide connector-specific configuration values.
@@ -50,6 +50,12 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 					Parameters:
 						merchantID - Sage-provided merchant ID (required)
 						merchantKey - Sage-provided merchant key (required)
+					<p>
+						Please note: <strong>the next major release of this project will no longer support
+						the "Sage" processor</strong> due to the <a href="https://aoindustries.com/ao-credit-cards/sagePayments/">underlying payment API</a>
+						being deprecated.
+					</p>
+
 				"Payflow Pro" - PayPal Payflow Pro - https://www.paypal.com/cgi-bin/webscr?cmd=_payflow-pro-overview-outside
 					Parameters:
 						user -
@@ -82,7 +88,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 						apiKey - the API secret key
 							Obtain your secret key from:
 							https://dashboard.stripe.com/account/apikeys
-		</description>
+		]]></description>
 		<name>useProcessor</name>
 		<tag-class>com.newmediaworks.taglib.payment.UseProcessorTag</tag-class>
 		<body-content>JSP</body-content>

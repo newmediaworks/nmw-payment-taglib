@@ -37,6 +37,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-05-26T16:13:02-0500"
+		dateModified="2019-05-26T17:53:19-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.newmediaworks:nmw-payment-taglib:pom.version}" />
@@ -54,6 +55,11 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 			>
 				<ul>
 					<li>Project moved to GitHub and Maven.</li>
+					<li>
+						Please note: <strong>the next major release of this project will no longer support
+						the "Sage" processor</strong> due to the <ao:a href="https://aoindustries.com/ao-credit-cards/sagePayments/">underlying payment API</ao:a>
+						being deprecated.
+					</li>
 					<!-- TODO:
 					<li>Minimum Java version changed from 1.6 to 1.7.</li>
 					<li>Tag library version changed from 2.0 to 2.1.</li>
