@@ -48,7 +48,7 @@ public class UseProcessorTag extends BodyTagSupport {
 	private static final long serialVersionUID = 1L;
 
 	/** The previously created processors are reused. */
-	private final static List<SagePayments> sagePayments = new ArrayList<SagePayments>();
+	private final static List<SagePayments> sagePayments = new ArrayList<>();
 	private static SagePayments getSagePayments(String merchantID, String merchantKey) {
 		synchronized(sagePayments) {
 			for(SagePayments sp : sagePayments) {
@@ -64,7 +64,7 @@ public class UseProcessorTag extends BodyTagSupport {
 	}
 
 	/** The previously created processors are reused. */
-	private final static List<TestMerchantServicesProvider> testMerchantServicesProviders = new ArrayList<TestMerchantServicesProvider>();
+	private final static List<TestMerchantServicesProvider> testMerchantServicesProviders = new ArrayList<>();
 	private static TestMerchantServicesProvider getTestMerchantServicesProvider(byte errorChance, byte rejectionChance) {
 		synchronized(testMerchantServicesProviders) {
 			for(TestMerchantServicesProvider tmsp : testMerchantServicesProviders) {
@@ -80,7 +80,7 @@ public class UseProcessorTag extends BodyTagSupport {
 	}
 
 	/** The previously created processors are reused. */
-	private final static List<PayflowPro> payflowPros = new ArrayList<PayflowPro>();
+	private final static List<PayflowPro> payflowPros = new ArrayList<>();
 	private static PayflowPro getPayflowPro(String user, String vendor, String partner, String password, ServletContext servletContext) {
 		synchronized(payflowPros) {
 			for(PayflowPro payflowPro : payflowPros) {
@@ -98,7 +98,7 @@ public class UseProcessorTag extends BodyTagSupport {
 	}
 
 	/** The previously created processors are reused. */
-	private final static List<USAePay> usaePays = new ArrayList<USAePay>();
+	private final static List<USAePay> usaePays = new ArrayList<>();
 	private static USAePay getUSAePay(String postUrl, String key, String pin) {
 		synchronized(usaePays) {
 			for(USAePay usaePay : usaePays) {
@@ -115,7 +115,7 @@ public class UseProcessorTag extends BodyTagSupport {
 	}
 
 	/** The previously created processors are reused. */
-	private final static List<AuthorizeNet> authorizeNets = new ArrayList<AuthorizeNet>();
+	private final static List<AuthorizeNet> authorizeNets = new ArrayList<>();
 	private static AuthorizeNet getAuthorizeNet(String x_login, String x_tran_key) {
 		synchronized(authorizeNets) {
 			for(AuthorizeNet authorizeNet : authorizeNets) {
@@ -131,7 +131,7 @@ public class UseProcessorTag extends BodyTagSupport {
 	}
 
 	/** The previously created processors are reused. */
-	private final static List<Stripe> stripes = new ArrayList<Stripe>();
+	private final static List<Stripe> stripes = new ArrayList<>();
 	private static Stripe getStripe(String apiKey) {
 		synchronized(stripes) {
 			for(Stripe stripe : stripes) {
@@ -147,7 +147,7 @@ public class UseProcessorTag extends BodyTagSupport {
 
 	// Set by nested tags
 	private String connectorName;
-	final private Map<String,String> parameters = new HashMap<String,String>();
+	final private Map<String,String> parameters = new HashMap<>();
 
 	public UseProcessorTag() {
 		init();
