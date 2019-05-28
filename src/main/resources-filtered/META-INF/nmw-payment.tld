@@ -31,9 +31,10 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 			A tag library for <a href="@{project.url}nmw-payment.tld/tag-storeCreditCard">storing credit cards</a>,
 			<a href="@{project.url}nmw-payment.tld/tag-payment">authorizing credit card payments</a>,
 			<a href="@{project.url}nmw-payment.tld/tag-capture">capturing the funds</a>,
-			<a href="@{project.url}nmw-payment.tld/tag-void">voiding transactions</a>,
-			and (TODO: issuing credits).
+			and <a href="@{project.url}nmw-payment.tld/tag-void">voiding transactions</a>.
+			<!-- and (TODO: issuing credits). -->
 		</p>
+		<!--
 		<p>
 			TODO: Implement remove credit card.
 		</p>
@@ -46,6 +47,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 		<p>
 			TODO: Better JSTL interaction: Add a ${payment:maskCardNumber} function along with more attribute support and functions across the taglib?
 		</p>
+		-->
 	]]></description>
 	<display-name>@{project.name}</display-name>
 	<tlib-version>
@@ -208,7 +210,9 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 						</li>
 					</ul>
 				</li>
+				<!--
 				<li>TODO: Support loading arbitrary implementation by Java classname</li>
+				-->
 			</ul>
 		]]></description>
 		<name>useProcessor</name>
