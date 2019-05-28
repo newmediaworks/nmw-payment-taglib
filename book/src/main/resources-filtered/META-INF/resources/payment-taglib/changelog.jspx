@@ -37,7 +37,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-05-26T16:13:02-0500"
-		dateModified="2019-05-26T18:07:14-0500"
+		dateModified="2019-05-27T23:04:38-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.newmediaworks:nmw-payment-taglib:pom.version}" />
@@ -57,8 +57,9 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 					<li>Project moved to GitHub and Maven.</li>
 					<li>Minimum Java version changed from 1.6 to 1.7.</li>
 					<li>Tag library version changed from 2.0 to 2.1.</li>
-					<!-- TODO:
 					<li>Significantly improved the <core:link page="nmw-payment.tld/">taglib documentation</core:link>.</li>
+					<!-- TODO:
+					<li>Review Javadocs to match taglib docs.</li>
 					-->
 					<li>
 						Please note: <strong>the next major release of this project will no longer support
