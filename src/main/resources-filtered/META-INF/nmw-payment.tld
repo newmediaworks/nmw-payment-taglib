@@ -612,7 +612,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 		<attribute>
 			<description><![CDATA[
 				<p>
-					When <code>true</code> (the default) both authorization and capture will be performed in this one step.
+					When <code>true</code> (the default), both authorization and capture will be performed in this one step.
 				</p>
 				<p>
 					When <code>false</code>, a separate call to
@@ -687,12 +687,12 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 				Voids a previous transaction (from <a href="@{project.url}nmw-payment.tld/tag-payment">&lt;payment:payment&gt;</a>).
 			</p>
 			<p>
-				When the payment was not captured then the void will always work.
+				When the payment was not captured, the void will always work.
 			</p>
 			<p>
-				When the payment was captured, then the void may or may not work depending on processor and transaction status.
+				When the payment was captured, the void may or may not work depending on processor and transaction status.
 				For example, a captured transaction in an open batch may be voided in the <code>Sage</code> processor.
-				When the void is not an option, then a credit must be issued instead.
+				When the void is not an option, a credit must be issued instead.
 			</p>
 			<p>
 				<a href="@{project.url}nmw-payment.tld/tag-useProcessor">&lt;payment:useProcessor&gt;</a> must be called before using this tag.
