@@ -29,7 +29,9 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Stores a credit card in the processor-specific storage.  All values are provided by nested tags.
+ * Stores a credit card number to a bank-provided, CISP-compliant storage mechanism.
+ *
+ * @see  MerchantServicesProvider#storeCreditCard(com.aoindustries.creditcards.CreditCard)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

@@ -22,11 +22,14 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.CreditCard;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Sets the credit card details for a payment.  All values are provided by nested tags.
+ * Provides the credit card details to a {@link PaymentTag}.
+ *
+ * @see  CreditCard
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

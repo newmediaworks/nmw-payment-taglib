@@ -39,7 +39,15 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Sets the processor.
+ * Selects the processor that will be used for subsequent transactions.
+ *
+ * @see  MerchantServicesProvider
+ * @see  SagePayments
+ * @see  TestMerchantServicesProvider
+ * @see  PayflowPro
+ * @see  USAePay
+ * @see  AuthorizeNet
+ * @see  Stripe
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

@@ -22,11 +22,15 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.CreditCard;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides an expiration month in the range 1 to 12 to either a <code>StoreCreditCardTag</code> or <code>CreditCardTag</code>.
+ * Provides the expiration month to either a {@link StoreCreditCardTag}
+ * or {@link CreditCardTag}.
+ *
+ * @see  CreditCard#setExpirationMonth(byte)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

@@ -22,11 +22,15 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.AuthorizationResult;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides a transactionId to either a <code>CaptureTag</code> or a <code>VoidTag</code>.
+ * Provides the transaction ID to a {@link CaptureTag}
+ * or {@link VoidTag}.
+ *
+ * @see  AuthorizationResult#getProviderUniqueId()
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

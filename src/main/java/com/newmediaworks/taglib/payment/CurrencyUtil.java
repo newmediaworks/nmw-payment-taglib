@@ -23,15 +23,24 @@
 package com.newmediaworks.taglib.payment;
 
 import java.math.BigDecimal;
+import java.util.Currency;
 
 /**
- * Parsing and formatting currency.
+ * Utilities for working with {@link Currency}.
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-final public class Currency {
+final class CurrencyUtil {
 
-	public static BigDecimal parseCurrency(String value) {
+	/**
+	 * Parsing for a currency.  Strips all <code>'$'</code> or <code>','</code>
+	 * then parses with {@link BigDecimal#BigDecimal(java.lang.String)}.
+	 * <p>
+	 * TODO: This is a US-locale specific implementation.
+	 * Should probably not make public again until a more locale-aware implementation is provided.
+	 * </p>
+	 */
+	static BigDecimal parseCurrency(String value) {
 		if(value==null) return null;
 		return new BigDecimal(value.replace("$", "").replace(",", ""));
 	}
@@ -39,6 +48,6 @@ final public class Currency {
 	/**
 	 * Make no instances.
 	 */
-	private Currency() {
+	private CurrencyUtil() {
 	}
 }

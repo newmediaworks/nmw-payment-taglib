@@ -22,11 +22,22 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.TransactionRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Sets the shipping address for a payment.  All values are provided by nested tags.
+ * Provides the shipping details to a {@link PaymentTag}.
+ *
+ * @see  TransactionRequest#setShippingFirstName(java.lang.String)
+ * @see  TransactionRequest#setShippingLastName(java.lang.String)
+ * @see  TransactionRequest#setShippingCompanyName(java.lang.String)
+ * @see  TransactionRequest#setShippingStreetAddress1(java.lang.String)
+ * @see  TransactionRequest#setShippingStreetAddress2(java.lang.String)
+ * @see  TransactionRequest#setShippingCity(java.lang.String)
+ * @see  TransactionRequest#setShippingState(java.lang.String)
+ * @see  TransactionRequest#setShippingPostalCode(java.lang.String)
+ * @see  TransactionRequest#setShippingCountryCode(java.lang.String)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

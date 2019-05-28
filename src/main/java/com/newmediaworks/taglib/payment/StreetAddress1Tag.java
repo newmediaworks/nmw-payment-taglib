@@ -22,11 +22,18 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.CreditCard;
+import com.aoindustries.creditcards.TransactionRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides a street address (line 1) to either a <code>StoreCreditCardTag</code>, <code>CreditCardTag</code>, or <code>ShippingAddressTag</code>.
+ * Provides the street address (line 1) to a {@link StoreCreditCardTag},
+ * {@link CreditCardTag},
+ * or {@link ShippingAddressTag}.
+ *
+ * @see  CreditCard#setStreetAddress1(java.lang.String)
+ * @see  TransactionRequest#setShippingStreetAddress1(java.lang.String)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

@@ -26,7 +26,9 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides the connectorName to a <code>UseProcessorTag</code>.  Must be nested in a <code>UseProcessorTag</code>.
+ * Provides the connector name for the {@link UseProcessorTag}.
+ *
+ * @see  UseProcessorTag#setConnectorName(java.lang.String)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

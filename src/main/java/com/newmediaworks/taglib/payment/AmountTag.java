@@ -22,12 +22,15 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.TransactionRequest;
 import java.math.BigDecimal;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides an amount to a <code>PaymentTag</code>.
+ * Provides the amount of the payment to a {@link PaymentTag}.
+ *
+ * @see  TransactionRequest#setAmount(java.math.BigDecimal)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
@@ -48,7 +51,7 @@ public class AmountTag extends BodyTagSupport {
 		String amountString = getBodyContent().getString().trim();
 		BigDecimal amount;
 		try {
-			amount = Currency.parseCurrency(amountString);
+			amount = CurrencyUtil.parseCurrency(amountString);
 		} catch(NumberFormatException err) {
 			throw new JspException("Invalid amount: "+amountString, err);
 		}

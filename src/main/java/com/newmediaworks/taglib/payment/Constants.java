@@ -22,6 +22,8 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.MerchantServicesProvider;
+
 /**
  * Attribute keys used in the payment taglib.
  *
@@ -34,7 +36,10 @@ public final class Constants {
 
 	/**
 	 * The request attribute key for the current credit card processor.
-	 * Stores an implementation of <code>com.aoindustries.creditcards.MerchantServicesProvider</code>.
+	 *
+	 * Stores an implementation of {@link MerchantServicesProvider}.
+	 *
+	 * @see  UseProcessorTag
 	 */
 	public static final String processor = "PROCESSOR";
 }

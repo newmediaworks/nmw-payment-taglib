@@ -29,7 +29,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Masks a credit card number by only showing the first and last digits, hiding all the middle digits.
- * The card number should be provided in the body of this tag.
+ *
+ * @see  CreditCard#maskCreditCardNumber(java.lang.String)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

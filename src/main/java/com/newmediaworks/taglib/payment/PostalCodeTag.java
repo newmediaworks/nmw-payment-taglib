@@ -22,11 +22,18 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.CreditCard;
+import com.aoindustries.creditcards.TransactionRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides a postal code (ZIP Code) to either a <code>StoreCreditCardTag</code>, <code>CreditCardTag</code>, or <code>ShippingAddressTag</code>.
+ * Provides the ZIP/postal code to a {@link StoreCreditCardTag},
+ * {@link CreditCardTag},
+ * or {@link ShippingAddressTag}.
+ *
+ * @see  CreditCard#setPostalCode(java.lang.String)
+ * @see  TransactionRequest#setShippingPostalCode(java.lang.String)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

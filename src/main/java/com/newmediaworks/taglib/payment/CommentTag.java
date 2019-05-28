@@ -22,11 +22,18 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.CreditCard;
+import com.aoindustries.creditcards.TransactionRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides a comment to either a <code>StoreCreditCardTag</code>, <code>CreditCardTag</code>, or <code>PaymentTag</code>.
+ * Provides a comment to a {@link StoreCreditCardTag},
+ * {@link CreditCardTag},
+ * or {@link PaymentTag}.
+ *
+ * @see  CreditCard#setComments(java.lang.String)
+ * @see  TransactionRequest#setDescription(java.lang.String)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

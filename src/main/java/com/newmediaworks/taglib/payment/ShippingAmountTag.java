@@ -22,12 +22,15 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.TransactionRequest;
 import java.math.BigDecimal;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides a shipping amount to a <code>PaymentTag</code>.
+ * Provides the shipping amount to a {@link PaymentTag}.
+ *
+ * @see  TransactionRequest#setShippingAmount(java.math.BigDecimal)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
@@ -48,7 +51,7 @@ public class ShippingAmountTag extends BodyTagSupport {
 		String shippingAmountString = getBodyContent().getString().trim();
 		BigDecimal shippingAmount;
 		try {
-			shippingAmount = Currency.parseCurrency(shippingAmountString);
+			shippingAmount = CurrencyUtil.parseCurrency(shippingAmountString);
 		} catch(NumberFormatException err) {
 			throw new JspException("Invalid shippingAmount: "+shippingAmountString, err);
 		}

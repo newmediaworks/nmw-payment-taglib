@@ -1254,12 +1254,14 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 	<tag>
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
-				Provides comment to a <a href="@{project.url}nmw-payment.tld/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>,
-				<a href="@{project.url}nmw-payment.tld/tag-creditCard">&lt;payment:creditCard&gt;</a>, or <a href="@{project.url}nmw-payment.tld/tag-payment">&lt;payment:payment&gt;</a> tag.
+				Provides a comment to a <a href="@{project.url}nmw-payment.tld/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>,
+				<a href="@{project.url}nmw-payment.tld/tag-creditCard">&lt;payment:creditCard&gt;</a>,
+				or <a href="@{project.url}nmw-payment.tld/tag-payment">&lt;payment:payment&gt;</a> tag.
 			</p>
 			<p>
 				Must be nested in a <a href="@{project.url}nmw-payment.tld/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>,
-				<a href="@{project.url}nmw-payment.tld/tag-creditCard">&lt;payment:creditCard&gt;</a>, or <a href="@{project.url}nmw-payment.tld/tag-payment">&lt;payment:payment&gt;</a> tag.
+				<a href="@{project.url}nmw-payment.tld/tag-creditCard">&lt;payment:creditCard&gt;</a>,
+				or <a href="@{project.url}nmw-payment.tld/tag-payment">&lt;payment:payment&gt;</a> tag.
 			</p>
 		]]></description>
 		<name>comment</name>
@@ -1282,7 +1284,8 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 	<tag>
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
-				Provides the 3-digit <a href="https://wikipedia.org/wiki/ISO_4217">ISO 4217</a> currency code to a <a href="@{project.url}nmw-payment.tld/tag-payment">&lt;payment:payment&gt;</a> tag.
+				Provides the 3-digit <a href="https://wikipedia.org/wiki/ISO_4217">ISO 4217</a> currency code to a
+				<a href="@{project.url}nmw-payment.tld/tag-payment">&lt;payment:payment&gt;</a> tag.
 			</p>
 			<p>
 				Must be nested in a <a href="@{project.url}nmw-payment.tld/tag-payment">&lt;payment:payment&gt;</a> tag.
