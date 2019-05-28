@@ -568,7 +568,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 					The body of this tag will be processed when the payment was accepted (approved).
 					<ul>
 						<li style="list-style:none"><em style="font-family:monospace">*</em> <a href="@{project.url}nmw-payment.tld/tag-getAuthorizationCode">&lt;payment:getAuthorizationCode&gt;</a> -
-							Gets the approval code, usually a six-character code.  This may displayed to the customer.
+							Gets the approval code, usually a six-character code.  This may be displayed to the customer.
 						</li>
 						<li style="list-style:none"><em style="font-family:monospace">*</em> <a href="@{project.url}nmw-payment.tld/tag-getTransactionId">&lt;payment:getTransactionId&gt;</a> -
 							Gets the per-processor unique transaction ID.
