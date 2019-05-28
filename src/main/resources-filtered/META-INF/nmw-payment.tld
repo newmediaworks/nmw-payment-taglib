@@ -268,7 +268,8 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 			</p>
 			<p>
 				The output of the tag is the bank-provided unique token that may be used
-				later to initiate payments with the <a href="@{project.url}nmw-payment.tld/tag-payment">&lt;payment:payment&gt;</a> tag.
+				later to initiate payments with the <a href="@{project.url}nmw-payment.tld/tag-payment">&lt;payment:payment&gt;</a> tag
+				(see <a href="@{project.url}nmw-payment.tld/tag-creditCardGUID">&lt;payment:creditCardGUID&gt;</a>).
 			</p>
 			<p>
 				<a href="@{project.url}nmw-payment.tld/tag-useProcessor">&lt;payment:useProcessor&gt;</a> must be called before using this tag.
