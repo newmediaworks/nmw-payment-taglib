@@ -948,6 +948,10 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 				Provides the token of a stored credit card to a <a href="@{project.url}nmw-payment.tld/tag-creditCard">&lt;payment:creditCard&gt;</a> tag.
 			</p>
 			<p>
+				See <a href="@{project.url}nmw-payment.tld/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>
+				for storing cards.
+			</p>
+			<p>
 				Must be nested in a <a href="@{project.url}nmw-payment.tld/tag-creditCard">&lt;payment:creditCard&gt;</a> tag.
 			</p>
 		]]></description>
