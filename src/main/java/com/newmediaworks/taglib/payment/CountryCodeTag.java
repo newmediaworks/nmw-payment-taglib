@@ -22,11 +22,19 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.CreditCard;
+import com.aoindustries.creditcards.TransactionRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides a two-digit ISO 3166-1 alpha-2 country code to either a <code>StoreCreditCardTag</code>, <code>CreditCardTag</code>, or <code>ShippingAddressTag</code>.
+ * Provides a two-digit <a href="https://wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code to a
+ * {@link StoreCreditCardTag},
+ * {@link CreditCardTag},
+ * or {@link ShippingAddressTag}.
+ *
+ * @see  CreditCard#setCountryCode(java.lang.String)
+ * @see  TransactionRequest#setShippingCountryCode(java.lang.String)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

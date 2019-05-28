@@ -29,7 +29,9 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * The capture tag captures the funds from a capture=false payment.  All values are set through nested tags.
+ * Captures the funds from a previous authorization-only transaction (from {@link PaymentTag} with {@link PaymentTag#setCapture(boolean) capture=false}).
+ *
+ * @see  MerchantServicesProvider#capture(com.aoindustries.creditcards.AuthorizationResult)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

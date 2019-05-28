@@ -22,11 +22,14 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.TransactionRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides a merchant email address to a <code>PaymentTag</code>.
+ * Provides the email address of the merchant to a {@link PaymentTag}.
+ *
+ * @see  TransactionRequest#setMerchantEmail(java.lang.String)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

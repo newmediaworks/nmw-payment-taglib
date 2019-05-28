@@ -27,7 +27,12 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Includes the body when the transaction when the payment was accepted.
+ * The body of this tag will be processed when the payment was accepted (approved).
+ *
+ * @see  AuthorizationResult#getCommunicationResult()
+ * @see  TransactionResult.CommunicationResult#SUCCESS
+ * @see  AuthorizationResult#getApprovalResult()
+ * @see  AuthorizationResult.ApprovalResult#APPROVED
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

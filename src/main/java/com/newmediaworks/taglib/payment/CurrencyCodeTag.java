@@ -22,11 +22,15 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.TransactionRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides a 3-digit ISO 4217 currency code to a <code>PaymentTag</code>.
+ * Provides the 3-digit <a href="https://wikipedia.org/wiki/ISO_4217">ISO 4217</a> currency code to a
+ * {@link PaymentTag}.
+ *
+ * @see  TransactionRequest#setCurrency(java.util.Currency)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

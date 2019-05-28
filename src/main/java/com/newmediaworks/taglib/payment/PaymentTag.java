@@ -32,7 +32,10 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * The main payment tag.  All values except the capture and test attributes are set through nested tags.
+ * Processes a credit card transaction.
+ *
+ * @see  MerchantServicesProvider#sale(com.aoindustries.creditcards.TransactionRequest, com.aoindustries.creditcards.CreditCard)
+ * @see  MerchantServicesProvider#authorize(com.aoindustries.creditcards.TransactionRequest, com.aoindustries.creditcards.CreditCard)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

@@ -29,7 +29,8 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * Gets the CVV2 (card security code) verification result.
- * Must be nested in a Payment:payment tag.
+ *
+ * @see  AuthorizationResult#getCvvResult()
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

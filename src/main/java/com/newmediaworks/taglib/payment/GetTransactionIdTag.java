@@ -28,7 +28,9 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
- * Gets the transaction ID for a payment attempt.  Must be nested in a payment tag.
+ * Gets the per-processor unique transaction ID.
+ *
+ * @see  AuthorizationResult#getProviderUniqueId()
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

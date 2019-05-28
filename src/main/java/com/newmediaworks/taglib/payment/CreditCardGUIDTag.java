@@ -22,11 +22,14 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.CreditCard;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides a globally-unique-id (GUID) of a stored credit card to a <code>CreditCardTag</code>.
+ * Provides the token of a stored credit card to a {@link CreditCardTag}.
+ *
+ * @see  CreditCard#setProviderId(java.lang.String)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

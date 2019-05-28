@@ -28,7 +28,9 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
- * Gets the review reason for a transaction that has been put on hold.  Must be nested in a held tag.
+ * Gets the review reason for a transaction that has been placed on hold.
+ *
+ * @see  AuthorizationResult#getReviewReason()
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

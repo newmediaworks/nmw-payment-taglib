@@ -27,7 +27,15 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Includes the body when the transaction when the payment, capture, or void resulted in an error.
+ * The body of this tag will be processed when there was any type of error processing the
+ * {@link PaymentTag},
+ * {@link CaptureTag},
+ * or {@link VoidTag}.
+ *
+ * @see  AuthorizationResult#getCommunicationResult()
+ * @see  TransactionResult.CommunicationResult#LOCAL_ERROR
+ * @see  TransactionResult.CommunicationResult#IO_ERROR
+ * @see  TransactionResult.CommunicationResult#GATEWAY_ERROR
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

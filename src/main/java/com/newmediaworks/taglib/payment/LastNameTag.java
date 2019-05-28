@@ -22,11 +22,18 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.CreditCard;
+import com.aoindustries.creditcards.TransactionRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides a last name to either a <code>StoreCreditCardTag</code>, <code>CreditCardTag</code>, or <code>ShippingAddressTag</code>.
+ * Provides a last/family name to a {@link StoreCreditCardTag},
+ * {@link CreditCardTag},
+ * or {@link ShippingAddressTag}.
+ *
+ * @see  CreditCard#setLastName(java.lang.String)
+ * @see  TransactionRequest#setShippingLastName(java.lang.String)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

@@ -22,12 +22,15 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.TransactionRequest;
 import java.math.BigDecimal;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides a tax amount to a <code>PaymentTag</code>.
+ * Provides the tax amount of the payment to a {@link PaymentTag}.
+ *
+ * @see  TransactionRequest#setTaxAmount(java.math.BigDecimal)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
@@ -48,7 +51,7 @@ public class TaxAmountTag extends BodyTagSupport {
 		String taxAmountString = getBodyContent().getString().trim();
 		BigDecimal taxAmount;
 		try {
-			taxAmount = Currency.parseCurrency(taxAmountString);
+			taxAmount = CurrencyUtil.parseCurrency(taxAmountString);
 		} catch(NumberFormatException err) {
 			throw new JspException("Invalid taxAmount: "+taxAmountString, err);
 		}

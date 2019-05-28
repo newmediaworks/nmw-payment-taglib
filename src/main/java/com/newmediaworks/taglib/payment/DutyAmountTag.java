@@ -22,12 +22,15 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.TransactionRequest;
 import java.math.BigDecimal;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides a duty amount to a <code>PaymentTag</code>.
+ * Provides the duty amount to a {@link PaymentTag}.
+ *
+ * @see  TransactionRequest#setDutyAmount(java.math.BigDecimal)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
@@ -48,7 +51,7 @@ public class DutyAmountTag extends BodyTagSupport {
 		String dutyAmountString = getBodyContent().getString().trim();
 		BigDecimal dutyAmount;
 		try {
-			dutyAmount = Currency.parseCurrency(dutyAmountString);
+			dutyAmount = CurrencyUtil.parseCurrency(dutyAmountString);
 		} catch(NumberFormatException err) {
 			throw new JspException("Invalid dutyAmount: "+dutyAmountString, err);
 		}

@@ -22,11 +22,15 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.CreditCard;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides an email address to either a <code>StoreCreditCardTag</code> or <code>CreditCardTag</code>.
+ * Provides the email address of the customer to either a {@link StoreCreditCardTag}
+ * or {@link CreditCardTag}.
+ *
+ * @see  CreditCard#setEmail(java.lang.String)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

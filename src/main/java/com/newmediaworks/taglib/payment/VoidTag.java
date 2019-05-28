@@ -30,7 +30,9 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * The void tag voids the funds from a transaction.  All values are set through nested tags.
+ * Voids a previous transaction (from {@link PaymentTag}).
+ *
+ * @see  MerchantServicesProvider#voidTransaction(com.aoindustries.creditcards.Transaction)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

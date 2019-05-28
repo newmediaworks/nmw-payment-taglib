@@ -23,11 +23,17 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.AuthorizationResult;
+import com.aoindustries.creditcards.TransactionResult;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Includes the body when the transaction when the payment was rejected.
+ * The body of this tag will be processed when the payment was rejected (declined).
+ *
+ * @see  AuthorizationResult#getCommunicationResult()
+ * @see  TransactionResult.CommunicationResult#SUCCESS
+ * @see  AuthorizationResult#getApprovalResult()
+ * @see  AuthorizationResult.ApprovalResult#DECLINED
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

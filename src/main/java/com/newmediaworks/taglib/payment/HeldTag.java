@@ -27,7 +27,12 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Includes the body when the transaction when the payment was held.
+ * The body of this tag will be processed when the payment was held (pending some sort of review).
+ *
+ * @see  AuthorizationResult#getCommunicationResult()
+ * @see  TransactionResult.CommunicationResult#SUCCESS
+ * @see  AuthorizationResult#getApprovalResult()
+ * @see  AuthorizationResult.ApprovalResult#HOLD
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

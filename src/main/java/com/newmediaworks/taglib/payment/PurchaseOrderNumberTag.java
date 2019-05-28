@@ -22,11 +22,14 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.TransactionRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Provides an purchase order number to a <code>PaymentTag</code>.
+ * Provides the purchase order number of this transaction to a {@link PaymentTag}.
+ *
+ * @see  TransactionRequest#setPurchaseOrderNumber(java.lang.String)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

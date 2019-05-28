@@ -28,7 +28,11 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
- * Gets the error reason for a payment attempt.  Must be nested in an error tag.
+ * Gets the reason for a processing error.
+ *
+ * @see  TransactionResult#getProviderErrorCode()
+ * @see  TransactionResult#getProviderErrorMessage()
+ * @see  TransactionResult#getErrorCode()
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
