@@ -310,7 +310,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 					The billing city
 				</li>
 				<li style="list-style:none"><em style="font-family:monospace">!</em> <a href="@{project.url}nmw-payment.tld/tag-countryCode">&lt;payment:countryCode&gt;</a> -
-					The card holder's two-digit <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code
+					The card holder's two-digit <a href="https://wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code
 				</li>
 			</ul>
 			<p>
@@ -372,7 +372,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 					The billing ZIP/postal code
 				</li>
 				<li style="list-style:none"><em style="font-family:monospace">!</em> <a href="@{project.url}nmw-payment.tld/tag-countryCode">&lt;payment:countryCode&gt;</a> -
-					The card holder's two-digit <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code
+					The card holder's two-digit <a href="https://wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code
 				</li>
 				<li style="list-style:none"><em style="font-family:monospace">?</em> <a href="@{project.url}nmw-payment.tld/tag-comment">&lt;payment:comment&gt;</a> -
 					Any user or merchant comments associated with this card
@@ -403,7 +403,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 					The application-specific unique order number
 				</li>
 				<li style="list-style:none"><em style="font-family:monospace">?</em> <a href="@{project.url}nmw-payment.tld/tag-currencyCode">&lt;payment:currencyCode&gt;</a> -
-					The 3-digit <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a> currency code, defaults to <code>USD</code>
+					The 3-digit <a href="https://wikipedia.org/wiki/ISO_4217">ISO 4217</a> currency code, defaults to <code>USD</code>
 				</li>
 				<li style="list-style:none"><em style="font-family:monospace">!</em> <a href="@{project.url}nmw-payment.tld/tag-amount">&lt;payment:amount&gt;</a> -
 					The amount of the payment
@@ -448,7 +448,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 							The shipping ZIP/postal code
 						</li>
 						<li style="list-style:none"><em style="font-family:monospace">!</em> <a href="@{project.url}nmw-payment.tld/tag-countryCode">&lt;payment:countryCode&gt;</a> -
-							The shipping two-digit <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code
+							The shipping two-digit <a href="https://wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code
 						</li>
 					</ul>
 				</li>
@@ -546,7 +546,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 							The billing ZIP/postal code
 						</li>
 						<li style="list-style:none"><em style="font-family:monospace">!</em> <a href="@{project.url}nmw-payment.tld/tag-countryCode">&lt;payment:countryCode&gt;</a> -
-							The card holder's two-digit <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code
+							The card holder's two-digit <a href="https://wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code
 						</li>
 						<li style="list-style:none"><em style="font-family:monospace">?</em> <a href="@{project.url}nmw-payment.tld/tag-comment">&lt;payment:comment&gt;</a> -
 							Any user or merchant comments associated with this card
@@ -832,7 +832,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 					The billing ZIP/postal code
 				</li>
 				<li style="list-style:none"><em style="font-family:monospace">!</em> <a href="@{project.url}nmw-payment.tld/tag-countryCode">&lt;payment:countryCode&gt;</a> -
-					The card holder's two-digit <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code
+					The card holder's two-digit <a href="https://wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code
 				</li>
 				<li style="list-style:none"><em style="font-family:monospace">?</em> <a href="@{project.url}nmw-payment.tld/tag-comment">&lt;payment:comment&gt;</a> -
 					Any user or merchant comments associated with this card
@@ -1009,7 +1009,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 					The shipping ZIP/postal code
 				</li>
 				<li style="list-style:none"><em style="font-family:monospace">!</em> <a href="@{project.url}nmw-payment.tld/tag-countryCode">&lt;payment:countryCode&gt;</a> -
-					The shipping two-digit <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code
+					The shipping two-digit <a href="https://wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code
 				</li>
 			</ul>
 			<p>
@@ -1236,7 +1236,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 	<tag>
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
-				Provides a two-digit <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code to a
+				Provides a two-digit <a href="https://wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code to a
 				<a href="@{project.url}nmw-payment.tld/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>,
 				<a href="@{project.url}nmw-payment.tld/tag-creditCard">&lt;payment:creditCard&gt;</a>,
 				or <a href="@{project.url}nmw-payment.tld/tag-shippingAddress">&lt;payment:shippingAddress&gt;</a> tag.
@@ -1282,7 +1282,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 	<tag>
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
-				Provides the 3-digit <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a> currency code to a <a href="@{project.url}nmw-payment.tld/tag-payment">&lt;payment:payment&gt;</a> tag.
+				Provides the 3-digit <a href="https://wikipedia.org/wiki/ISO_4217">ISO 4217</a> currency code to a <a href="@{project.url}nmw-payment.tld/tag-payment">&lt;payment:payment&gt;</a> tag.
 			</p>
 			<p>
 				Must be nested in a <a href="@{project.url}nmw-payment.tld/tag-payment">&lt;payment:payment&gt;</a> tag.
