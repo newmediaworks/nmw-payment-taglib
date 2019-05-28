@@ -1593,7 +1593,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 			<p>
 				The result value may or may not be available under various circumstances on a
 				per-processor basis.  However, if supported, it should generally be
-				available within <a href="@{project.url}nmw-payment.tld/tag-approved">&lt;payment:approved&gt;</a>,
+				available within <a href="@{project.url}nmw-payment.tld/tag-accepted">&lt;payment:accepted&gt;</a>,
 				<a href="@{project.url}nmw-payment.tld/tag-rejected">&lt;payment:rejected&gt;</a>,
 				and <a href="@{project.url}nmw-payment.tld/tag-held">&lt;payment:held&gt;</a> tags.
 			</p>
@@ -1613,7 +1613,7 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 			<p>
 				The result value may or may not be available under various circumstances on a
 				per-processor basis.  However, if supported, it should generally be
-				available within <a href="@{project.url}nmw-payment.tld/tag-approved">&lt;payment:approved&gt;</a>,
+				available within <a href="@{project.url}nmw-payment.tld/tag-accepted">&lt;payment:accepted&gt;</a>,
 				<a href="@{project.url}nmw-payment.tld/tag-rejected">&lt;payment:rejected&gt;</a>,
 				and <a href="@{project.url}nmw-payment.tld/tag-held">&lt;payment:held&gt;</a> tags.
 			</p>
