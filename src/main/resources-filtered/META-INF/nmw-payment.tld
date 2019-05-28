@@ -731,6 +731,19 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 	<tag>
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
+				Masks a credit card number by only showing the first and last digits, hiding all the middle digits.
+			</p>
+			<p>
+				The card number is provided in the body of this tag.
+			</p>
+		]]></description>
+		<name>maskCardNumber</name>
+		<tag-class>com.newmediaworks.taglib.payment.MaskCardNumberTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+	<tag>
+		<description><![CDATA[
+			<p class="semanticcms-tag-reference-summary">
 				Provides the credit card details to a <a href="@{project.url}nmw-payment.tld/tag-payment">&lt;payment:payment&gt;</a> tag.
 			</p>
 			<p>
@@ -1611,18 +1624,5 @@ along with new-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 		<name>getAvsResult</name>
 		<tag-class>com.newmediaworks.taglib.payment.GetAvsResultTag</tag-class>
 		<body-content>empty</body-content>
-	</tag>
-	<tag>
-		<description><![CDATA[
-			<p class="semanticcms-tag-reference-summary">
-				Masks a credit card number by only showing the first and last digits, hiding all the middle digits.
-			</p>
-			<p>
-				The card number is provided in the body of this tag.
-			</p>
-		]]></description>
-		<name>maskCardNumber</name>
-		<tag-class>com.newmediaworks.taglib.payment.MaskCardNumberTag</tag-class>
-		<body-content>JSP</body-content>
 	</tag>
 </taglib>
