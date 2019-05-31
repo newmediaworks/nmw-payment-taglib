@@ -102,10 +102,6 @@ public class CaptureTag extends BodyTagSupport {
 				null,
 				null,
 				null,
-				null,
-				null,
-				null,
-				null,
 				null
 			)
 		);
