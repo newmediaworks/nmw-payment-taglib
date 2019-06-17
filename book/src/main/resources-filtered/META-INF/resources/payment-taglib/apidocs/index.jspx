@@ -39,5 +39,4 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		datePublished="2019-05-26T16:11:33-0500"
 		dateModified="${ao:getLastModified('index.html')}"
 	/>
-	<!-- TODO: Pick-up javadocs version, not pom version, in title, here and elsewhere -->
 </jsp:root>
