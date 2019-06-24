@@ -22,7 +22,9 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.creditcards.AuthorizationResult;
 import com.aoindustries.creditcards.TransactionResult;
+import com.aoindustries.creditcards.TransactionResult.CommunicationResult;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -33,9 +35,9 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * or {@link VoidTag}.
  *
  * @see  AuthorizationResult#getCommunicationResult()
- * @see  TransactionResult.CommunicationResult#LOCAL_ERROR
- * @see  TransactionResult.CommunicationResult#IO_ERROR
- * @see  TransactionResult.CommunicationResult#GATEWAY_ERROR
+ * @see  CommunicationResult#LOCAL_ERROR
+ * @see  CommunicationResult#IO_ERROR
+ * @see  CommunicationResult#GATEWAY_ERROR
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
