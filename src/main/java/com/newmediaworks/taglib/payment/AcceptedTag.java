@@ -23,6 +23,8 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.AuthorizationResult;
+import com.aoindustries.creditcards.AuthorizationResult.ApprovalResult;
+import com.aoindustries.creditcards.TransactionResult.CommunicationResult;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -30,9 +32,9 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * The body of this tag will be processed when the payment was accepted (approved).
  *
  * @see  AuthorizationResult#getCommunicationResult()
- * @see  TransactionResult.CommunicationResult#SUCCESS
+ * @see  CommunicationResult#SUCCESS
  * @see  AuthorizationResult#getApprovalResult()
- * @see  AuthorizationResult.ApprovalResult#APPROVED
+ * @see  ApprovalResult#APPROVED
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
