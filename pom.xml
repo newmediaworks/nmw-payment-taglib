@@ -25,7 +25,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.newmediaworks</groupId><artifactId>nmw-oss-parent</artifactId><version>1.1.0-POST-SNAPSHOT</version>
+		<groupId>com.newmediaworks</groupId><artifactId>nmw-oss-parent</artifactId><version>1.1.0<!-- -POST-SNAPSHOT --></version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 
@@ -71,7 +71,6 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 								<link>https://aoindustries.com/ao-credit-cards/stripe/apidocs/</link>
 								<link>https://aoindustries.com/ao-credit-cards/test/apidocs/</link>
 								<link>https://aoindustries.com/ao-credit-cards/usaepay/apidocs/</link>
-								<link>https://aoindustries.com/ao-lang/apidocs/</link>
 							</links>
 						</configuration>
 					</plugin>
@@ -84,34 +83,15 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		<dependencies>
 			<!-- Java EE -->
 			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>javaee-web-api-bom</artifactId><version>6.0.0-POST-SNAPSHOT</version>
+				<groupId>com.aoindustries</groupId><artifactId>javaee-web-api-bom</artifactId><version>6.0.0<!-- -POST-SNAPSHOT --></version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<!-- Direct -->
 			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-api</artifactId><version>1.1.0-POST-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-authorizeNet</artifactId><version>1.1.0-POST-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-payflowPro</artifactId><version>1.1.0-POST-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-sagePayments</artifactId><version>1.1.0-POST-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-stripe</artifactId><version>1.1.0-POST-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-test</artifactId><version>1.1.0-POST-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-usaepay</artifactId><version>1.1.0-POST-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId><version>2.1.0-POST-SNAPSHOT</version>
+				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-bom</artifactId><version>1.1.0<!-- -POST-SNAPSHOT --></version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -147,9 +127,6 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		</dependency>
 		<dependency>
 			<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-usaepay</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId>
 		</dependency>
 	</dependencies>
 </project>
