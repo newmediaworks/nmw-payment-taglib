@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
-Copyright (C) 2019  New Media Works
+Copyright (C) 2019, 2020  New Media Works
     info@newmediaworks.com
     703 2nd Street #465
     Santa Rosa, CA 95404
@@ -175,7 +175,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 			<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><version>1.12.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.semanticcms</groupId><artifactId>semanticcms-section-taglib</artifactId><version>1.6.0-POST-SNAPSHOT</version>
+			<groupId>com.semanticcms</groupId><artifactId>semanticcms-section-taglib</artifactId><version>1.7.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.semanticcms</groupId><artifactId>semanticcms-tag-reference</artifactId><version>1.4.0-SNAPSHOT</version>
