@@ -31,7 +31,7 @@ public class NmwPaymentTldInitializer extends TagReferenceInitializer {
 	private static final Map<String,String> additionalApiLinks = new LinkedHashMap<>();
 	static {
 		// Self
-		additionalApiLinks.put("com.newmediaworks.taglib.payment.", Maven.properties.getProperty("documented.url") + "apidocs/");
+		additionalApiLinks.put("com.newmediaworks.taglib.payment.", Maven.properties.getProperty("project.url") + "apidocs/");
 		// Dependencies
 		// additionalApiLinks.put("com.aoindustries.util.", "https://aoindustries.com/aocode-public/apidocs/");
 	}
