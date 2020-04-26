@@ -36,6 +36,9 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		<shortTitle>Payment Taglib</shortTitle>
 		<description.html><![CDATA[JSP taglib encapsulating the <a target="${javadoc.target}" href="https://aoindustries.com/ao-credit-cards/api/">AO Credit Cards API</a>.]]></description.html>
 		<javadoc.taglibReference><![CDATA[<li><a target="${javadoc.target}" href="${project.url}nmw-payment.tld/">Taglib Reference</a></li>]]></javadoc.taglibReference>
+		<!-- Dependencies -->
+		<org.apache.commons.commons-lang3.version>3.10</org.apache.commons.commons-lang3.version>
+		<com.stripe.stripe-java.version>19.5.0</com.stripe.stripe-java.version>
 	</properties>
 
 	<name>NMW Payment Taglib</name>
@@ -93,9 +96,68 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 			</dependency>
 			<!-- Direct -->
 			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-bom</artifactId><version>1.1.2${POST-SNAPSHOT}</version>
-				<type>pom</type>
-				<scope>import</scope>
+				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-api</artifactId><version>1.1.2${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-authorizeNet</artifactId><version>1.1.2${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-payflowPro</artifactId><version>1.1.2${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-sagePayments</artifactId><version>1.1.2${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-stripe</artifactId><version>1.1.2${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-test</artifactId><version>1.1.2${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-usaepay</artifactId><version>1.1.2${POST-SNAPSHOT}</version>
+			</dependency>
+			<!-- Transitive -->
+			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>ao-collections</artifactId><version>1.0.0${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId><version>4.2.0${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>ao-tempfiles</artifactId><version>1.0.2${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>aocode-public</artifactId><version>4.0.0${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.axis</groupId><artifactId>axis</artifactId><version>1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.axis</groupId><artifactId>axis-jaxrpc</artifactId><version>1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-beanutils</groupId><artifactId>commons-beanutils</artifactId><version>1.9.4</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-collections</groupId><artifactId>commons-collections</artifactId><version>3.2.2</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-digester</groupId><artifactId>commons-digester</artifactId><version>2.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId><artifactId>commons-lang3</artifactId><version>${org.apache.commons.commons-lang3.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-validator</groupId><artifactId>commons-validator</artifactId><version>1.6</version>
+			</dependency>
+			<dependency>
+				<groupId>com.paypal</groupId><artifactId>payflow</artifactId><version>v440</version>
+			</dependency>
+			<dependency>
+				<groupId>com.stripe</groupId><artifactId>stripe-java</artifactId><version>${com.stripe.stripe-java.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
