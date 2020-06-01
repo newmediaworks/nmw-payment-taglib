@@ -37,8 +37,8 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		<description.html><![CDATA[JSP taglib encapsulating the <a target="${javadoc.target}" href="https://aoindustries.com/ao-credit-cards/api/">AO Credit Cards API</a>.]]></description.html>
 		<javadoc.taglibReference><![CDATA[<li><a target="${javadoc.target}" href="${project.url}nmw-payment.tld/">Taglib Reference</a></li>]]></javadoc.taglibReference>
 		<!-- Dependencies -->
-		<org.apache.commons.commons-lang3.version>3.10</org.apache.commons.commons-lang3.version>
-		<com.stripe.stripe-java.version>19.12.0</com.stripe.stripe-java.version>
+		<commons-lang3.version>3.10</commons-lang3.version>
+		<stripe-java.version>19.12.0</stripe-java.version>
 	</properties>
 
 	<name>NMW Payment Taglib</name>
@@ -76,6 +76,56 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 			<build>
 				<plugins>
 					<plugin>
+						<groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>unpack.offlinkLinks</id>
+								<phase>generate-sources</phase>
+								<goals><goal>unpack</goal></goals>
+								<configuration>
+									<artifactItems>
+										<!-- Direct -->
+										<artifactItem>
+											<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-api</artifactId>
+											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
+											<outputDirectory>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-api</outputDirectory>
+										</artifactItem>
+										<artifactItem>
+											<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-authorizeNet</artifactId>
+											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
+											<outputDirectory>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-authorizeNet</outputDirectory>
+										</artifactItem>
+										<artifactItem>
+											<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-payflowPro</artifactId>
+											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
+											<outputDirectory>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-payflowPro</outputDirectory>
+										</artifactItem>
+										<artifactItem>
+											<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-sagePayments</artifactId>
+											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
+											<outputDirectory>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-sagePayments</outputDirectory>
+										</artifactItem>
+										<artifactItem>
+											<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-stripe</artifactId>
+											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
+											<outputDirectory>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-stripe</outputDirectory>
+										</artifactItem>
+										<artifactItem>
+											<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-test</artifactId>
+											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
+											<outputDirectory>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-test</outputDirectory>
+										</artifactItem>
+										<artifactItem>
+											<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-usaepay</artifactId>
+											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
+											<outputDirectory>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-usaepay</outputDirectory>
+										</artifactItem>
+									</artifactItems>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
 						<groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId>
 						<configuration>
 							<links>
@@ -83,14 +133,45 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 								<!-- Java EE -->
 								<link>${javadoc.link.javaee}</link>
 								<!-- Direct -->
-								<link>https://aoindustries.com/ao-credit-cards/api/apidocs/</link>
-								<link>https://aoindustries.com/ao-credit-cards/authorizeNet/apidocs/</link>
-								<link>https://aoindustries.com/ao-credit-cards/payflowPro/apidocs/</link>
-								<link>https://aoindustries.com/ao-credit-cards/sagePayments/apidocs/</link>
-								<link>https://aoindustries.com/ao-credit-cards/stripe/apidocs/</link>
-								<link>https://aoindustries.com/ao-credit-cards/test/apidocs/</link>
-								<link>https://aoindustries.com/ao-credit-cards/usaepay/apidocs/</link>
+								<!-- offlineLink: <groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-api</artifactId> -->
+								<!-- offlineLink: <groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-authorizeNet</artifactId> -->
+								<!-- offlineLink: <groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-payflowPro</artifactId> -->
+								<!-- offlineLink: <groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-sagePayments</artifactId> -->
+								<!-- offlineLink: <groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-stripe</artifactId> -->
+								<!-- offlineLink: <groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-test</artifactId> -->
+								<!-- offlineLink: <groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-usaepay</artifactId> -->
 							</links>
+							<offlineLinks>
+								<!-- Direct -->
+								<offlineLink>
+									<url>https://aoindustries.com/ao-credit-cards/api/apidocs/</url>
+									<location>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-api</location>
+								</offlineLink>
+								<offlineLink>
+									<url>https://aoindustries.com/ao-credit-cards/authorizeNet/apidocs/</url>
+									<location>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-authorizeNet</location>
+								</offlineLink>
+								<offlineLink>
+									<url>https://aoindustries.com/ao-credit-cards/payflowPro/apidocs/</url>
+									<location>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-payflowPro</location>
+								</offlineLink>
+								<offlineLink>
+									<url>https://aoindustries.com/ao-credit-cards/sagePayments/apidocs/</url>
+									<location>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-sagePayments</location>
+								</offlineLink>
+								<offlineLink>
+									<url>https://aoindustries.com/ao-credit-cards/stripe/apidocs/</url>
+									<location>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-stripe</location>
+								</offlineLink>
+								<offlineLink>
+									<url>https://aoindustries.com/ao-credit-cards/test/apidocs/</url>
+									<location>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-test</location>
+								</offlineLink>
+								<offlineLink>
+									<url>https://aoindustries.com/ao-credit-cards/usaepay/apidocs/</url>
+									<location>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-usaepay</location>
+								</offlineLink>
+							</offlineLinks>
 						</configuration>
 					</plugin>
 				</plugins>
@@ -157,7 +238,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>commons-digester</groupId><artifactId>commons-digester</artifactId><version>2.1</version>
 			</dependency>
 			<dependency>
-				<groupId>org.apache.commons</groupId><artifactId>commons-lang3</artifactId><version>${org.apache.commons.commons-lang3.version}</version>
+				<groupId>org.apache.commons</groupId><artifactId>commons-lang3</artifactId><version>${commons-lang3.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version>
@@ -169,7 +250,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>com.paypal</groupId><artifactId>payflow</artifactId><version>v440</version>
 			</dependency>
 			<dependency>
-				<groupId>com.stripe</groupId><artifactId>stripe-java</artifactId><version>${com.stripe.stripe-java.version}</version>
+				<groupId>com.stripe</groupId><artifactId>stripe-java</artifactId><version>${stripe-java.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
