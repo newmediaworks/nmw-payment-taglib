@@ -23,7 +23,6 @@
 package com.newmediaworks.taglib.payment.book;
 
 import com.semanticcms.tagreference.TagReferenceInitializer;
-import java.util.Collections;
 
 public class NmwPaymentTldInitializer extends TagReferenceInitializer {
 
@@ -37,7 +36,7 @@ public class NmwPaymentTldInitializer extends TagReferenceInitializer {
 			Maven.properties.getProperty("documented.javadoc.link.javase"),
 			Maven.properties.getProperty("documented.javadoc.link.javaee"),
 			// Self
-			Collections.singletonMap("com.newmediaworks.taglib.payment", Maven.properties.getProperty("project.url") + "apidocs/")
+			"com.newmediaworks.taglib.payment", Maven.properties.getProperty("project.url") + "apidocs/"
 		);
 	}
 }
