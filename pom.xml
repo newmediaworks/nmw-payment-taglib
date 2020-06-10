@@ -38,7 +38,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		<javadoc.taglibReference><![CDATA[<li><a target="${javadoc.target}" href="${project.url}nmw-payment.tld/">Taglib Reference</a></li>]]></javadoc.taglibReference>
 		<!-- Dependencies -->
 		<commons-lang3.version>3.10</commons-lang3.version>
-		<stripe-java.version>19.12.0</stripe-java.version>
+		<stripe-java.version>19.21.0</stripe-java.version>
 	</properties>
 
 	<name>NMW Payment Taglib</name>
