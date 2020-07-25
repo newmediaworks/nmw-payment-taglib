@@ -28,7 +28,7 @@ public class NmwPaymentTldInitializer extends TagReferenceInitializer {
 
 	public NmwPaymentTldInitializer() {
 		super(
-			Maven.properties.getProperty("project.name") + " Reference",
+			Maven.properties.getProperty("documented.name") + " Reference",
 			"Taglib Reference",
 			"/payment-taglib",
 			"/nmw-payment.tld",
