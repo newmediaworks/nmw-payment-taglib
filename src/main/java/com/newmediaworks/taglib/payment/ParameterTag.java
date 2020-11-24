@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -22,8 +22,8 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
@@ -34,6 +34,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
 public class ParameterTag extends BodyTagSupport {
+
+	static final String TAG_NAME = "<payment:parameter>";
 
 	private static final long serialVersionUID = 1L;
 
@@ -51,13 +53,10 @@ public class ParameterTag extends BodyTagSupport {
 
 	@Override
 	public int doEndTag() throws JspException {
-		BodyContent myBodyContent = getBodyContent();
-		String value = myBodyContent==null ? "" : myBodyContent.getString().trim();
-		UseProcessorTag useProcessorTag = (UseProcessorTag)findAncestorWithClass(this, UseProcessorTag.class);
-		if(useProcessorTag==null) throw new JspException("parameter tag must be within useProcessor tag");
-		useProcessorTag.addParameter(name, value);
+		JspTagUtils.requireAncestor(TAG_NAME, this, UseProcessorTag.TAG_NAME, UseProcessorTag.class)
+			.addParameter(name, getBodyContent().getString().trim());
 
-		init();
+		init(); // TODO: TryCatchFinally for all init() methods, since still needs reset when exceptions occur.  Search all taglib implementations
 		return EVAL_PAGE;
 	}
 

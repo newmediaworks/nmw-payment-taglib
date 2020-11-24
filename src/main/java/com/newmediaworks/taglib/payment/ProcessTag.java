@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -23,6 +23,8 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.MerchantServicesProvider;
+import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
+import java.util.Optional;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -41,6 +43,8 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class ProcessTag extends TagSupport {
 
+	static final String TAG_NAME = "<payment:process>";
+
 	private static final long serialVersionUID = 1L;
 
 	public ProcessTag() {
@@ -48,20 +52,17 @@ public class ProcessTag extends TagSupport {
 
 	@Override
 	public int doStartTag() throws JspException {
-		PaymentTag paymentTag = (PaymentTag)findAncestorWithClass(this, PaymentTag.class);
-		if(paymentTag!=null) {
-			paymentTag.process();
+		// Java 9: ifPresentOfElse
+		Optional<PaymentTag> paymentTag = JspTagUtils.findAncestor(this, PaymentTag.class);
+		if(paymentTag.isPresent()) {
+			paymentTag.get().process();
 		} else {
-			CaptureTag captureTag = (CaptureTag)findAncestorWithClass(this, CaptureTag.class);
-			if(captureTag!=null) {
-				captureTag.process();
+			Optional<CaptureTag> captureTag = JspTagUtils.findAncestor(this, CaptureTag.class);
+			if(captureTag.isPresent()) {
+				captureTag.get().process();
 			} else {
-				VoidTag voidTag = (VoidTag)findAncestorWithClass(this, VoidTag.class);
-				if(voidTag!=null) {
-					voidTag.process();
-				} else {
-					throw new JspException("process tag must be within a payment, capture, or void tag");
-				}
+				JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME + ", " + CaptureTag.TAG_NAME + ", or " + VoidTag.TAG_NAME, VoidTag.class)
+					.process();
 			}
 		}
 		return SKIP_BODY;

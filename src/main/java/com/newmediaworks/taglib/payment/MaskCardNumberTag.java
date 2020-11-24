@@ -49,8 +49,7 @@ public class MaskCardNumberTag extends BodyTagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		try {
-			String cardNumber = getBodyContent().getString().trim();
-			pageContext.getOut().print(CreditCard.maskCreditCardNumber(cardNumber));
+			pageContext.getOut().print(CreditCard.maskCreditCardNumber(getBodyContent().getString().trim()));
 
 			return EVAL_PAGE;
 		} catch(IOException err) {

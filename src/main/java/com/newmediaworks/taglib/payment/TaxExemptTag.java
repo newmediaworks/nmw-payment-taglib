@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -23,6 +23,7 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.TransactionRequest;
+import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -34,6 +35,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
 public class TaxExemptTag extends BodyTagSupport {
+
+	static final String TAG_NAME = "<payment:taxExempt>";
 
 	private static final long serialVersionUID = 1L;
 
@@ -49,16 +52,12 @@ public class TaxExemptTag extends BodyTagSupport {
 	public int doEndTag() throws JspException {
 		String taxExemptString = getBodyContent().getString().trim();
 		boolean taxExempt;
-		if("true".equals(taxExemptString)) taxExempt = true;
+		if("true".equals(taxExemptString)) taxExempt = true; // TODO: case-insensitive here and review other places
 		else if("false".equals(taxExemptString)) taxExempt = false;
-		else throw new JspException("Invalid value for taxExempt, should be either true or false: "+taxExemptString);
+		else throw new JspException("Invalid value for taxExempt, should be either true or false: "+taxExemptString); // TODO: TAG_NAME in this message, too?  Review others if so
 
-		PaymentTag paymentTag = (PaymentTag)findAncestorWithClass(this, PaymentTag.class);
-		if(paymentTag!=null) {
-			paymentTag.setTaxExempt(taxExempt);
-		} else {
-			throw new JspException("taxExempt tag must be within a payment tag");
-		}
+		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class)
+			.setTaxExempt(taxExempt);
 
 		return EVAL_PAGE;
 	}

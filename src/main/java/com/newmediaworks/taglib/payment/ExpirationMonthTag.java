@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -36,6 +36,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class ExpirationMonthTag extends BodyTagSupport {
 
+	static final String TAG_NAME = "<payment:expirationMonth>";
+
 	private static final long serialVersionUID = 1L;
 
 	public ExpirationMonthTag() {
@@ -57,19 +59,13 @@ public class ExpirationMonthTag extends BodyTagSupport {
 		}
 		if(expirationMonth<1 || expirationMonth>12) throw new JspException("Invalid expirationMonth, must be between 1 and 12 inclusive: "+expirationMonth);
 
-		StoreCreditCardTag storeCreditCardTag = (StoreCreditCardTag)findAncestorWithClass(this, StoreCreditCardTag.class);
-		if(storeCreditCardTag!=null) {
-			storeCreditCardTag.setExpirationMonth(expirationMonth);
-		} else {
-			CreditCardTag creditCardTag = (CreditCardTag)findAncestorWithClass(this, CreditCardTag.class);
-			if(creditCardTag!=null) {
-				PaymentTag paymentTag = (PaymentTag)findAncestorWithClass(creditCardTag, PaymentTag.class);
-				if(paymentTag==null) throw new JspException("creditCard tag must be within payment tag");
-				paymentTag.setCreditCardExpirationMonth(expirationMonth);
-			} else {
-				throw new JspException("expirationMonth tag must be within either a storeCreditCard tag or a creditCard tag");
-			}
-		}
+		PropertyHelper.setCardProperty(
+			expirationMonth,
+			TAG_NAME,
+			this,
+			StoreCreditCardTag::setExpirationMonth,
+			PaymentTag::setCreditCardExpirationMonth
+		);
 
 		return EVAL_PAGE;
 	}

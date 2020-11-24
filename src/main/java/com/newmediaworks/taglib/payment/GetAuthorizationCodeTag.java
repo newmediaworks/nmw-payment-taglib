@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -23,6 +23,7 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.AuthorizationResult;
+import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -36,6 +37,8 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class GetAuthorizationCodeTag extends TagSupport {
 
+	static final String TAG_NAME = "<payment:getAuthorizationCode>";
+
 	private static final long serialVersionUID = 1L;
 
 	public GetAuthorizationCodeTag() {
@@ -44,11 +47,8 @@ public class GetAuthorizationCodeTag extends TagSupport {
 	@Override
 	public int doStartTag() throws JspException {
 		try {
-			AcceptedTag acceptedTag = (AcceptedTag)findAncestorWithClass(this, AcceptedTag.class);
-			if(acceptedTag==null) throw new JspException("getAuthorizationCode tag must be within an accepted tag");
-
-			PaymentTag paymentTag = (PaymentTag)findAncestorWithClass(acceptedTag, PaymentTag.class);
-			if(paymentTag==null) throw new JspException("accepted tag must be within a payment tag");
+			AcceptedTag acceptedTag = JspTagUtils.requireAncestor(TAG_NAME, this, AcceptedTag.TAG_NAME, AcceptedTag.class);
+			PaymentTag paymentTag = JspTagUtils.requireAncestor(AcceptedTag.TAG_NAME, acceptedTag, PaymentTag.TAG_NAME, PaymentTag.class);
 			AuthorizationResult authorizationResult = paymentTag.getAuthorizationResult();
 
 			pageContext.getOut().write(authorizationResult.getApprovalCode());

@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -25,6 +25,8 @@ package com.newmediaworks.taglib.payment;
 import com.aoindustries.creditcards.AuthorizationResult;
 import com.aoindustries.creditcards.TransactionResult;
 import com.aoindustries.creditcards.TransactionResult.CommunicationResult;
+import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
+import java.util.Optional;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -43,6 +45,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class ErrorTag extends BodyTagSupport {
 
+	static final String TAG_NAME = "<payment:error>";
+
 	private static final long serialVersionUID = 1L;
 
 	public ErrorTag() {
@@ -52,16 +56,15 @@ public class ErrorTag extends BodyTagSupport {
 	 * Gets the transaction result from one of the outer payment, capture, or void tags.
 	 */
 	TransactionResult getTransactionResult() throws JspException {
-		PaymentTag paymentTag = (PaymentTag)findAncestorWithClass(this, PaymentTag.class);
-		if(paymentTag!=null) return paymentTag.getAuthorizationResult();
+		// Java 9: ifPresentOrElse
+		Optional<PaymentTag> paymentTag = JspTagUtils.findAncestor(this, PaymentTag.class);
+		if(paymentTag.isPresent()) return paymentTag.get().getAuthorizationResult();
 
-		CaptureTag captureTag = (CaptureTag)findAncestorWithClass(this, CaptureTag.class);
-		if(captureTag!=null) return captureTag.getCaptureResult();
+		Optional<CaptureTag> captureTag = JspTagUtils.findAncestor(this, CaptureTag.class);
+		if(captureTag.isPresent()) return captureTag.get().getCaptureResult();
 
-		VoidTag voidTag = (VoidTag)findAncestorWithClass(this, VoidTag.class);
-		if(voidTag!=null) return voidTag.getVoidResult();
-
-		throw new JspException("error tag must be within a payment, capture, or void tag");
+		return JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME + ", " + CaptureTag.TAG_NAME + ", or " + VoidTag.TAG_NAME, VoidTag.class)
+			.getVoidResult();
 	}
 
 	@Override

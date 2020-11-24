@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -23,6 +23,8 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.AuthorizationResult;
+import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
+import java.util.Optional;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -35,6 +37,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
 public class TransactionIdTag extends BodyTagSupport {
+
+	static final String TAG_NAME = "<payment:transactionId>";
 
 	private static final long serialVersionUID = 1L;
 
@@ -49,16 +53,13 @@ public class TransactionIdTag extends BodyTagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		String transactionId = getBodyContent().getString().trim();
-		CaptureTag captureTag = (CaptureTag)findAncestorWithClass(this, CaptureTag.class);
-		if(captureTag!=null) {
-			captureTag.setTransactionId(transactionId);
+		// Java 9: Optional.ifPresentOrElse
+		Optional<CaptureTag> captureTag = JspTagUtils.findAncestor(this, CaptureTag.class);
+		if(captureTag.isPresent()) {
+			captureTag.get().setTransactionId(transactionId);
 		} else {
-			VoidTag voidTag = (VoidTag)findAncestorWithClass(this, VoidTag.class);
-			if(voidTag!=null) {
-				voidTag.setTransactionId(transactionId);
-			} else {
-				throw new JspException("transactionId tag must be within either a capture tag or a void tag");
-			}
+			JspTagUtils.requireAncestor(TAG_NAME, this, CaptureTag.TAG_NAME + " or " + VoidTag.TAG_NAME, VoidTag.class)
+				.setTransactionId(transactionId);
 		}
 
 		return EVAL_PAGE;

@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -23,6 +23,7 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.AuthorizationResult;
+import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -36,6 +37,8 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class GetReviewReasonTag extends TagSupport {
 
+	static final String TAG_NAME = "<payment:getReviewReason>";
+
 	private static final long serialVersionUID = 1L;
 
 	public GetReviewReasonTag() {
@@ -44,11 +47,8 @@ public class GetReviewReasonTag extends TagSupport {
 	@Override
 	public int doStartTag() throws JspException {
 		try {
-			HeldTag heldTag = (HeldTag)findAncestorWithClass(this, HeldTag.class);
-			if(heldTag==null) throw new JspException("getReviewReason tag must be within a held tag");
-
-			PaymentTag paymentTag = (PaymentTag)findAncestorWithClass(heldTag, PaymentTag.class);
-			if(paymentTag==null) throw new JspException("held tag must be within a payment tag");
+			HeldTag heldTag = JspTagUtils.requireAncestor(TAG_NAME, this, HeldTag.TAG_NAME, HeldTag.class);
+			PaymentTag paymentTag = JspTagUtils.requireAncestor(HeldTag.TAG_NAME, heldTag, PaymentTag.TAG_NAME, PaymentTag.class);
 
 			AuthorizationResult.ReviewReason reviewReason = paymentTag.getAuthorizationResult().getReviewReason();
 			if(reviewReason!=null) pageContext.getOut().write(reviewReason.toString());

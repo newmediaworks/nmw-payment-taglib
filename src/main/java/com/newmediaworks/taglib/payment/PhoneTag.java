@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -36,6 +36,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class PhoneTag extends BodyTagSupport {
 
+	static final String TAG_NAME = "<payment:phone>";
+
 	private static final long serialVersionUID = 1L;
 
 	public PhoneTag() {
@@ -48,21 +50,13 @@ public class PhoneTag extends BodyTagSupport {
 
 	@Override
 	public int doEndTag() throws JspException {
-		String phone = getBodyContent().getString().trim();
-		StoreCreditCardTag storeCreditCardTag = (StoreCreditCardTag)findAncestorWithClass(this, StoreCreditCardTag.class);
-		if(storeCreditCardTag!=null) {
-			storeCreditCardTag.setPhone(phone);
-		} else {
-			CreditCardTag creditCardTag = (CreditCardTag)findAncestorWithClass(this, CreditCardTag.class);
-			if(creditCardTag!=null) {
-				PaymentTag paymentTag = (PaymentTag)findAncestorWithClass(creditCardTag, PaymentTag.class);
-				if(paymentTag==null) throw new JspException("creditCard tag must be within payment tag");
-				paymentTag.setCreditCardPhone(phone);
-			} else {
-				throw new JspException("phone tag must be within either a storeCreditCard tag or a creditCard tag");
-			}
-		}
-
+		PropertyHelper.setCardProperty(
+			getBodyContent().getString().trim(),
+			TAG_NAME,
+			this,
+			StoreCreditCardTag::setPhone,
+			PaymentTag::setCreditCardPhone
+		);
 		return EVAL_PAGE;
 	}
 }

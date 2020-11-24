@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -23,6 +23,7 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.CreditCard;
+import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -35,6 +36,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class CreditCardTag extends BodyTagSupport {
 
+	static final String TAG_NAME = "<payment:creditCard>";
+
 	private static final long serialVersionUID = 1L;
 
 	public CreditCardTag() {
@@ -43,8 +46,7 @@ public class CreditCardTag extends BodyTagSupport {
 	@Override
 	public int doStartTag() throws JspException {
 		// Make sure nested in payment tag
-		PaymentTag paymentTag = (PaymentTag)findAncestorWithClass(this, PaymentTag.class);
-		if(paymentTag==null) throw new JspException("creditCard tag must be within payment tag");
+		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class);
 
 		return EVAL_BODY_INCLUDE;
 	}

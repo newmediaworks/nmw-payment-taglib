@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -23,6 +23,7 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.CreditCard;
+import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -34,6 +35,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
 public class MaskedCardNumberTag extends BodyTagSupport {
+
+	static final String TAG_NAME = "<payment:maskedCardNumber>";
 
 	private static final long serialVersionUID = 1L;
 
@@ -47,15 +50,9 @@ public class MaskedCardNumberTag extends BodyTagSupport {
 
 	@Override
 	public int doEndTag() throws JspException {
-		String maskedCardNumber = getBodyContent().getString().trim();
-		CreditCardTag creditCardTag = (CreditCardTag)findAncestorWithClass(this, CreditCardTag.class);
-		if(creditCardTag!=null) {
-			PaymentTag paymentTag = (PaymentTag)findAncestorWithClass(creditCardTag, PaymentTag.class);
-			if(paymentTag==null) throw new JspException("creditCard tag must be within payment tag");
-			paymentTag.setCreditCardMaskedCardNumber(maskedCardNumber);
-		} else {
-			throw new JspException("maskedCardNumber tag must be within a creditCard tag");
-		}
+		CreditCardTag creditCardTag = JspTagUtils.requireAncestor(TAG_NAME, this, CreditCardTag.TAG_NAME, CreditCardTag.class);
+		JspTagUtils.requireAncestor(CreditCardTag.TAG_NAME, creditCardTag, PaymentTag.TAG_NAME, PaymentTag.class)
+			.setCreditCardMaskedCardNumber(getBodyContent().getString().trim());
 
 		return EVAL_PAGE;
 	}

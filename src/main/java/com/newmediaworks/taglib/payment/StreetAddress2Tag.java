@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -39,6 +39,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class StreetAddress2Tag extends BodyTagSupport {
 
+	static final String TAG_NAME = "<payment:streetAddress2>";
+
 	private static final long serialVersionUID = 1L;
 
 	public StreetAddress2Tag() {
@@ -51,28 +53,14 @@ public class StreetAddress2Tag extends BodyTagSupport {
 
 	@Override
 	public int doEndTag() throws JspException {
-		String streetAddress2 = getBodyContent().getString().trim();
-		StoreCreditCardTag storeCreditCardTag = (StoreCreditCardTag)findAncestorWithClass(this, StoreCreditCardTag.class);
-		if(storeCreditCardTag!=null) {
-			storeCreditCardTag.setStreetAddress2(streetAddress2);
-		} else {
-			CreditCardTag creditCardTag = (CreditCardTag)findAncestorWithClass(this, CreditCardTag.class);
-			if(creditCardTag!=null) {
-				PaymentTag paymentTag = (PaymentTag)findAncestorWithClass(creditCardTag, PaymentTag.class);
-				if(paymentTag==null) throw new JspException("creditCard tag must be within payment tag");
-				paymentTag.setCreditCardStreetAddress2(streetAddress2);
-			} else {
-				ShippingAddressTag shippingAddressTag = (ShippingAddressTag)findAncestorWithClass(this, ShippingAddressTag.class);
-				if(shippingAddressTag!=null) {
-					PaymentTag paymentTag = (PaymentTag)findAncestorWithClass(shippingAddressTag, PaymentTag.class);
-					if(paymentTag==null) throw new JspException("shippingAddress tag must be within payment tag");
-					paymentTag.setShippingAddressStreetAddress2(streetAddress2);
-				} else {
-					throw new JspException("streetAddress2 tag must be within a storeCreditCard tag, creditCard tag, or shippingAddress tag");
-				}
-			}
-		}
-
+		PropertyHelper.setAddressProperty(
+			getBodyContent().getString().trim(),
+			TAG_NAME,
+			this,
+			StoreCreditCardTag::setStreetAddress2,
+			PaymentTag::setCreditCardStreetAddress2,
+			PaymentTag::setShippingAddressStreetAddress2
+		);
 		return EVAL_PAGE;
 	}
 }

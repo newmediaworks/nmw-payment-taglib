@@ -23,6 +23,7 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.TransactionResult;
+import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -38,6 +39,8 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class GetErrorReasonTag extends TagSupport {
 
+	static final String TAG_NAME = "<payment:getErrorReason>";
+
 	private static final long serialVersionUID = 1L;
 
 	public GetErrorReasonTag() {
@@ -47,8 +50,7 @@ public class GetErrorReasonTag extends TagSupport {
 	@SuppressWarnings("UseOfSystemOutOrSystemErr")
 	public int doStartTag() throws JspException {
 		try {
-			ErrorTag errorTag = (ErrorTag)findAncestorWithClass(this, ErrorTag.class);
-			if(errorTag==null) throw new JspException("getErrorReason tag must be within an error tag");
+			ErrorTag errorTag = JspTagUtils.requireAncestor(TAG_NAME, this, ErrorTag.TAG_NAME, ErrorTag.class);
 
 			TransactionResult result = errorTag.getTransactionResult();
 			pageContext.getOut().write(result.getErrorCode().toString());

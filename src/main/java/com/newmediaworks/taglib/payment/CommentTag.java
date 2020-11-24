@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -24,6 +24,8 @@ package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.creditcards.TransactionRequest;
+import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
+import java.util.Optional;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -39,6 +41,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class CommentTag extends BodyTagSupport {
 
+	static final String TAG_NAME = "<payment:comment>";
+
 	private static final long serialVersionUID = 1L;
 
 	public CommentTag() {
@@ -52,22 +56,18 @@ public class CommentTag extends BodyTagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		String comment = getBodyContent().getString().trim();
-		StoreCreditCardTag storeCreditCardTag = (StoreCreditCardTag)findAncestorWithClass(this, StoreCreditCardTag.class);
-		if(storeCreditCardTag!=null) {
-			storeCreditCardTag.setComment(comment);
+		// Java 9: ifPresentOrElse
+		Optional<StoreCreditCardTag> storeCreditCardTag = JspTagUtils.findAncestor(this, StoreCreditCardTag.class);
+		if(storeCreditCardTag.isPresent()) {
+			storeCreditCardTag.get().setComment(comment);
 		} else {
-			CreditCardTag creditCardTag = (CreditCardTag)findAncestorWithClass(this, CreditCardTag.class);
-			if(creditCardTag!=null) {
-				PaymentTag paymentTag = (PaymentTag)findAncestorWithClass(creditCardTag, PaymentTag.class);
-				if(paymentTag==null) throw new JspException("creditCard tag must be within payment tag");
-				paymentTag.setCreditCardComment(comment);
+			Optional<CreditCardTag> creditCardTag = JspTagUtils.findAncestor(this, CreditCardTag.class);
+			if(creditCardTag.isPresent()) {
+				JspTagUtils.requireAncestor(CreditCardTag.TAG_NAME, creditCardTag.get(), PaymentTag.TAG_NAME, PaymentTag.class)
+					.setCreditCardComment(comment);
 			} else {
-				PaymentTag paymentTag = (PaymentTag)findAncestorWithClass(this, PaymentTag.class);
-				if(paymentTag!=null) {
-					paymentTag.setComment(comment);
-				} else {
-					throw new JspException("comment tag must be within a storeCreditCard tag, creditCard tag, or payment tag");
-				}
+				JspTagUtils.requireAncestor(TAG_NAME, this, StoreCreditCardTag.TAG_NAME + ", " + CreditCardTag.TAG_NAME + ", or " + PaymentTag.TAG_NAME, PaymentTag.class)
+					.setComment(comment);
 			}
 		}
 

@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -23,6 +23,7 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.TransactionRequest;
+import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -36,6 +37,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class CurrencyCodeTag extends BodyTagSupport {
 
+	static final String TAG_NAME = "<payment:currencyCode>";
+
 	private static final long serialVersionUID = 1L;
 
 	public CurrencyCodeTag() {
@@ -48,13 +51,8 @@ public class CurrencyCodeTag extends BodyTagSupport {
 
 	@Override
 	public int doEndTag() throws JspException {
-		String currencyCode = getBodyContent().getString().trim();
-		PaymentTag paymentTag = (PaymentTag)findAncestorWithClass(this, PaymentTag.class);
-		if(paymentTag!=null) {
-			paymentTag.setCurrencyCode(currencyCode);
-		} else {
-			throw new JspException("currencyCode tag must be within a payment tag");
-		}
+		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class)
+			.setCurrencyCode(getBodyContent().getString().trim());
 
 		return EVAL_PAGE;
 	}
