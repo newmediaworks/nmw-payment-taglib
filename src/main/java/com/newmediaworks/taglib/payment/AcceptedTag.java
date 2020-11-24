@@ -41,7 +41,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class AcceptedTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:accepted>";
+	public static final String TAG_NAME = "<payment:accepted>";
 
 	private static final long serialVersionUID = 1L;
 

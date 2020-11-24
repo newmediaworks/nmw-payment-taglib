@@ -40,7 +40,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class CountryCodeTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:countryCode>";
+	public static final String TAG_NAME = "<payment:countryCode>";
 
 	private static final long serialVersionUID = 1L;
 

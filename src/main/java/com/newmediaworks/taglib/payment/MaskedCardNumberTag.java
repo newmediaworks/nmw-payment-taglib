@@ -36,7 +36,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class MaskedCardNumberTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:maskedCardNumber>";
+	public static final String TAG_NAME = "<payment:maskedCardNumber>";
 
 	private static final long serialVersionUID = 1L;
 

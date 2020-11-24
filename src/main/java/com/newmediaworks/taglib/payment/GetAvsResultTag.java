@@ -37,7 +37,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class GetAvsResultTag extends TagSupport {
 
-	static final String TAG_NAME = "<payment:getAvsResult>";
+	public static final String TAG_NAME = "<payment:getAvsResult>";
 
 	private static final long serialVersionUID = 1L;
 

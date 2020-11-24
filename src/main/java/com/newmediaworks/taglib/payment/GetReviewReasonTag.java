@@ -37,7 +37,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class GetReviewReasonTag extends TagSupport {
 
-	static final String TAG_NAME = "<payment:getReviewReason>";
+	public static final String TAG_NAME = "<payment:getReviewReason>";
 
 	private static final long serialVersionUID = 1L;
 

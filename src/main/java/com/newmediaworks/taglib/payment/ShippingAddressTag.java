@@ -44,7 +44,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class ShippingAddressTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:shippingAddress>";
+	public static final String TAG_NAME = "<payment:shippingAddress>";
 
 	private static final long serialVersionUID = 1L;
 

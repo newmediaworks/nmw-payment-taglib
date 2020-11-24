@@ -38,7 +38,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class TransactionIdTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:transactionId>";
+	public static final String TAG_NAME = "<payment:transactionId>";
 
 	private static final long serialVersionUID = 1L;
 

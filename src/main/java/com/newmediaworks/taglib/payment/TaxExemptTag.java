@@ -36,7 +36,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class TaxExemptTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:taxExempt>";
+	public static final String TAG_NAME = "<payment:taxExempt>";
 
 	private static final long serialVersionUID = 1L;
 

@@ -38,7 +38,7 @@ public class CustomerIdTag extends BodyTagSupport {
 
 	private static final long serialVersionUID = 1L;
 
-	static final String TAG_NAME = "<payment:customerId>";
+	public static final String TAG_NAME = "<payment:customerId>";
 
 	public CustomerIdTag() {
 	}

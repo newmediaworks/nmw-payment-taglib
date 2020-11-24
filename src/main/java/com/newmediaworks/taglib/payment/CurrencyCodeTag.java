@@ -37,7 +37,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class CurrencyCodeTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:currencyCode>";
+	public static final String TAG_NAME = "<payment:currencyCode>";
 
 	private static final long serialVersionUID = 1L;
 

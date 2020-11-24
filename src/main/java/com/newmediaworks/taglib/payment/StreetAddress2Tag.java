@@ -39,7 +39,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class StreetAddress2Tag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:streetAddress2>";
+	public static final String TAG_NAME = "<payment:streetAddress2>";
 
 	private static final long serialVersionUID = 1L;
 

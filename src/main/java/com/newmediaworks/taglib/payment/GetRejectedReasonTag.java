@@ -37,7 +37,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class GetRejectedReasonTag extends TagSupport {
 
-	static final String TAG_NAME = "<payment:getRejectedReason>";
+	public static final String TAG_NAME = "<payment:getRejectedReason>";
 
 	private static final long serialVersionUID = 1L;
 

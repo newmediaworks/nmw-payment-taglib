@@ -36,7 +36,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class FaxTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:fax>";
+	public static final String TAG_NAME = "<payment:fax>";
 
 	private static final long serialVersionUID = 1L;
 

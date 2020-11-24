@@ -36,7 +36,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class EmailTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:email>";
+	public static final String TAG_NAME = "<payment:email>";
 
 	private static final long serialVersionUID = 1L;
 

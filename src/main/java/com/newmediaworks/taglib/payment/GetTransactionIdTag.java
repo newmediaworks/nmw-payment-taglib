@@ -37,7 +37,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class GetTransactionIdTag extends TagSupport {
 
-	static final String TAG_NAME = "<payment:getTransactionId>";
+	public static final String TAG_NAME = "<payment:getTransactionId>";
 
 	private static final long serialVersionUID = 1L;
 

@@ -37,7 +37,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class TaxAmountTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:taxAmount>";
+	public static final String TAG_NAME = "<payment:taxAmount>";
 
 	private static final long serialVersionUID = 1L;
 

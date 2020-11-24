@@ -53,7 +53,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class UseProcessorTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:useProcessor>";
+	public static final String TAG_NAME = "<payment:useProcessor>";
 
 	private static final long serialVersionUID = 1L;
 

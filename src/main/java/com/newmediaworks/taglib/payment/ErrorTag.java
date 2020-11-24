@@ -45,7 +45,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class ErrorTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:error>";
+	public static final String TAG_NAME = "<payment:error>";
 
 	private static final long serialVersionUID = 1L;
 

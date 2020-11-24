@@ -36,7 +36,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class CardNumberTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:cardNumber>";
+	public static final String TAG_NAME = "<payment:cardNumber>";
 
 	private static final long serialVersionUID = 1L;
 

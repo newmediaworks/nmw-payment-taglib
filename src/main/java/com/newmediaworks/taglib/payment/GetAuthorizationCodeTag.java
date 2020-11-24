@@ -37,7 +37,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class GetAuthorizationCodeTag extends TagSupport {
 
-	static final String TAG_NAME = "<payment:getAuthorizationCode>";
+	public static final String TAG_NAME = "<payment:getAuthorizationCode>";
 
 	private static final long serialVersionUID = 1L;
 

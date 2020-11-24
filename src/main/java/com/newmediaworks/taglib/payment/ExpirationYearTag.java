@@ -36,7 +36,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class ExpirationYearTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:expirationYear>";
+	public static final String TAG_NAME = "<payment:expirationYear>";
 
 	private static final long serialVersionUID = 1L;
 

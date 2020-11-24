@@ -41,7 +41,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class RejectedTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:rejected>";
+	public static final String TAG_NAME = "<payment:rejected>";
 
 	private static final long serialVersionUID = 1L;
 

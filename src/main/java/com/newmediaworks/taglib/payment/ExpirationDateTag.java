@@ -39,7 +39,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class ExpirationDateTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:expirationDate>";
+	public static final String TAG_NAME = "<payment:expirationDate>";
 
 	private static final long serialVersionUID = 1L;
 

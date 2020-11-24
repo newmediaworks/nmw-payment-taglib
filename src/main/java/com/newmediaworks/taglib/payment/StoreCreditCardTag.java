@@ -37,7 +37,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class StoreCreditCardTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:storeCreditCard>";
+	public static final String TAG_NAME = "<payment:storeCreditCard>";
 
 	private static final long serialVersionUID = 1L;
 

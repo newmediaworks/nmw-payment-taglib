@@ -38,7 +38,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class VoidTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:void>";
+	public static final String TAG_NAME = "<payment:void>";
 
 	private static final long serialVersionUID = 1L;
 

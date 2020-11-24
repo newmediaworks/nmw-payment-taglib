@@ -37,7 +37,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class GetCvvResultTag extends TagSupport {
 
-	static final String TAG_NAME = "<payment:getCvvResult>";
+	public static final String TAG_NAME = "<payment:getCvvResult>";
 
 	private static final long serialVersionUID = 1L;
 

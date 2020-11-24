@@ -39,7 +39,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class StateTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:state>";
+	public static final String TAG_NAME = "<payment:state>";
 
 	private static final long serialVersionUID = 1L;
 

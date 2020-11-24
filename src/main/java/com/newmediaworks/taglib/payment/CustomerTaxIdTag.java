@@ -37,7 +37,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class CustomerTaxIdTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:customerTaxId>";
+	public static final String TAG_NAME = "<payment:customerTaxId>";
 
 	private static final long serialVersionUID = 1L;
 

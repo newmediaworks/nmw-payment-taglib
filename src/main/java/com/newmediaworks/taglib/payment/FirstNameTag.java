@@ -39,7 +39,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class FirstNameTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:firstName>";
+	public static final String TAG_NAME = "<payment:firstName>";
 
 	private static final long serialVersionUID = 1L;
 

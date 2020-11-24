@@ -41,7 +41,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class CommentTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:comment>";
+	public static final String TAG_NAME = "<payment:comment>";
 
 	private static final long serialVersionUID = 1L;
 

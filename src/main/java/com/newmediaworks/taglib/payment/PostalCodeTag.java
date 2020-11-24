@@ -39,7 +39,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class PostalCodeTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:postalCode>";
+	public static final String TAG_NAME = "<payment:postalCode>";
 
 	private static final long serialVersionUID = 1L;
 

@@ -39,7 +39,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class GetErrorReasonTag extends TagSupport {
 
-	static final String TAG_NAME = "<payment:getErrorReason>";
+	public static final String TAG_NAME = "<payment:getErrorReason>";
 
 	private static final long serialVersionUID = 1L;
 

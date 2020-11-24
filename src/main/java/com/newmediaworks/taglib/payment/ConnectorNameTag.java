@@ -35,7 +35,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class ConnectorNameTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:connectorName>";
+	public static final String TAG_NAME = "<payment:connectorName>";
 
 	private static final long serialVersionUID = 1L;
 

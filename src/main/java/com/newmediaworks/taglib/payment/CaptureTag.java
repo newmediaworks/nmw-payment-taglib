@@ -37,7 +37,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class CaptureTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:capture>";
+	public static final String TAG_NAME = "<payment:capture>";
 
 	private static final long serialVersionUID = 1L;
 

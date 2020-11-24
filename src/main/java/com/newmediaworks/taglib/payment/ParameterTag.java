@@ -35,7 +35,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class ParameterTag extends BodyTagSupport {
 
-	static final String TAG_NAME = "<payment:parameter>";
+	public static final String TAG_NAME = "<payment:parameter>";
 
 	private static final long serialVersionUID = 1L;
 
