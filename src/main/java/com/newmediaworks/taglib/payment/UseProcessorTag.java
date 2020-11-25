@@ -236,8 +236,8 @@ public class UseProcessorTag extends BodyTagSupport {
 	 * 
 	 * @throws JspException if name already set.
 	 */
-	void setConnectorName(String connectorName) throws JspTagException {
-		if(this.connectorName!=null) throw new JspTagException("connectorName already set");
+	void setConnectorName(String connectorName) {
+		if(this.connectorName != null) throw new IllegalStateException("connectorName already set");
 		this.connectorName = connectorName;
 	}
 
@@ -246,8 +246,8 @@ public class UseProcessorTag extends BodyTagSupport {
 	 * 
 	 * @throws JspException if name already set.
 	 */
-	void addParameter(String name, String value) throws JspTagException {
-		if(this.parameters.containsKey(name)) throw new JspTagException("parameter already set: "+name);
+	void addParameter(String name, String value) {
+		if(this.parameters.containsKey(name)) throw new IllegalStateException("parameter already set: " + name);
 		this.parameters.put(name, value);
 	}
 }
