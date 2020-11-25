@@ -53,8 +53,8 @@ public class TaxExemptTag extends BodyTagSupport {
 	public int doEndTag() throws JspException {
 		String taxExemptString = getBodyContent().getString().trim();
 		boolean taxExempt;
-		if("true".equals(taxExemptString)) taxExempt = true; // TODO: case-insensitive here and review other places
-		else if("false".equals(taxExemptString)) taxExempt = false;
+		if("true".equalsIgnoreCase(taxExemptString)) taxExempt = true;
+		else if("false".equalsIgnoreCase(taxExemptString)) taxExempt = false;
 		else throw new JspTagException("Invalid value for taxExempt, should be either true or false: "+taxExemptString); // TODO: TAG_NAME in this message, too?  Review others if so
 
 		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class)
