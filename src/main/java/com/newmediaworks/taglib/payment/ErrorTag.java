@@ -28,6 +28,7 @@ import com.aoindustries.creditcards.TransactionResult.CommunicationResult;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.util.Optional;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
@@ -79,7 +80,7 @@ public class ErrorTag extends BodyTagSupport {
 			case SUCCESS:
 				return SKIP_BODY;
 			default:
-				throw new JspException("Unexpected communication result: "+transactionResult.getCommunicationResult());
+				throw new JspTagException("Unexpected communication result: "+transactionResult.getCommunicationResult());
 		}
 	}
 }

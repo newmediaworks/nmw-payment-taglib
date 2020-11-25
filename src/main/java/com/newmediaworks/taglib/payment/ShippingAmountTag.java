@@ -26,6 +26,7 @@ import com.aoindustries.creditcards.TransactionRequest;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.math.BigDecimal;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
@@ -45,7 +46,7 @@ public class ShippingAmountTag extends BodyTagSupport {
 	}
 
 	@Override
-	public int doStartTag() {
+	public int doStartTag() throws JspException {
 		return EVAL_BODY_BUFFERED;
 	}
 
@@ -55,8 +56,8 @@ public class ShippingAmountTag extends BodyTagSupport {
 		BigDecimal shippingAmount;
 		try {
 			shippingAmount = CurrencyUtil.parseCurrency(shippingAmountString);
-		} catch(NumberFormatException err) {
-			throw new JspException("Invalid shippingAmount: "+shippingAmountString, err);
+		} catch(NumberFormatException e) {
+			throw new JspTagException("Invalid shippingAmount: "+shippingAmountString, e);
 		}
 		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class)
 			.setShippingAmount(shippingAmount);

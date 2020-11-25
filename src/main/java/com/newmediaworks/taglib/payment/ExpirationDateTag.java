@@ -26,6 +26,7 @@ import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.util.Optional;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
@@ -47,7 +48,7 @@ public class ExpirationDateTag extends BodyTagSupport {
 	}
 
 	@Override
-	public int doStartTag() {
+	public int doStartTag() throws JspException {
 		return EVAL_BODY_BUFFERED;
 	}
 
@@ -55,23 +56,23 @@ public class ExpirationDateTag extends BodyTagSupport {
 	public int doEndTag() throws JspException {
 		String expirationDateString = getBodyContent().getString().trim();
 		int slashPos = expirationDateString.indexOf('/');
-		if(slashPos==-1) throw new JspException("Invalid expirationDate, unable to find / : "+expirationDateString);
+		if(slashPos==-1) throw new JspTagException("Invalid expirationDate, unable to find / : "+expirationDateString);
 
 		String expirationMonthString = expirationDateString.substring(0, slashPos).trim();
 		byte expirationMonth;
 		try {
 			expirationMonth = Byte.parseByte(expirationMonthString);
 		} catch(NumberFormatException err) {
-			throw new JspException("Invalid expirationMonth: "+expirationMonthString, err);
+			throw new JspTagException("Invalid expirationMonth: "+expirationMonthString, err);
 		}
-		if(expirationMonth<1 || expirationMonth>12) throw new JspException("Invalid expirationMonth, must be between 1 and 12 inclusive: "+expirationMonth);
+		if(expirationMonth<1 || expirationMonth>12) throw new JspTagException("Invalid expirationMonth, must be between 1 and 12 inclusive: "+expirationMonth);
 
 		String expirationYearString = expirationDateString.substring(slashPos+1).trim();
 		short expirationYear;
 		try {
 			expirationYear = Short.parseShort(expirationYearString);
 		} catch(NumberFormatException err) {
-			throw new JspException("Invalid expirationYear: "+expirationYearString, err);
+			throw new JspTagException("Invalid expirationYear: "+expirationYearString, err);
 		}
 
 		// Java 9: ifPresentOrElse

@@ -27,6 +27,7 @@ import com.aoindustries.creditcards.MerchantServicesProvider;
 import com.aoindustries.creditcards.Transaction;
 import com.aoindustries.creditcards.VoidResult;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
@@ -56,12 +57,12 @@ public class VoidTag extends BodyTagSupport {
 	public int doStartTag() throws JspException {
 		// Make sure the processor is set
 		MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
-		if(processor==null) throw new JspException("processor not set, please set processor with the useProcessor tag first");
+		if(processor==null) throw new JspTagException("processor not set, please set processor with the useProcessor tag first");
 		return EVAL_BODY_INCLUDE;
 	}
 
 	@Override
-	public int doEndTag() {
+	public int doEndTag() throws JspException {
 		init();
 		return EVAL_PAGE;
 	}
@@ -84,7 +85,7 @@ public class VoidTag extends BodyTagSupport {
 	void process() throws JspException {
 		// Make sure the processor is set
 		MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
-		if(processor==null) throw new JspException("processor not set, please set processor with the useProcessor tag first");
+		if(processor==null) throw new JspTagException("processor not set, please set processor with the useProcessor tag first");
 
 		voidResult = processor.voidTransaction(
 			new Transaction(

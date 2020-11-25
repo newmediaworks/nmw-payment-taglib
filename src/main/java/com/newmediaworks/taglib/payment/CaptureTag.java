@@ -26,6 +26,7 @@ import com.aoindustries.creditcards.AuthorizationResult;
 import com.aoindustries.creditcards.CaptureResult;
 import com.aoindustries.creditcards.MerchantServicesProvider;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
@@ -55,12 +56,12 @@ public class CaptureTag extends BodyTagSupport {
 	public int doStartTag() throws JspException {
 		// Make sure the processor is set
 		MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
-		if(processor==null) throw new JspException("processor not set, please set processor with the useProcessor tag first");
+		if(processor==null) throw new JspTagException("processor not set, please set processor with the useProcessor tag first");
 		return EVAL_BODY_INCLUDE;
 	}
 
 	@Override
-	public int doEndTag() {
+	public int doEndTag() throws JspException {
 		init();
 		return EVAL_PAGE;
 	}
@@ -83,7 +84,7 @@ public class CaptureTag extends BodyTagSupport {
 	void process() throws JspException {
 		// Make sure the processor is set
 		MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
-		if(processor==null) throw new JspException("processor not set, please set processor with the useProcessor tag first");
+		if(processor==null) throw new JspTagException("processor not set, please set processor with the useProcessor tag first");
 
 		captureResult = processor.capture(
 			new AuthorizationResult(

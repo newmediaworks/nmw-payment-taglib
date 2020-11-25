@@ -27,6 +27,7 @@ import com.aoindustries.creditcards.AuthorizationResult.ApprovalResult;
 import com.aoindustries.creditcards.TransactionResult.CommunicationResult;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
@@ -66,10 +67,10 @@ public class AcceptedTag extends BodyTagSupport {
 					case APPROVED:
 						return EVAL_BODY_INCLUDE;
 					default:
-						throw new JspException("Unexpected approval result: "+authorizationResult.getApprovalResult());
+						throw new JspTagException("Unexpected approval result: "+authorizationResult.getApprovalResult());
 				}
 			default:
-				throw new JspException("Unexpected communication result: "+authorizationResult.getCommunicationResult());
+				throw new JspTagException("Unexpected communication result: "+authorizationResult.getCommunicationResult());
 		}
 	}
 }

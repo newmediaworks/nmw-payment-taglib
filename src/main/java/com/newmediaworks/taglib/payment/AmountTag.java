@@ -26,6 +26,7 @@ import com.aoindustries.creditcards.TransactionRequest;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.math.BigDecimal;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
@@ -45,7 +46,7 @@ public class AmountTag extends BodyTagSupport {
 	}
 
 	@Override
-	public int doStartTag() {
+	public int doStartTag() throws JspException {
 		return EVAL_BODY_BUFFERED;
 	}
 
@@ -56,7 +57,7 @@ public class AmountTag extends BodyTagSupport {
 		try {
 			amount = CurrencyUtil.parseCurrency(amountString);
 		} catch(NumberFormatException err) {
-			throw new JspException("Invalid amount: "+amountString, err);
+			throw new JspTagException("Invalid amount: "+amountString, err);
 		}
 		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class)
 			.setAmount(amount);

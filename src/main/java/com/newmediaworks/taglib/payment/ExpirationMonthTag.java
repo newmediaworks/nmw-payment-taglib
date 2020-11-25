@@ -24,6 +24,7 @@ package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.CreditCard;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
@@ -44,7 +45,7 @@ public class ExpirationMonthTag extends BodyTagSupport {
 	}
 
 	@Override
-	public int doStartTag() {
+	public int doStartTag() throws JspException {
 		return EVAL_BODY_BUFFERED;
 	}
 
@@ -55,9 +56,9 @@ public class ExpirationMonthTag extends BodyTagSupport {
 		try {
 			expirationMonth = Byte.parseByte(expirationMonthString);
 		} catch(NumberFormatException err) {
-			throw new JspException("Invalid expirationMonth: "+expirationMonthString, err);
+			throw new JspTagException("Invalid expirationMonth: "+expirationMonthString, err);
 		}
-		if(expirationMonth<1 || expirationMonth>12) throw new JspException("Invalid expirationMonth, must be between 1 and 12 inclusive: "+expirationMonth);
+		if(expirationMonth<1 || expirationMonth>12) throw new JspTagException("Invalid expirationMonth, must be between 1 and 12 inclusive: "+expirationMonth);
 
 		PropertyHelper.setCardProperty(
 			expirationMonth,

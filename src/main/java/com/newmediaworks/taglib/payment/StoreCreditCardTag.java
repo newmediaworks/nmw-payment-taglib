@@ -26,6 +26,7 @@ import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.creditcards.MerchantServicesProvider;
 import java.io.IOException;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
@@ -70,7 +71,7 @@ public class StoreCreditCardTag extends BodyTagSupport {
 	public int doStartTag() throws JspException {
 		// Make sure the processor is set
 		MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
-		if(processor==null) throw new JspException("processor not set, please set processor with the useProcessor tag first");
+		if(processor==null) throw new JspTagException("processor not set, please set processor with the useProcessor tag first");
 		return EVAL_BODY_INCLUDE;
 	}
 
@@ -82,7 +83,7 @@ public class StoreCreditCardTag extends BodyTagSupport {
 		try {
 			// Get the current processor
 			MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
-			if(processor==null) throw new JspException("processor not set, please set processor with the useProcessor tag first");
+			if(processor==null) throw new JspTagException("processor not set, please set processor with the useProcessor tag first");
 
 			// Add credit card
 			String providerUniqueId = processor.storeCreditCard(
@@ -120,8 +121,8 @@ public class StoreCreditCardTag extends BodyTagSupport {
 
 			// Get ready for the next iteration
 			return EVAL_PAGE;
-		} catch(IOException err) {
-			throw new JspException(err);
+		} catch(IOException e) {
+			throw new JspTagException(e);
 		} finally {
 			init();
 		}

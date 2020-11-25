@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.Objects;
 import javax.servlet.ServletContext;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
@@ -168,14 +169,14 @@ public class UseProcessorTag extends BodyTagSupport {
 	 */
 	@Override
 	public int doEndTag() throws JspException {
-		if(connectorName==null) throw new JspException("connectorName not set");
+		if(connectorName==null) throw new JspTagException("connectorName not set");
 
 		MerchantServicesProvider provider;
 		if("Sage".equalsIgnoreCase(connectorName)) {
 			String merchantID = parameters.get("merchantID");
-			if(merchantID==null || merchantID.length()==0) throw new JspException("merchantID parameter required");
+			if(merchantID==null || merchantID.length()==0) throw new JspTagException("merchantID parameter required");
 			String merchantKey = parameters.get("merchantKey");
-			if(merchantKey==null || merchantKey.length()==0) throw new JspException("merchantKey parameter required");
+			if(merchantKey==null || merchantKey.length()==0) throw new JspTagException("merchantKey parameter required");
 			provider = getSagePayments(merchantID, merchantKey);
 		} else if("Test".equalsIgnoreCase(connectorName)) {
 			String errorChance = parameters.get("errorChance");
@@ -208,7 +209,7 @@ public class UseProcessorTag extends BodyTagSupport {
 				parameters.get("apiKey")
 			);
 		} else {
-			throw new JspException("Unsupported connectorName: "+connectorName);
+			throw new JspTagException("Unsupported connectorName: "+connectorName);
 		}
 
 		// Set in the request attributes
@@ -235,8 +236,8 @@ public class UseProcessorTag extends BodyTagSupport {
 	 * 
 	 * @throws JspException if name already set.
 	 */
-	void setConnectorName(String connectorName) throws JspException {
-		if(this.connectorName!=null) throw new JspException("connectorName already set");
+	void setConnectorName(String connectorName) throws JspTagException {
+		if(this.connectorName!=null) throw new JspTagException("connectorName already set");
 		this.connectorName = connectorName;
 	}
 
@@ -245,8 +246,8 @@ public class UseProcessorTag extends BodyTagSupport {
 	 * 
 	 * @throws JspException if name already set.
 	 */
-	void addParameter(String name, String value) throws JspException {
-		if(this.parameters.containsKey(name)) throw new JspException("parameter already set: "+name);
+	void addParameter(String name, String value) throws JspTagException {
+		if(this.parameters.containsKey(name)) throw new JspTagException("parameter already set: "+name);
 		this.parameters.put(name, value);
 	}
 }

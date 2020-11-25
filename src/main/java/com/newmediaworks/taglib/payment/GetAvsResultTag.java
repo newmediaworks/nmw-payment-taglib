@@ -26,6 +26,7 @@ import com.aoindustries.creditcards.AuthorizationResult;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
@@ -53,8 +54,8 @@ public class GetAvsResultTag extends TagSupport {
 			if(avsResult!=null) pageContext.getOut().write(avsResult.toString());
 
 			return SKIP_BODY;
-		} catch(IOException err) {
-			throw new JspException(err);
+		} catch(IOException e) {
+			throw new JspTagException(e);
 		}
 	}
 }

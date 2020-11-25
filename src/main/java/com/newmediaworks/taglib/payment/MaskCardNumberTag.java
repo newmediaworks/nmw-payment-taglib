@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -25,6 +25,7 @@ package com.newmediaworks.taglib.payment;
 import com.aoindustries.creditcards.CreditCard;
 import java.io.IOException;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
@@ -42,7 +43,7 @@ public class MaskCardNumberTag extends BodyTagSupport {
 	}
 
 	@Override
-	public int doStartTag() {
+	public int doStartTag() throws JspException {
 		return EVAL_BODY_BUFFERED;
 	}
 
@@ -52,8 +53,8 @@ public class MaskCardNumberTag extends BodyTagSupport {
 			pageContext.getOut().print(CreditCard.maskCreditCardNumber(getBodyContent().getString().trim()));
 
 			return EVAL_PAGE;
-		} catch(IOException err) {
-			throw new JspException(err);
+		} catch(IOException e) {
+			throw new JspTagException(e);
 		}
 	}
 }
