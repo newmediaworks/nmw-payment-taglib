@@ -84,11 +84,6 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 											<outputDirectory>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-payflowPro</outputDirectory>
 										</artifactItem>
 										<artifactItem>
-											<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-sagePayments</artifactId>
-											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
-											<outputDirectory>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-sagePayments</outputDirectory>
-										</artifactItem>
-										<artifactItem>
 											<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-stripe</artifactId>
 											<classifier>javadoc</classifier><includes>element-list, package-list</includes>
 											<outputDirectory>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-stripe</outputDirectory>
@@ -131,10 +126,6 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 								<offlineLink>
 									<url>https://aoindustries.com/ao-credit-cards/payflowPro/apidocs/</url>
 									<location>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-payflowPro</location>
-								</offlineLink>
-								<offlineLink>
-									<url>https://aoindustries.com/ao-credit-cards/sagePayments/apidocs/</url>
-									<location>${project.build.directory}/offlineLinks/com.aoindustries/ao-credit-cards-sagePayments</location>
 								</offlineLink>
 								<offlineLink>
 									<url>https://aoindustries.com/ao-credit-cards/stripe/apidocs/</url>
@@ -185,9 +176,6 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-payflowPro</artifactId><version>1.2.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-sagePayments</artifactId><version>1.1.2${POST-SNAPSHOT}</version>
-			</dependency>
-			<dependency>
 				<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-stripe</artifactId><version>1.2.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
@@ -209,16 +197,16 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId><version>4.7.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>ao-net-types</artifactId><version>1.2.1${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
 				<groupId>com.aoindustries</groupId><artifactId>ao-tempfiles</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
+				<groupId>com.aoindustries</groupId><artifactId>ao-tlds</artifactId><version>1.2.0${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
 				<groupId>com.aoindustries</groupId><artifactId>aocode-public</artifactId><version>4.3.0${POST-SNAPSHOT}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.axis</groupId><artifactId>axis</artifactId><version>1.4</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.axis</groupId><artifactId>axis-jaxrpc</artifactId><version>1.4</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-beanutils</groupId><artifactId>commons-beanutils</artifactId><version>1.9.4</version>
@@ -267,9 +255,6 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		</dependency>
 		<dependency>
 			<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-payflowPro</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-sagePayments</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-stripe</artifactId>

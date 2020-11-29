@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
-Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019  New Media Works
+Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
     info@newmediaworks.com
     703 2nd Street #465
     Santa Rosa, CA 95404
@@ -60,7 +60,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 	<uri>http://taglibs.newmediaworks.com/payment</uri>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:16:05-0500" -->
+		<!-- dateModified="2020-11-29T06:48:29-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Selects the processor that will be used for subsequent transactions.
@@ -96,28 +96,6 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses/>.
 							</p>
 						</li>
 					</ul>
-				</li>
-				<li><code>Sage</code> - <a href="http://www.sage.com/us/sage-payment-solutions">Sage Payment Solutions</a>
-					<p>
-						Parameters:
-					</p>
-					<ul>
-						<li><code>merchantID</code> (required)
-							<p>
-								Sage-provided merchant ID
-							</p>
-						</li>
-						<li><code>merchantKey</code> (required)
-							<p>
-								Sage-provided merchant key
-							</p>
-						</li>
-					</ul>
-					<p>
-						Please note: <strong>the next major release of this project will no longer support
-						the Sage processor</strong> due to the <a href="https://aoindustries.com/ao-credit-cards/sagePayments/">underlying payment API</a>
-						being deprecated.
-					</p>
 				</li>
 				<li><code>Payflow Pro</code> - <a href="https://developer.paypal.com/docs/classic/api/nvpsoap-sdks/">Payflow Pro XMLPay system</a>
 					<p>

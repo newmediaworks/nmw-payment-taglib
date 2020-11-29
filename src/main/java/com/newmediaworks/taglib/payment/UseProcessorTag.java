@@ -25,7 +25,6 @@ package com.newmediaworks.taglib.payment;
 import com.aoindustries.creditcards.MerchantServicesProvider;
 import com.aoindustries.creditcards.authorizeNet.AuthorizeNet;
 import com.aoindustries.creditcards.payflowPro.PayflowPro;
-import com.aoindustries.creditcards.sagePayments.SagePayments;
 import com.aoindustries.creditcards.stripe.Stripe;
 import com.aoindustries.creditcards.test.TestMerchantServicesProvider;
 import com.aoindustries.creditcards.usaepay.USAePay;
@@ -43,7 +42,6 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * Selects the processor that will be used for subsequent transactions.
  *
  * @see  MerchantServicesProvider
- * @see  SagePayments
  * @see  TestMerchantServicesProvider
  * @see  PayflowPro
  * @see  USAePay
@@ -57,22 +55,6 @@ public class UseProcessorTag extends BodyTagSupport {
 	public static final String TAG_NAME = "<payment:useProcessor>";
 
 	private static final long serialVersionUID = 1L;
-
-	/** The previously created processors are reused. */
-	private final static List<SagePayments> sagePayments = new ArrayList<>();
-	private static SagePayments getSagePayments(String merchantID, String merchantKey) {
-		synchronized(sagePayments) {
-			for(SagePayments sp : sagePayments) {
-				if(
-					sp.getMerchantId().equals(merchantID)
-					&& sp.getMerchantKey().equals(merchantKey)
-				) return sp;
-			}
-			SagePayments sp = new SagePayments("Sage", merchantID, merchantKey);
-			sagePayments.add(sp);
-			return sp;
-		}
-	}
 
 	/** The previously created processors are reused. */
 	private final static List<TestMerchantServicesProvider> testMerchantServicesProviders = new ArrayList<>();
@@ -172,13 +154,7 @@ public class UseProcessorTag extends BodyTagSupport {
 		if(connectorName==null) throw new JspTagException("connectorName not set");
 
 		MerchantServicesProvider provider;
-		if("Sage".equalsIgnoreCase(connectorName)) {
-			String merchantID = parameters.get("merchantID");
-			if(merchantID==null || merchantID.length()==0) throw new JspTagException("merchantID parameter required");
-			String merchantKey = parameters.get("merchantKey");
-			if(merchantKey==null || merchantKey.length()==0) throw new JspTagException("merchantKey parameter required");
-			provider = getSagePayments(merchantID, merchantKey);
-		} else if("Test".equalsIgnoreCase(connectorName)) {
+		if("Test".equalsIgnoreCase(connectorName)) {
 			String errorChance = parameters.get("errorChance");
 			String rejectionChance = parameters.get("rejectionChance");
 			provider = getTestMerchantServicesProvider(
