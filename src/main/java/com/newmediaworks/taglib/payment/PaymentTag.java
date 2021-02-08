@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020, 2021  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -44,57 +44,57 @@ public class PaymentTag extends BodyTagSupport {
 
 	public static final String TAG_NAME = "<payment:payment>";
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	// Attributes
 	private boolean capture;
 	private boolean test;
 
 	// Set by nested tags
-	private String orderNumber;
-	private String currencyCode;
-	private BigDecimal amount;
-	private BigDecimal taxAmount;
-	private boolean taxExempt;
-	private BigDecimal shippingAmount;
-	private BigDecimal dutyAmount;
-	private String merchantEmail;
-	private String invoiceNumber;
-	private String purchaseOrderNumber;
-	private String comment;
-	private String creditCardCardNumber;
-	private String creditCardMaskedCardNumber;
-	private byte creditCardExpirationMonth;
-	private short creditCardExpirationYear;
-	private String creditCardCardCode;
-	private String creditCardGUID;
-	private String creditCardFirstName;
-	private String creditCardLastName;
-	private String creditCardCompanyName;
-	private String creditCardStreetAddress1;
-	private String creditCardStreetAddress2;
-	private String creditCardCity;
-	private String creditCardCountryCode;
-	private String creditCardEmail;
-	private String creditCardPhone;
-	private String creditCardFax;
-	private String creditCardCustomerId;
-	private String creditCardCustomerTaxId;
-	private String creditCardState;
-	private String creditCardPostalCode;
-	private String creditCardComment;
-	private String shippingAddressFirstName;
-	private String shippingAddressLastName;
-	private String shippingAddressCompanyName;
-	private String shippingAddressStreetAddress1;
-	private String shippingAddressStreetAddress2;
-	private String shippingAddressCity;
-	private String shippingAddressState;
-	private String shippingAddressPostalCode;
-	private String shippingAddressCountryCode;
+	private transient String orderNumber;
+	private transient String currencyCode;
+	private transient BigDecimal amount;
+	private transient BigDecimal taxAmount;
+	private transient boolean taxExempt;
+	private transient BigDecimal shippingAmount;
+	private transient BigDecimal dutyAmount;
+	private transient String merchantEmail;
+	private transient String invoiceNumber;
+	private transient String purchaseOrderNumber;
+	private transient String comment;
+	private transient String creditCardCardNumber;
+	private transient String creditCardMaskedCardNumber;
+	private transient byte creditCardExpirationMonth;
+	private transient short creditCardExpirationYear;
+	private transient String creditCardCardCode;
+	private transient String creditCardGUID;
+	private transient String creditCardFirstName;
+	private transient String creditCardLastName;
+	private transient String creditCardCompanyName;
+	private transient String creditCardStreetAddress1;
+	private transient String creditCardStreetAddress2;
+	private transient String creditCardCity;
+	private transient String creditCardCountryCode;
+	private transient String creditCardEmail;
+	private transient String creditCardPhone;
+	private transient String creditCardFax;
+	private transient String creditCardCustomerId;
+	private transient String creditCardCustomerTaxId;
+	private transient String creditCardState;
+	private transient String creditCardPostalCode;
+	private transient String creditCardComment;
+	private transient String shippingAddressFirstName;
+	private transient String shippingAddressLastName;
+	private transient String shippingAddressCompanyName;
+	private transient String shippingAddressStreetAddress1;
+	private transient String shippingAddressStreetAddress2;
+	private transient String shippingAddressCity;
+	private transient String shippingAddressState;
+	private transient String shippingAddressPostalCode;
+	private transient String shippingAddressCountryCode;
 
 	/** The result of the processing. */
-	private AuthorizationResult authorizationResult;
+	private transient AuthorizationResult authorizationResult;
 
 	public PaymentTag() {
 		init();

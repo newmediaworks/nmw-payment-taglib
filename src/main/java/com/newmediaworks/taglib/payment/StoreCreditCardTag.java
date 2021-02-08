@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020, 2021  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -40,28 +40,28 @@ public class StoreCreditCardTag extends BodyTagSupport {
 
 	public static final String TAG_NAME = "<payment:storeCreditCard>";
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	// Set by nested tags
-	private String cardNumber;
-	private byte expirationMonth;
-	private short expirationYear;
-	private String cardCode;
-	private String firstName;
-	private String lastName;
-	private String companyName;
-	private String email;
-	private String phone;
-	private String fax;
-	private String customerId;
-	private String customerTaxId;
-	private String streetAddress1;
-	private String streetAddress2;
-	private String city;
-	private String state;
-	private String postalCode;
-	private String countryCode;
-	private String comment;
+	private transient String cardNumber;
+	private transient byte expirationMonth;
+	private transient short expirationYear;
+	private transient String cardCode;
+	private transient String firstName;
+	private transient String lastName;
+	private transient String companyName;
+	private transient String email;
+	private transient String phone;
+	private transient String fax;
+	private transient String customerId;
+	private transient String customerTaxId;
+	private transient String streetAddress1;
+	private transient String streetAddress2;
+	private transient String city;
+	private transient String state;
+	private transient String postalCode;
+	private transient String countryCode;
+	private transient String comment;
 
 	public StoreCreditCardTag() {
 		init();

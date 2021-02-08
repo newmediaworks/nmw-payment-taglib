@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020, 2021  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -139,8 +139,8 @@ public class UseProcessorTag extends BodyTagSupport {
 	}
 
 	// Set by nested tags
-	private String connectorName;
-	final private Map<String,String> parameters = new HashMap<>();
+	private transient String connectorName;
+	private transient Map<String,String> parameters;
 
 	public UseProcessorTag() {
 		init();
@@ -204,7 +204,11 @@ public class UseProcessorTag extends BodyTagSupport {
 
 	private void init() {
 		connectorName = null;
-		parameters.clear();
+		if(parameters == null) {
+			parameters = new HashMap<>();
+		} else {
+			parameters.clear();
+		}
 	}
 
 	/**
