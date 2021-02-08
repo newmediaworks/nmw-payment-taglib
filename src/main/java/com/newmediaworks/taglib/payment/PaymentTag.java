@@ -71,214 +71,256 @@ public class PaymentTag extends BodyTagSupport implements TryCatchFinally {
 
 	// <editor-fold desc="Set by nested tags">
 	private transient String orderNumber;
-	void setOrderNumber(String orderNumber) {
+	// Java 9: module-private
+	public void setOrderNumber(String orderNumber) {
 		this.orderNumber = orderNumber;
 	}
 
 	private transient String currencyCode;
-	void setCurrencyCode(String currencyCode) {
+	// Java 9: module-private
+	public void setCurrencyCode(String currencyCode) {
 		this.currencyCode = currencyCode;
 	}
 
 	private transient BigDecimal amount;
-	void setAmount(BigDecimal amount) {
+	// Java 9: module-private
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 
 	private transient BigDecimal taxAmount;
-	void setTaxAmount(BigDecimal taxAmount) {
+	// Java 9: module-private
+	public void setTaxAmount(BigDecimal taxAmount) {
 		this.taxAmount = taxAmount;
 	}
 
 	private transient boolean taxExempt;
-	void setTaxExempt(boolean taxExempt) {
+	// Java 9: module-private
+	public void setTaxExempt(boolean taxExempt) {
 		this.taxExempt = taxExempt;
 	}
 
 	private transient BigDecimal shippingAmount;
-	void setShippingAmount(BigDecimal shippingAmount) {
+	// Java 9: module-private
+	public void setShippingAmount(BigDecimal shippingAmount) {
 		this.shippingAmount = shippingAmount;
 	}
 
 	private transient BigDecimal dutyAmount;
-	void setDutyAmount(BigDecimal dutyAmount) {
+	// Java 9: module-private
+	public void setDutyAmount(BigDecimal dutyAmount) {
 		this.dutyAmount = dutyAmount;
 	}
 
 	private transient String merchantEmail;
-	void setMerchantEmail(String merchantEmail) {
+	// Java 9: module-private
+	public void setMerchantEmail(String merchantEmail) {
 		this.merchantEmail = merchantEmail;
 	}
 
 	private transient String invoiceNumber;
-	void setInvoiceNumber(String invoiceNumber) {
+	// Java 9: module-private
+	public void setInvoiceNumber(String invoiceNumber) {
 		this.invoiceNumber = invoiceNumber;
 	}
 
 	private transient String purchaseOrderNumber;
-	void setPurchaseOrderNumber(String purchaseOrderNumber) {
+	// Java 9: module-private
+	public void setPurchaseOrderNumber(String purchaseOrderNumber) {
 		this.purchaseOrderNumber = purchaseOrderNumber;
 	}
 
 	private transient String comment;
-	void setComment(String comment) {
+	// Java 9: module-private
+	public void setComment(String comment) {
 		this.comment = comment;
 	}
 
 	private transient String creditCardCardNumber;
-	void setCreditCardCardNumber(String creditCardCardNumber) {
+	// Java 9: module-private
+	public void setCreditCardCardNumber(String creditCardCardNumber) {
 		this.creditCardCardNumber = creditCardCardNumber;
 	}
 
 	private transient String creditCardMaskedCardNumber;
-	void setCreditCardMaskedCardNumber(String creditCardMaskedCardNumber) {
+	// Java 9: module-private
+	public void setCreditCardMaskedCardNumber(String creditCardMaskedCardNumber) {
 		this.creditCardMaskedCardNumber = creditCardMaskedCardNumber;
 	}
 
 	private transient byte creditCardExpirationMonth;
-	void setCreditCardExpirationMonth(byte creditCardExpirationMonth) {
+	// Java 9: module-private
+	public void setCreditCardExpirationMonth(byte creditCardExpirationMonth) {
 		this.creditCardExpirationMonth = creditCardExpirationMonth;
 	}
 
 	private transient short creditCardExpirationYear;
-	void setCreditCardExpirationYear(short creditCardExpirationYear) {
+	// Java 9: module-private
+	public void setCreditCardExpirationYear(short creditCardExpirationYear) {
 		this.creditCardExpirationYear = creditCardExpirationYear;
 	}
 
 	private transient String creditCardCardCode;
-	void setCreditCardCardCode(String creditCardCardCode) {
+	// Java 9: module-private
+	public void setCreditCardCardCode(String creditCardCardCode) {
 		this.creditCardCardCode = creditCardCardCode;
 	}
 
 	private transient String creditCardGUID;
-	void setCreditCardGUID(String creditCardGUID) {
+	// Java 9: module-private
+	public void setCreditCardGUID(String creditCardGUID) {
 		this.creditCardGUID = creditCardGUID;
 	}
 
 	private transient String creditCardFirstName;
-	void setCreditCardFirstName(String creditCardFirstName) {
+	// Java 9: module-private
+	public void setCreditCardFirstName(String creditCardFirstName) {
 		this.creditCardFirstName = creditCardFirstName;
 	}
 
 	private transient String creditCardLastName;
-	void setCreditCardLastName(String creditCardLastName) {
+	// Java 9: module-private
+	public void setCreditCardLastName(String creditCardLastName) {
 		this.creditCardLastName = creditCardLastName;
 	}
 
 	private transient String creditCardCompanyName;
-	void setCreditCardCompanyName(String creditCardCompanyName) {
+	// Java 9: module-private
+	public void setCreditCardCompanyName(String creditCardCompanyName) {
 		this.creditCardCompanyName = creditCardCompanyName;
 	}
 
 	private transient String creditCardStreetAddress1;
-	void setCreditCardStreetAddress1(String creditCardStreetAddress1) {
+	// Java 9: module-private
+	public void setCreditCardStreetAddress1(String creditCardStreetAddress1) {
 		this.creditCardStreetAddress1 = creditCardStreetAddress1;
 	}
 
 	private transient String creditCardStreetAddress2;
-	void setCreditCardStreetAddress2(String creditCardStreetAddress2) {
+	// Java 9: module-private
+	public void setCreditCardStreetAddress2(String creditCardStreetAddress2) {
 		this.creditCardStreetAddress2 = creditCardStreetAddress2;
 	}
 
 	private transient String creditCardCity;
-	void setCreditCardCity(String creditCardCity) {
+	// Java 9: module-private
+	public void setCreditCardCity(String creditCardCity) {
 		this.creditCardCity = creditCardCity;
 	}
 
 	private transient String creditCardCountryCode;
-	void setCreditCardCountryCode(String creditCardCountryCode) {
+	// Java 9: module-private
+	public void setCreditCardCountryCode(String creditCardCountryCode) {
 		this.creditCardCountryCode = creditCardCountryCode;
 	}
 
 	private transient String creditCardEmail;
-	void setCreditCardEmail(String creditCardEmail) {
+	// Java 9: module-private
+	public void setCreditCardEmail(String creditCardEmail) {
 		this.creditCardEmail = creditCardEmail;
 	}
 
 	private transient String creditCardPhone;
-	void setCreditCardPhone(String creditCardPhone) {
+	// Java 9: module-private
+	public void setCreditCardPhone(String creditCardPhone) {
 		this.creditCardPhone = creditCardPhone;
 	}
 
 	private transient String creditCardFax;
-	void setCreditCardFax(String creditCardFax) {
+	// Java 9: module-private
+	public void setCreditCardFax(String creditCardFax) {
 		this.creditCardFax = creditCardFax;
 	}
 
 	private transient String creditCardCustomerId;
-	void setCreditCardCustomerId(String creditCardCustomerId) {
+	// Java 9: module-private
+	public void setCreditCardCustomerId(String creditCardCustomerId) {
 		this.creditCardCustomerId = creditCardCustomerId;
 	}
 
 	private transient String creditCardCustomerTaxId;
-	void setCreditCardCustomerTaxId(String creditCardCustomerTaxId) {
+	// Java 9: module-private
+	public void setCreditCardCustomerTaxId(String creditCardCustomerTaxId) {
 		this.creditCardCustomerTaxId = creditCardCustomerTaxId;
 	}
 
 	private transient String creditCardState;
-	void setCreditCardState(String creditCardState) {
+	// Java 9: module-private
+	public void setCreditCardState(String creditCardState) {
 		this.creditCardState = creditCardState;
 	}
 
 	private transient String creditCardPostalCode;
-	void setCreditCardPostalCode(String creditCardPostalCode) {
+	// Java 9: module-private
+	public void setCreditCardPostalCode(String creditCardPostalCode) {
 		this.creditCardPostalCode = creditCardPostalCode;
 	}
 
 	private transient String creditCardComment;
-	void setCreditCardComment(String creditCardComment) {
+	// Java 9: module-private
+	public void setCreditCardComment(String creditCardComment) {
 		this.creditCardComment = creditCardComment;
 	}
 
 	private transient String shippingAddressFirstName;
-	void setShippingAddressFirstName(String shippingAddressFirstName) {
+	// Java 9: module-private
+	public void setShippingAddressFirstName(String shippingAddressFirstName) {
 		this.shippingAddressFirstName = shippingAddressFirstName;
 	}
 
 	private transient String shippingAddressLastName;
-	void setShippingAddressLastName(String shippingAddressLastName) {
+	// Java 9: module-private
+	public void setShippingAddressLastName(String shippingAddressLastName) {
 		this.shippingAddressLastName = shippingAddressLastName;
 	}
 
 	private transient String shippingAddressCompanyName;
-	void setShippingAddressCompanyName(String shippingAddressCompanyName) {
+	// Java 9: module-private
+	public void setShippingAddressCompanyName(String shippingAddressCompanyName) {
 		this.shippingAddressCompanyName = shippingAddressCompanyName;
 	}
 
 	private transient String shippingAddressStreetAddress1;
-	void setShippingAddressStreetAddress1(String shippingAddressStreetAddress1) {
+	// Java 9: module-private
+	public void setShippingAddressStreetAddress1(String shippingAddressStreetAddress1) {
 		this.shippingAddressStreetAddress1 = shippingAddressStreetAddress1;
 	}
 
 	private transient String shippingAddressStreetAddress2;
-	void setShippingAddressStreetAddress2(String shippingAddressStreetAddress2) {
+	// Java 9: module-private
+	public void setShippingAddressStreetAddress2(String shippingAddressStreetAddress2) {
 		this.shippingAddressStreetAddress2 = shippingAddressStreetAddress2;
 	}
 
 	private transient String shippingAddressCity;
-	void setShippingAddressCity(String shippingAddressCity) {
+	// Java 9: module-private
+	public void setShippingAddressCity(String shippingAddressCity) {
 		this.shippingAddressCity = shippingAddressCity;
 	}
 
 	private transient String shippingAddressState;
-	void setShippingAddressState(String shippingAddressState) {
+	// Java 9: module-private
+	public void setShippingAddressState(String shippingAddressState) {
 		this.shippingAddressState = shippingAddressState;
 	}
 
 	private transient String shippingAddressPostalCode;
-	void setShippingAddressPostalCode(String shippingAddressPostalCode) {
+	// Java 9: module-private
+	public void setShippingAddressPostalCode(String shippingAddressPostalCode) {
 		this.shippingAddressPostalCode = shippingAddressPostalCode;
 	}
 
 	private transient String shippingAddressCountryCode;
-	void setShippingAddressCountryCode(String shippingAddressCountryCode) {
+	// Java 9: module-private
+	public void setShippingAddressCountryCode(String shippingAddressCountryCode) {
 		this.shippingAddressCountryCode = shippingAddressCountryCode;
 	}
 	// </editor-fold>
 
 	// <editor-fold desc="The result of the processing">
 	private transient AuthorizationResult authorizationResult;
-	AuthorizationResult getAuthorizationResult() {
+	// Java 9: module-private
+	public AuthorizationResult getAuthorizationResult() {
 		return authorizationResult;
 	}
 	// </editor-fold>

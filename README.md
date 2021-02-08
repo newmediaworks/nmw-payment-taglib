@@ -30,12 +30,14 @@ JSP taglib encapsulating the [AO Credit Cards API](https://github.com/aoindustri
 * [Project Home](https://oss.newmediaworks.com/payment-taglib/)
 * [Changelog](https://oss.newmediaworks.com/payment-taglib/changelog)
 * [Taglib Reference](https://oss.newmediaworks.com/payment-taglib/nmw-payment.tld/)
+* [Taglib Reference (Legacy)](https://oss.newmediaworks.com/payment-taglib/nmw-payment-legacy.tld/)
 * [API Docs](https://oss.newmediaworks.com/payment-taglib/apidocs/)
 * [Maven Central Repository](https://search.maven.org/artifact/com.newmediaworks/nmw-payment-taglib)
 * [GitHub](https://github.com/newmediaworks/nmw-payment-taglib)
 
 ## Related Projects
 * [AO Credit Cards](https://github.com/aoindustries/ao-credit-cards)
+* [AO Encoding Taglib](https://github.com/aoindustries/ao-encoding-taglib)
 
 ## Contact Us
 For questions or support, please [contact us](https://www.newmediaworks.com/html/contact.html):

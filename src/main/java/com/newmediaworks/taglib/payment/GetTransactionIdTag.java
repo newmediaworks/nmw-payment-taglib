@@ -23,11 +23,12 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.AuthorizationResult;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.taglib.EncodingNullTag;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
+import java.io.Writer;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * Gets the per-processor unique transaction ID.
@@ -36,27 +37,35 @@ import javax.servlet.jsp.tagext.TagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class GetTransactionIdTag extends TagSupport {
+public class GetTransactionIdTag extends EncodingNullTag {
 
+/* SimpleTag only: */
 	public static final String TAG_NAME = "<payment:getTransactionId>";
-
-	public GetTransactionIdTag() {
-	}
-
-	private static final long serialVersionUID = 1L;
+/**/
 
 	@Override
-	public int doStartTag() throws JspException {
-		try {
-			PaymentTag paymentTag = JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class);
+	public MediaType getOutputType() {
+		return MediaType.TEXT;
+	}
 
-			AuthorizationResult authorizationResult = paymentTag.getAuthorizationResult();
+/* BodyTag only:
+	private static final long serialVersionUID = 1L;
+/**/
 
-			pageContext.getOut().write(authorizationResult.getProviderUniqueId());
+	@Override
+/* BodyTag only:
+	protected int doStartTag(Writer out) throws JspException, IOException {
+/**/
+/* SimpleTag only: */
+	protected void doTag(Writer out) throws JspException, IOException {
+/**/
+		PaymentTag paymentTag = JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class);
 
-			return SKIP_BODY;
-		} catch(IOException e) {
-			throw new JspTagException(e);
-		}
+		AuthorizationResult authorizationResult = paymentTag.getAuthorizationResult();
+
+		out.write(authorizationResult.getProviderUniqueId());
+/* BodyTag only:
+		return SKIP_BODY;
+/**/
 	}
 }

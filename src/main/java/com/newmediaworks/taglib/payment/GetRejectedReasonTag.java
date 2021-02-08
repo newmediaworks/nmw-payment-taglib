@@ -23,11 +23,12 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.AuthorizationResult;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.taglib.EncodingNullTag;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
+import java.io.Writer;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * Gets the rejected reason for a payment attempt.
@@ -36,26 +37,34 @@ import javax.servlet.jsp.tagext.TagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class GetRejectedReasonTag extends TagSupport {
+public class GetRejectedReasonTag extends EncodingNullTag {
 
+/* SimpleTag only: */
 	public static final String TAG_NAME = "<payment:getRejectedReason>";
-
-	public GetRejectedReasonTag() {
-	}
-
-	private static final long serialVersionUID = 1L;
+/**/
 
 	@Override
-	public int doStartTag() throws JspException {
-		try {
-			RejectedTag rejectedTag = JspTagUtils.requireAncestor(TAG_NAME, this, RejectedTag.TAG_NAME, RejectedTag.class);
-			PaymentTag paymentTag = JspTagUtils.requireAncestor(RejectedTag.TAG_NAME, rejectedTag, PaymentTag.TAG_NAME, PaymentTag.class);
+	public MediaType getOutputType() {
+		return MediaType.TEXT;
+	}
 
-			pageContext.getOut().write(paymentTag.getAuthorizationResult().getDeclineReason().toString());
+/* BodyTag only:
+	private static final long serialVersionUID = 1L;
+/**/
 
-			return SKIP_BODY;
-		} catch(IOException e) {
-			throw new JspTagException(e);
-		}
+	@Override
+/* BodyTag only:
+	protected int doStartTag(Writer out) throws JspException, IOException {
+/**/
+/* SimpleTag only: */
+	protected void doTag(Writer out) throws JspException, IOException {
+/**/
+		RejectedTag rejectedTag = JspTagUtils.requireAncestor(TAG_NAME, this, RejectedTag.TAG_NAME, RejectedTag.class);
+		PaymentTag paymentTag = JspTagUtils.requireAncestor(RejectedTag.TAG_NAME, rejectedTag, PaymentTag.TAG_NAME, PaymentTag.class);
+
+		out.write(paymentTag.getAuthorizationResult().getDeclineReason().toString());
+/* BodyTag only:
+		return SKIP_BODY;
+/**/
 	}
 }

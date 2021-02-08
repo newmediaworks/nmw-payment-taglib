@@ -23,9 +23,13 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.CreditCard;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.taglib.EncodingBufferedTag;
+import com.aoindustries.io.buffer.BufferResult;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
+import java.io.IOException;
+import java.io.Writer;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Provides the token of a stored credit card to a {@link CreditCardTag}.
@@ -34,26 +38,38 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class CreditCardGUIDTag extends BodyTagSupport {
+public class CreditCardGUIDTag extends EncodingBufferedTag {
 
+/* SimpleTag only: */
 	public static final String TAG_NAME = "<payment:creditCardGUID>";
+/**/
 
-	public CreditCardGUIDTag() {
+	@Override
+	public MediaType getContentType() {
+		return MediaType.TEXT;
 	}
 
+	@Override
+	public MediaType getOutputType() {
+		return null;
+	}
+
+/* BodyTag only:
 	private static final long serialVersionUID = 1L;
+/**/
 
 	@Override
-	public int doStartTag() throws JspException {
-		return EVAL_BODY_BUFFERED;
-	}
-
-	@Override
-	public int doEndTag() throws JspException {
+/* BodyTag only:
+	protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
+/* SimpleTag only: */
+	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
 		CreditCardTag creditCardTag = JspTagUtils.requireAncestor(TAG_NAME, this, CreditCardTag.TAG_NAME, CreditCardTag.class);
 		JspTagUtils.requireAncestor(CreditCardTag.TAG_NAME, creditCardTag, PaymentTag.TAG_NAME, PaymentTag.class)
-			.setCreditCardGUID(getBodyContent().getString().trim());
-
+			.setCreditCardGUID(capturedBody.trim().toString());
+/* BodyTag only:
 		return EVAL_PAGE;
+/**/
 	}
 }

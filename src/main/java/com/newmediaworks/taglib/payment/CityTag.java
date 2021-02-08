@@ -24,8 +24,12 @@ package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.creditcards.TransactionRequest;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.taglib.EncodingBufferedTag;
+import com.aoindustries.io.buffer.BufferResult;
+import java.io.IOException;
+import java.io.Writer;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Provides the city to a {@link StoreCreditCardTag},
@@ -37,30 +41,43 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class CityTag extends BodyTagSupport {
+public class CityTag extends EncodingBufferedTag {
 
+/* SimpleTag only: */
 	public static final String TAG_NAME = "<payment:city>";
+/**/
 
-	public CityTag() {
+	@Override
+	public MediaType getContentType() {
+		return MediaType.TEXT;
 	}
 
+	@Override
+	public MediaType getOutputType() {
+		return null;
+	}
+
+/* BodyTag only:
 	private static final long serialVersionUID = 1L;
+/**/
 
 	@Override
-	public int doStartTag() throws JspException {
-		return EVAL_BODY_BUFFERED;
-	}
-
-	@Override
-	public int doEndTag() throws JspException {
+/* BodyTag only:
+	protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
+/* SimpleTag only: */
+	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
 		PropertyHelper.setAddressProperty(
-			getBodyContent().getString().trim(),
+			capturedBody.trim().toString(),
 			TAG_NAME,
 			this,
 			StoreCreditCardTag::setCity,
 			PaymentTag::setCreditCardCity,
 			PaymentTag::setShippingAddressCity
 		);
+/* BodyTag only:
 		return EVAL_PAGE;
+/**/
 	}
 }

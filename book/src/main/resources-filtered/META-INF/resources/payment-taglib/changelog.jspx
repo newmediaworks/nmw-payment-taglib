@@ -37,7 +37,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-05-26T16:13:02-0500"
-		dateModified="2021-02-05T19:14:45-06:00"
+		dateModified="2021-02-07T23:29:56-06:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -49,6 +49,11 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 			>
 				<ul>
 					<li>
+						<strong>Taglib URI changed</strong> from <code>http://taglibs.newmediaworks.com/payment</code> to
+						<code>@{project.url}</code>.
+					</li>
+					<li>Updated dependencies.</li>
+					<li>
 						<p>
 							Upgraded to current version of <ao:a href="https://search.maven.org/artifact/com.stripe/stripe-java/20.36.0/jar">com.stripe:stripe-java:jar:20.36.0</ao:a>,
 							which uses <ao:a href="https://stripe.com/docs/upgrades#2020-08-27">Stripe API version 2020-08-27</ao:a>.
@@ -58,7 +63,6 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 							change the Stripe API version, otherwise they will just be part of "Updated dependencies".
 						</p>
 					</li>
-					<li>Updated dependencies.</li>
 					<li>
 						Cleaned-up use of <code>JspTagException</code> versus <code>JspException</code>.  Generally,
 						methods declare <code>throws JspException</code> while actually throwing instances of
@@ -71,7 +75,22 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 						<strong><ao:a href="https://aoindustries.com/ao-credit-cards/sagePayments/">AO Credit Cards Sage Payment Solutions</ao:a> has been deprecated.</strong>
 						We have removed support for it from this package.
 					</li>
-					<!-- TODO: Integrate with ao-encoding-taglib for the 2.0.0 release -->
+					<li>
+						<p>
+							Integrated with <ao:a href="https://aoindustries.com/ao-encoding/taglib/">AO Encoding Taglib</ao:a>
+							for automatic encoding based on tag context.  This means more seamless interaction with other
+							AO Encoding-aware tools, such as <ao:a href="https://aoindustries.com/ao-taglib/">AO Taglib</ao:a>.
+						</p>
+						<p>
+							As an example, use of <ao:a href="https://aoindustries.com/ao-taglib/ao.tld/tag-out"><![CDATA[&lt;ao:out&gt;]]></ao:a>
+							within <core:link page="nmw-payment.tld/tag-comment" /> will automatically encoding its output
+							as <ao:a href="https://aoindustries.com/ao-encoding/apidocs/com/aoindustries/encoding/MediaType.html#TEXT">TEXT</ao:a>.
+						</p>
+					</li>
+					<li>
+						Added <core:link page="nmw-payment-legacy.tld/">alternate implementation</core:link> compatible
+						with legacy JSP that use scriptlets.
+					</li>
 				</ul>
 			</changelog:release>
 		</c:if>

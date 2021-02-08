@@ -148,9 +148,10 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally {
 	/**
 	 * Sets the connector name.
 	 * 
-	 * @throws JspException if name already set.
+	 * @throws IllegalStateException if name already set.
 	 */
-	void setConnectorName(String connectorName) {
+	// Java 9: module-private
+	public void setConnectorName(String connectorName) throws IllegalStateException {
 		if(this.connectorName != null) throw new IllegalStateException("connectorName already set");
 		this.connectorName = connectorName;
 	}
@@ -159,9 +160,10 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally {
 	/**
 	 * Adds a parameter.
 	 * 
-	 * @throws JspException if name already set.
+	 * @throws IllegalStateException if name already set.
 	 */
-	void addParameter(String name, String value) {
+	// Java 9: module-private
+	public void addParameter(String name, String value) throws IllegalStateException {
 		if(this.parameters.containsKey(name)) throw new IllegalStateException("parameter already set: " + name);
 		this.parameters.put(name, value);
 	}

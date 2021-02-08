@@ -49,7 +49,8 @@ public class CaptureTag extends BodyTagSupport implements TryCatchFinally {
 
 	// <editor-fold desc="Set by nested tags">
 	private transient String transactionId;
-	void setTransactionId(String transactionId) {
+	// Java 9: module-private
+	public void setTransactionId(String transactionId) {
 		this.transactionId = transactionId;
 	}
 	// </editor-fold>

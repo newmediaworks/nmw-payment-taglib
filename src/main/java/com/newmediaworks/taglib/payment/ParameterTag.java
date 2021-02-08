@@ -22,10 +22,13 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.taglib.EncodingBufferedTag;
+import com.aoindustries.io.buffer.BufferResult;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
+import java.io.IOException;
+import java.io.Writer;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
-import javax.servlet.jsp.tagext.TryCatchFinally;
 
 /**
  * Provides a connector-specific parameter for the {@link UseProcessorTag}.
@@ -34,15 +37,29 @@ import javax.servlet.jsp.tagext.TryCatchFinally;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class ParameterTag extends BodyTagSupport implements TryCatchFinally {
+public class ParameterTag extends EncodingBufferedTag {
 
+/* SimpleTag only: */
 	public static final String TAG_NAME = "<payment:parameter>";
+/**/
 
 	public ParameterTag() {
 		init();
 	}
 
+	@Override
+	public MediaType getContentType() {
+		return MediaType.TEXT;
+	}
+
+	@Override
+	public MediaType getOutputType() {
+		return null;
+	}
+
+/* BodyTag only:
 	private static final long serialVersionUID = 1L;
+/**/
 
 	// <editor-fold desc="Attributes">
 	private String name;
@@ -60,25 +77,27 @@ public class ParameterTag extends BodyTagSupport implements TryCatchFinally {
 	}
 
 	@Override
-	public int doStartTag() throws JspException {
-		return EVAL_BODY_BUFFERED;
-	}
-
-	@Override
-	public int doEndTag() throws JspException {
+/* BodyTag only:
+	protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
+/* SimpleTag only: */
+	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
 		JspTagUtils.requireAncestor(TAG_NAME, this, UseProcessorTag.TAG_NAME, UseProcessorTag.class)
-			.addParameter(name, getBodyContent().getString().trim());
-
+			.addParameter(name, capturedBody.trim().toString());
+/* BodyTag only:
 		return EVAL_PAGE;
+/**/
 	}
 
-	@Override
-	public void doCatch(Throwable t) throws Throwable {
-		throw t;
-	}
-
+/* BodyTag only:
 	@Override
 	public void doFinally() {
-		init();
+		try {
+			init();
+		} finally {
+			super.doFinally();
+		}
 	}
+/**/
 }

@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2020  New Media Works
+ * Copyright (C) 2020, 2021  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -34,14 +34,16 @@ import javax.servlet.jsp.tagext.JspTag;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-class PropertyHelper {
+// Java 9: module-private
+public class PropertyHelper {
 
 	private PropertyHelper() {}
 
 	/**
 	 * Sets a value on a {@link StoreCreditCardTag} or {@link CreditCardTag} while verifying correct tag nesting.
 	 */
-	static <V> void setCardProperty(
+	// Java 9: module-private
+	public static <V> void setCardProperty(
 		V value,
 		String fromName,
 		JspTag from,
@@ -63,7 +65,8 @@ class PropertyHelper {
 	 * Sets a value on a {@link StoreCreditCardTag}, {@link CreditCardTag}, or {@link ShippingAddressTag} while
 	 * verifying correct tag nesting.
 	 */
-	static <V> void setAddressProperty(
+	// Java 9: module-private
+	public static <V> void setAddressProperty(
 		V value,
 		String fromName,
 		JspTag from,

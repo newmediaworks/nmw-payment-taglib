@@ -49,97 +49,116 @@ public class StoreCreditCardTag extends BodyTagSupport implements TryCatchFinall
 
 	// <editor-fold desc="Set by nested tags">
 	private transient String cardNumber;
-	void setCardNumber(String cardNumber) {
+	// Java 9: module-private
+	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
 	}
 
 	private transient byte expirationMonth;
-	void setExpirationMonth(byte expirationMonth) {
+	// Java 9: module-private
+	public void setExpirationMonth(byte expirationMonth) {
 		this.expirationMonth = expirationMonth;
 	}
 
 	private transient short expirationYear;
-	void setExpirationYear(short expirationYear) {
+	// Java 9: module-private
+	public void setExpirationYear(short expirationYear) {
 		this.expirationYear = expirationYear;
 	}
 
 	private transient String cardCode;
-	void setCardCode(String cardCode) {
+	// Java 9: module-private
+	public void setCardCode(String cardCode) {
 		this.cardCode = cardCode;
 	}
 
 	private transient String firstName;
-	void setFirstName(String firstName) {
+	// Java 9: module-private
+	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
 	private transient String lastName;
-	void setLastName(String lastName) {
+	// Java 9: module-private
+	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
 	private transient String companyName;
-	void setCompanyName(String companyName) {
+	// Java 9: module-private
+	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
 
 	private transient String email;
-	void setEmail(String email) {
+	// Java 9: module-private
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
 	private transient String phone;
-	void setPhone(String phone) {
+	// Java 9: module-private
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
 	private transient String fax;
-	void setFax(String fax) {
+	// Java 9: module-private
+	public void setFax(String fax) {
 		this.fax = fax;
 	}
 
 	private transient String customerId;
-	void setCustomerId(String customerId) {
+	// Java 9: module-private
+	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
 
 	private transient String customerTaxId;
-	void setCustomerTaxId(String customerTaxId) {
+	// Java 9: module-private
+	public void setCustomerTaxId(String customerTaxId) {
 		this.customerTaxId = customerTaxId;
 	}
 
 	private transient String streetAddress1;
-	void setStreetAddress1(String streetAddress1) {
+	// Java 9: module-private
+	public void setStreetAddress1(String streetAddress1) {
 		this.streetAddress1 = streetAddress1;
 	}
 
 	private transient String streetAddress2;
-	void setStreetAddress2(String streetAddress2) {
+	// Java 9: module-private
+	public void setStreetAddress2(String streetAddress2) {
 		this.streetAddress2 = streetAddress2;
 	}
 
 	private transient String city;
-	void setCity(String city) {
+	// Java 9: module-private
+	public void setCity(String city) {
 		this.city = city;
 	}
 
 	private transient String state;
-	void setState(String state) {
+	// Java 9: module-private
+	public void setState(String state) {
 		this.state = state;
 	}
 
 	private transient String postalCode;
-	void setPostalCode(String postalCode) {
+	// Java 9: module-private
+	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
 
 	private transient String countryCode;
-	void setCountryCode(String countryCode) {
+	// Java 9: module-private
+	public void setCountryCode(String countryCode) {
 		this.countryCode = countryCode;
 	}
 
 	private transient String comment;
-	void setComment(String comment) {
+	// Java 9: module-private
+	public void setComment(String comment) {
 		this.comment = comment;
 	}
 	// </editor-fold>

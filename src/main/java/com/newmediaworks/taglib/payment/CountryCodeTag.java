@@ -24,8 +24,12 @@ package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.creditcards.TransactionRequest;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.taglib.EncodingBufferedTag;
+import com.aoindustries.io.buffer.BufferResult;
+import java.io.IOException;
+import java.io.Writer;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Provides a two-digit <a href="https://wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code to a
@@ -38,30 +42,43 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class CountryCodeTag extends BodyTagSupport {
+public class CountryCodeTag extends EncodingBufferedTag {
 
+/* SimpleTag only: */
 	public static final String TAG_NAME = "<payment:countryCode>";
+/**/
 
-	public CountryCodeTag() {
+	@Override
+	public MediaType getContentType() {
+		return MediaType.TEXT;
 	}
 
+	@Override
+	public MediaType getOutputType() {
+		return null;
+	}
+
+/* BodyTag only:
 	private static final long serialVersionUID = 1L;
+/**/
 
 	@Override
-	public int doStartTag() throws JspException {
-		return EVAL_BODY_BUFFERED;
-	}
-
-	@Override
-	public int doEndTag() throws JspException {
+/* BodyTag only:
+	protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
+/* SimpleTag only: */
+	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
 		PropertyHelper.setAddressProperty(
-			getBodyContent().getString().trim(),
+			capturedBody.trim().toString(),
 			TAG_NAME,
 			this,
 			StoreCreditCardTag::setCountryCode,
 			PaymentTag::setCreditCardCountryCode,
 			PaymentTag::setShippingAddressCountryCode
 		);
+/* BodyTag only:
 		return EVAL_PAGE;
+/**/
 	}
 }

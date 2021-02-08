@@ -23,11 +23,12 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.AuthorizationResult;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.taglib.EncodingNullTag;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
+import java.io.Writer;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * Gets the AVS (address verification system) result.
@@ -36,26 +37,34 @@ import javax.servlet.jsp.tagext.TagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class GetAvsResultTag extends TagSupport {
+public class GetAvsResultTag extends EncodingNullTag {
 
+/* SimpleTag only: */
 	public static final String TAG_NAME = "<payment:getAvsResult>";
-
-	public GetAvsResultTag() {
-	}
-
-	private static final long serialVersionUID = 1L;
+/**/
 
 	@Override
-	public int doStartTag() throws JspException {
-		try {
-			PaymentTag paymentTag = JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class);
+	public MediaType getOutputType() {
+		return MediaType.TEXT;
+	}
 
-			AuthorizationResult.AvsResult avsResult = paymentTag.getAuthorizationResult().getAvsResult();
-			if(avsResult!=null) pageContext.getOut().write(avsResult.toString());
+/* BodyTag only:
+	private static final long serialVersionUID = 1L;
+/**/
 
-			return SKIP_BODY;
-		} catch(IOException e) {
-			throw new JspTagException(e);
-		}
+	@Override
+/* BodyTag only:
+	protected int doStartTag(Writer out) throws JspException, IOException {
+/**/
+/* SimpleTag only: */
+	protected void doTag(Writer out) throws JspException, IOException {
+/**/
+		PaymentTag paymentTag = JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class);
+
+		AuthorizationResult.AvsResult avsResult = paymentTag.getAuthorizationResult().getAvsResult();
+		if(avsResult != null) out.write(avsResult.toString());
+/* BodyTag only:
+		return SKIP_BODY;
+/**/
 	}
 }

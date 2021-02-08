@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2013, 2019  New Media Works
+ * Copyright (C) 2013, 2019, 2021  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -30,7 +30,8 @@ import java.util.Currency;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-final class CurrencyUtil {
+// Java 9: module-private
+public final class CurrencyUtil {
 
 	/**
 	 * Parsing for a currency.  Strips all <code>'$'</code> or <code>','</code>
@@ -40,7 +41,8 @@ final class CurrencyUtil {
 	 * Should probably not make public again until a more locale-aware implementation is provided.
 	 * </p>
 	 */
-	static BigDecimal parseCurrency(String value) {
+	// Java 9: module-private
+	public static BigDecimal parseCurrency(String value) {
 		if(value==null) return null;
 		return new BigDecimal(value.replace("$", "").replace(",", ""));
 	}

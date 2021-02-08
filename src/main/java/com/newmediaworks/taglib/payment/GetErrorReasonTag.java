@@ -23,11 +23,12 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.TransactionResult;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.taglib.EncodingNullTag;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
+import java.io.Writer;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * Gets the reason for a processing error.
@@ -38,33 +39,42 @@ import javax.servlet.jsp.tagext.TagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class GetErrorReasonTag extends TagSupport {
+public class GetErrorReasonTag extends EncodingNullTag {
 
+/* SimpleTag only: */
 	public static final String TAG_NAME = "<payment:getErrorReason>";
+/**/
 
-	public GetErrorReasonTag() {
+	@Override
+	public MediaType getOutputType() {
+		return MediaType.TEXT;
 	}
 
+/* BodyTag only:
 	private static final long serialVersionUID = 1L;
+/**/
 
 	@Override
 	@SuppressWarnings("UseOfSystemOutOrSystemErr")
-	public int doStartTag() throws JspException {
-		try {
-			ErrorTag errorTag = JspTagUtils.requireAncestor(TAG_NAME, this, ErrorTag.TAG_NAME, ErrorTag.class);
+/* BodyTag only:
+	protected int doStartTag(Writer out) throws JspException, IOException {
+/**/
+/* SimpleTag only: */
+	protected void doTag(Writer out) throws JspException, IOException {
+/**/
+		ErrorTag errorTag = JspTagUtils.requireAncestor(TAG_NAME, this, ErrorTag.TAG_NAME, ErrorTag.class);
 
-			TransactionResult result = errorTag.getTransactionResult();
-			pageContext.getOut().write(result.getErrorCode().toString());
-			System.err.println(
-				"Error from credit card transaction:\n"
-				+ "    providerUniqueId="+result.getProviderUniqueId()+"\n"
-				+ "    providerErrorCode="+result.getProviderErrorCode()+"\n"
-				+ "    providerErrorMessage="+result.getProviderErrorMessage()+"\n"
-				+ "    errorCode="+result.getErrorCode()+"\n"
-			);
-			return SKIP_BODY;
-		} catch(IOException e) {
-			throw new JspTagException(e);
-		}
+		TransactionResult result = errorTag.getTransactionResult();
+		out.write(result.getErrorCode().toString());
+		System.err.println(
+			"Error from credit card transaction:\n"
+			+ "    providerUniqueId="+result.getProviderUniqueId()+"\n"
+			+ "    providerErrorCode="+result.getProviderErrorCode()+"\n"
+			+ "    providerErrorMessage="+result.getProviderErrorMessage()+"\n"
+			+ "    errorCode="+result.getErrorCode()+"\n"
+		);
+/* BodyTag only:
+		return SKIP_BODY;
+/**/
 	}
 }

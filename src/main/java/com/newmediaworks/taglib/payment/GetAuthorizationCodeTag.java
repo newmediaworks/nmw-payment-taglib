@@ -23,11 +23,12 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.AuthorizationResult;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.taglib.EncodingNullTag;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
+import java.io.Writer;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * Gets the authorization code to display to the customer.
@@ -36,27 +37,35 @@ import javax.servlet.jsp.tagext.TagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class GetAuthorizationCodeTag extends TagSupport {
+public class GetAuthorizationCodeTag extends EncodingNullTag {
 
+/* SimpleTag only: */
 	public static final String TAG_NAME = "<payment:getAuthorizationCode>";
-
-	public GetAuthorizationCodeTag() {
-	}
-
-	private static final long serialVersionUID = 1L;
+/**/
 
 	@Override
-	public int doStartTag() throws JspException {
-		try {
-			AcceptedTag acceptedTag = JspTagUtils.requireAncestor(TAG_NAME, this, AcceptedTag.TAG_NAME, AcceptedTag.class);
-			PaymentTag paymentTag = JspTagUtils.requireAncestor(AcceptedTag.TAG_NAME, acceptedTag, PaymentTag.TAG_NAME, PaymentTag.class);
-			AuthorizationResult authorizationResult = paymentTag.getAuthorizationResult();
+	public MediaType getOutputType() {
+		return MediaType.TEXT;
+	}
 
-			pageContext.getOut().write(authorizationResult.getApprovalCode());
+/* BodyTag only:
+	private static final long serialVersionUID = 1L;
+/**/
 
-			return SKIP_BODY;
-		} catch(IOException e) {
-			throw new JspTagException(e);
-		}
+	@Override
+/* BodyTag only:
+	protected int doStartTag(Writer out) throws JspException, IOException {
+/**/
+/* SimpleTag only: */
+	protected void doTag(Writer out) throws JspException, IOException {
+/**/
+		AcceptedTag acceptedTag = JspTagUtils.requireAncestor(TAG_NAME, this, AcceptedTag.TAG_NAME, AcceptedTag.class);
+		PaymentTag paymentTag = JspTagUtils.requireAncestor(AcceptedTag.TAG_NAME, acceptedTag, PaymentTag.TAG_NAME, PaymentTag.class);
+		AuthorizationResult authorizationResult = paymentTag.getAuthorizationResult();
+
+		out.write(authorizationResult.getApprovalCode());
+/* BodyTag only:
+		return SKIP_BODY;
+/**/
 	}
 }

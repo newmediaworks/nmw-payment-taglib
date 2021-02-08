@@ -56,7 +56,8 @@ public class ErrorTag extends BodyTagSupport {
 	/**
 	 * Gets the transaction result from one of the outer payment, capture, or void tags.
 	 */
-	TransactionResult getTransactionResult() throws JspException {
+	// Java 9: module-private
+	public TransactionResult getTransactionResult() throws JspException {
 		// Java 9: ifPresentOrElse
 		Optional<PaymentTag> paymentTag = JspTagUtils.findAncestor(this, PaymentTag.class);
 		if(paymentTag.isPresent()) return paymentTag.get().getAuthorizationResult();

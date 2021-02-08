@@ -23,10 +23,14 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.AuthorizationResult;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.taglib.EncodingBufferedTag;
+import com.aoindustries.io.buffer.BufferResult;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Optional;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Provides the transaction ID to a {@link CaptureTag}
@@ -36,23 +40,34 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class TransactionIdTag extends BodyTagSupport {
+public class TransactionIdTag extends EncodingBufferedTag {
 
+/* SimpleTag only: */
 	public static final String TAG_NAME = "<payment:transactionId>";
+/**/
 
-	public TransactionIdTag() {
+	@Override
+	public MediaType getContentType() {
+		return MediaType.TEXT;
 	}
 
+	@Override
+	public MediaType getOutputType() {
+		return null;
+	}
+
+/* BodyTag only:
 	private static final long serialVersionUID = 1L;
+/**/
 
 	@Override
-	public int doStartTag() throws JspException {
-		return EVAL_BODY_BUFFERED;
-	}
-
-	@Override
-	public int doEndTag() throws JspException {
-		String transactionId = getBodyContent().getString().trim();
+/* BodyTag only:
+	protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
+/* SimpleTag only: */
+	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
+		String transactionId = capturedBody.trim().toString();
 		// Java 9: Optional.ifPresentOrElse
 		Optional<CaptureTag> captureTag = JspTagUtils.findAncestor(this, CaptureTag.class);
 		if(captureTag.isPresent()) {
@@ -61,7 +76,8 @@ public class TransactionIdTag extends BodyTagSupport {
 			JspTagUtils.requireAncestor(TAG_NAME, this, CaptureTag.TAG_NAME + " or " + VoidTag.TAG_NAME, VoidTag.class)
 				.setTransactionId(transactionId);
 		}
-
+/* BodyTag only:
 		return EVAL_PAGE;
+/**/
 	}
 }

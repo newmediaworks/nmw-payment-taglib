@@ -23,9 +23,13 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.CreditCard;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.taglib.EncodingBufferedTag;
+import com.aoindustries.io.buffer.BufferResult;
+import java.io.IOException;
+import java.io.Writer;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Provides the expiration month to either a {@link StoreCreditCardTag}
@@ -35,23 +39,34 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class ExpirationMonthTag extends BodyTagSupport {
+public class ExpirationMonthTag extends EncodingBufferedTag {
 
+/* SimpleTag only: */
 	public static final String TAG_NAME = "<payment:expirationMonth>";
+/**/
 
-	public ExpirationMonthTag() {
+	@Override
+	public MediaType getContentType() {
+		return MediaType.TEXT;
 	}
 
+	@Override
+	public MediaType getOutputType() {
+		return null;
+	}
+
+/* BodyTag only:
 	private static final long serialVersionUID = 1L;
+/**/
 
 	@Override
-	public int doStartTag() throws JspException {
-		return EVAL_BODY_BUFFERED;
-	}
-
-	@Override
-	public int doEndTag() throws JspException {
-		String expirationMonthString = getBodyContent().getString().trim();
+/* BodyTag only:
+	protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
+/* SimpleTag only: */
+	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
+		String expirationMonthString = capturedBody.trim().toString();
 		byte expirationMonth;
 		try {
 			expirationMonth = Byte.parseByte(expirationMonthString);
@@ -67,7 +82,8 @@ public class ExpirationMonthTag extends BodyTagSupport {
 			StoreCreditCardTag::setExpirationMonth,
 			PaymentTag::setCreditCardExpirationMonth
 		);
-
+/* BodyTag only:
 		return EVAL_PAGE;
+/**/
 	}
 }

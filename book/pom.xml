@@ -111,7 +111,10 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 								<artifactItem>
 									<groupId>com.newmediaworks</groupId><artifactId>nmw-payment-taglib</artifactId><version>2.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 									<type>jar</type>
-									<includes>META-INF/nmw-payment.tld</includes>
+									<includes>
+										META-INF/nmw-payment.tld,
+										META-INF/nmw-payment-legacy.tld
+									</includes>
 								</artifactItem>
 							</artifactItems>
 						</configuration>
@@ -135,6 +138,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 									<directory>${project.build.directory}/dependency/META-INF</directory>
 									<includes>
 										<include>nmw-payment.tld</include>
+										<include>nmw-payment-legacy.tld</include>
 									</includes>
 								</resource>
 							</resources>

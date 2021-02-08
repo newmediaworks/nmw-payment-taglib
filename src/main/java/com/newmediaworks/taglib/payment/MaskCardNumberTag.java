@@ -23,10 +23,12 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.CreditCard;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.taglib.EncodingBufferedTag;
+import com.aoindustries.io.buffer.BufferResult;
 import java.io.IOException;
+import java.io.Writer;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Masks a credit card number by only showing the first and last digits, hiding all the middle digits.
@@ -35,26 +37,32 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class MaskCardNumberTag extends BodyTagSupport {
+public class MaskCardNumberTag extends EncodingBufferedTag {
 
-	public MaskCardNumberTag() {
+	@Override
+	public MediaType getContentType() {
+		return MediaType.TEXT;
 	}
 
+	@Override
+	public MediaType getOutputType() {
+		return MediaType.TEXT;
+	}
+
+/* BodyTag only:
 	private static final long serialVersionUID = 1L;
+/**/
 
 	@Override
-	public int doStartTag() throws JspException {
-		return EVAL_BODY_BUFFERED;
-	}
-
-	@Override
-	public int doEndTag() throws JspException {
-		try {
-			pageContext.getOut().print(CreditCard.maskCreditCardNumber(getBodyContent().getString().trim()));
-
-			return EVAL_PAGE;
-		} catch(IOException e) {
-			throw new JspTagException(e);
-		}
+/* BodyTag only:
+	protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
+/* SimpleTag only: */
+	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
+		out.write(CreditCard.maskCreditCardNumber(capturedBody.trim().toString()));
+/* BodyTag only:
+		return EVAL_PAGE;
+/**/
 	}
 }

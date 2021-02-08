@@ -23,11 +23,15 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.TransactionRequest;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.taglib.EncodingBufferedTag;
+import com.aoindustries.io.buffer.BufferResult;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
+import java.io.IOException;
+import java.io.Writer;
 import java.math.BigDecimal;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Provides the shipping amount to a {@link PaymentTag}.
@@ -36,23 +40,34 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class ShippingAmountTag extends BodyTagSupport {
+public class ShippingAmountTag extends EncodingBufferedTag {
 
+/* SimpleTag only: */
 	public static final String TAG_NAME = "<payment:shippingAmount>";
+/**/
 
-	public ShippingAmountTag() {
+	@Override
+	public MediaType getContentType() {
+		return MediaType.TEXT;
 	}
 
+	@Override
+	public MediaType getOutputType() {
+		return null;
+	}
+
+/* BodyTag only:
 	private static final long serialVersionUID = 1L;
+/**/
 
 	@Override
-	public int doStartTag() throws JspException {
-		return EVAL_BODY_BUFFERED;
-	}
-
-	@Override
-	public int doEndTag() throws JspException {
-		String shippingAmountString = getBodyContent().getString().trim();
+/* BodyTag only:
+	protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
+/* SimpleTag only: */
+	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
+		String shippingAmountString = capturedBody.trim().toString();
 		BigDecimal shippingAmount;
 		try {
 			shippingAmount = CurrencyUtil.parseCurrency(shippingAmountString);
@@ -61,7 +76,8 @@ public class ShippingAmountTag extends BodyTagSupport {
 		}
 		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class)
 			.setShippingAmount(shippingAmount);
-
+/* BodyTag only:
 		return EVAL_PAGE;
+/**/
 	}
 }

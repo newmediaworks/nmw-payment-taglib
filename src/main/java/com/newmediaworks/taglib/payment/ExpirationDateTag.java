@@ -23,11 +23,15 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.CreditCard;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.taglib.EncodingBufferedTag;
+import com.aoindustries.io.buffer.BufferResult;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Optional;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Provides the expiration month and year to either a {@link StoreCreditCardTag}
@@ -38,23 +42,34 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class ExpirationDateTag extends BodyTagSupport {
+public class ExpirationDateTag extends EncodingBufferedTag {
 
+/* SimpleTag only: */
 	public static final String TAG_NAME = "<payment:expirationDate>";
+/**/
 
-	public ExpirationDateTag() {
+	@Override
+	public MediaType getContentType() {
+		return MediaType.TEXT;
 	}
 
+	@Override
+	public MediaType getOutputType() {
+		return null;
+	}
+
+/* BodyTag only:
 	private static final long serialVersionUID = 1L;
+/**/
 
 	@Override
-	public int doStartTag() throws JspException {
-		return EVAL_BODY_BUFFERED;
-	}
-
-	@Override
-	public int doEndTag() throws JspException {
-		String expirationDateString = getBodyContent().getString().trim();
+/* BodyTag only:
+	protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
+/* SimpleTag only: */
+	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+/**/
+		String expirationDateString = capturedBody.trim().toString();
 		int slashPos = expirationDateString.indexOf('/');
 		if(slashPos==-1) throw new JspTagException("Invalid expirationDate, unable to find / : "+expirationDateString);
 
@@ -86,7 +101,8 @@ public class ExpirationDateTag extends BodyTagSupport {
 			paymentTag.setCreditCardExpirationMonth(expirationMonth);
 			paymentTag.setCreditCardExpirationYear(expirationYear);
 		}
-
+/* BodyTag only:
 		return EVAL_PAGE;
+/**/
 	}
 }

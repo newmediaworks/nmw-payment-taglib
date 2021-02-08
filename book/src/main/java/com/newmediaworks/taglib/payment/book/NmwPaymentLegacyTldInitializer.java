@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2019, 2020  New Media Works
+ * Copyright (C) 2021  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -24,19 +24,20 @@ package com.newmediaworks.taglib.payment.book;
 
 import com.semanticcms.tagreference.TagReferenceInitializer;
 
-public class NmwPaymentTldInitializer extends TagReferenceInitializer {
+public class NmwPaymentLegacyTldInitializer extends TagReferenceInitializer {
 
-	public NmwPaymentTldInitializer() {
+	public NmwPaymentLegacyTldInitializer() {
 		super(
-			Maven.properties.getProperty("documented.name") + " Reference",
-			"Taglib Reference",
+			Maven.properties.getProperty("documented.name") + " Reference (Legacy)",
+			"Taglib Reference (Legacy)",
 			"/payment-taglib",
-			"/nmw-payment.tld",
+			"/nmw-payment-legacy.tld",
 			true,
 			Maven.properties.getProperty("documented.javadoc.link.javase"),
 			Maven.properties.getProperty("documented.javadoc.link.javaee"),
 			// Self
-			"com.newmediaworks.taglib.payment", Maven.properties.getProperty("project.url") + "apidocs/"
+			"com.newmediaworks.taglib.payment", Maven.properties.getProperty("project.url") + "apidocs/",
+			"com.newmediaworks.taglib.payment.legacy", Maven.properties.getProperty("project.url") + "apidocs/"
 		);
 	}
 }
