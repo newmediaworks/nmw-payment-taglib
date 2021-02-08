@@ -31,6 +31,7 @@ import java.util.Currency;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.TryCatchFinally;
 
 /**
  * Processes a credit card transaction.
@@ -40,89 +41,253 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class PaymentTag extends BodyTagSupport {
+public class PaymentTag extends BodyTagSupport implements TryCatchFinally {
 
 	public static final String TAG_NAME = "<payment:payment>";
-
-	private static final long serialVersionUID = 2L;
-
-	// Attributes
-	private boolean capture;
-	private boolean test;
-
-	// Set by nested tags
-	private transient String orderNumber;
-	private transient String currencyCode;
-	private transient BigDecimal amount;
-	private transient BigDecimal taxAmount;
-	private transient boolean taxExempt;
-	private transient BigDecimal shippingAmount;
-	private transient BigDecimal dutyAmount;
-	private transient String merchantEmail;
-	private transient String invoiceNumber;
-	private transient String purchaseOrderNumber;
-	private transient String comment;
-	private transient String creditCardCardNumber;
-	private transient String creditCardMaskedCardNumber;
-	private transient byte creditCardExpirationMonth;
-	private transient short creditCardExpirationYear;
-	private transient String creditCardCardCode;
-	private transient String creditCardGUID;
-	private transient String creditCardFirstName;
-	private transient String creditCardLastName;
-	private transient String creditCardCompanyName;
-	private transient String creditCardStreetAddress1;
-	private transient String creditCardStreetAddress2;
-	private transient String creditCardCity;
-	private transient String creditCardCountryCode;
-	private transient String creditCardEmail;
-	private transient String creditCardPhone;
-	private transient String creditCardFax;
-	private transient String creditCardCustomerId;
-	private transient String creditCardCustomerTaxId;
-	private transient String creditCardState;
-	private transient String creditCardPostalCode;
-	private transient String creditCardComment;
-	private transient String shippingAddressFirstName;
-	private transient String shippingAddressLastName;
-	private transient String shippingAddressCompanyName;
-	private transient String shippingAddressStreetAddress1;
-	private transient String shippingAddressStreetAddress2;
-	private transient String shippingAddressCity;
-	private transient String shippingAddressState;
-	private transient String shippingAddressPostalCode;
-	private transient String shippingAddressCountryCode;
-
-	/** The result of the processing. */
-	private transient AuthorizationResult authorizationResult;
 
 	public PaymentTag() {
 		init();
 	}
 
-	@Override
-	public int doStartTag() throws JspException {
-		// Make sure the processor is set
-		MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
-		if(processor==null) throw new JspTagException("processor not set, please set processor with the useProcessor tag first");
-		return EVAL_BODY_INCLUDE;
+	private static final long serialVersionUID = 2L;
+
+	// <editor-fold desc="Attributes">
+	private boolean capture;
+	public boolean getCapture() {
+		return capture;
+	}
+	public void setCapture(boolean capture) {
+		this.capture = capture;
 	}
 
-	@Override
-	public int doEndTag() throws JspException {
-		init();
-		return EVAL_PAGE;
+	private boolean test;
+	public boolean getTest() {
+		return test;
+	}
+	public void setTest(boolean test) {
+		this.test = test;
+	}
+	// </editor-fold>
+
+	// <editor-fold desc="Set by nested tags">
+	private transient String orderNumber;
+	void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
 	}
 
-	@Override
-	public void release() {
-		super.release();
-		init();
+	private transient String currencyCode;
+	void setCurrencyCode(String currencyCode) {
+		this.currencyCode = currencyCode;
 	}
+
+	private transient BigDecimal amount;
+	void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
+	private transient BigDecimal taxAmount;
+	void setTaxAmount(BigDecimal taxAmount) {
+		this.taxAmount = taxAmount;
+	}
+
+	private transient boolean taxExempt;
+	void setTaxExempt(boolean taxExempt) {
+		this.taxExempt = taxExempt;
+	}
+
+	private transient BigDecimal shippingAmount;
+	void setShippingAmount(BigDecimal shippingAmount) {
+		this.shippingAmount = shippingAmount;
+	}
+
+	private transient BigDecimal dutyAmount;
+	void setDutyAmount(BigDecimal dutyAmount) {
+		this.dutyAmount = dutyAmount;
+	}
+
+	private transient String merchantEmail;
+	void setMerchantEmail(String merchantEmail) {
+		this.merchantEmail = merchantEmail;
+	}
+
+	private transient String invoiceNumber;
+	void setInvoiceNumber(String invoiceNumber) {
+		this.invoiceNumber = invoiceNumber;
+	}
+
+	private transient String purchaseOrderNumber;
+	void setPurchaseOrderNumber(String purchaseOrderNumber) {
+		this.purchaseOrderNumber = purchaseOrderNumber;
+	}
+
+	private transient String comment;
+	void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	private transient String creditCardCardNumber;
+	void setCreditCardCardNumber(String creditCardCardNumber) {
+		this.creditCardCardNumber = creditCardCardNumber;
+	}
+
+	private transient String creditCardMaskedCardNumber;
+	void setCreditCardMaskedCardNumber(String creditCardMaskedCardNumber) {
+		this.creditCardMaskedCardNumber = creditCardMaskedCardNumber;
+	}
+
+	private transient byte creditCardExpirationMonth;
+	void setCreditCardExpirationMonth(byte creditCardExpirationMonth) {
+		this.creditCardExpirationMonth = creditCardExpirationMonth;
+	}
+
+	private transient short creditCardExpirationYear;
+	void setCreditCardExpirationYear(short creditCardExpirationYear) {
+		this.creditCardExpirationYear = creditCardExpirationYear;
+	}
+
+	private transient String creditCardCardCode;
+	void setCreditCardCardCode(String creditCardCardCode) {
+		this.creditCardCardCode = creditCardCardCode;
+	}
+
+	private transient String creditCardGUID;
+	void setCreditCardGUID(String creditCardGUID) {
+		this.creditCardGUID = creditCardGUID;
+	}
+
+	private transient String creditCardFirstName;
+	void setCreditCardFirstName(String creditCardFirstName) {
+		this.creditCardFirstName = creditCardFirstName;
+	}
+
+	private transient String creditCardLastName;
+	void setCreditCardLastName(String creditCardLastName) {
+		this.creditCardLastName = creditCardLastName;
+	}
+
+	private transient String creditCardCompanyName;
+	void setCreditCardCompanyName(String creditCardCompanyName) {
+		this.creditCardCompanyName = creditCardCompanyName;
+	}
+
+	private transient String creditCardStreetAddress1;
+	void setCreditCardStreetAddress1(String creditCardStreetAddress1) {
+		this.creditCardStreetAddress1 = creditCardStreetAddress1;
+	}
+
+	private transient String creditCardStreetAddress2;
+	void setCreditCardStreetAddress2(String creditCardStreetAddress2) {
+		this.creditCardStreetAddress2 = creditCardStreetAddress2;
+	}
+
+	private transient String creditCardCity;
+	void setCreditCardCity(String creditCardCity) {
+		this.creditCardCity = creditCardCity;
+	}
+
+	private transient String creditCardCountryCode;
+	void setCreditCardCountryCode(String creditCardCountryCode) {
+		this.creditCardCountryCode = creditCardCountryCode;
+	}
+
+	private transient String creditCardEmail;
+	void setCreditCardEmail(String creditCardEmail) {
+		this.creditCardEmail = creditCardEmail;
+	}
+
+	private transient String creditCardPhone;
+	void setCreditCardPhone(String creditCardPhone) {
+		this.creditCardPhone = creditCardPhone;
+	}
+
+	private transient String creditCardFax;
+	void setCreditCardFax(String creditCardFax) {
+		this.creditCardFax = creditCardFax;
+	}
+
+	private transient String creditCardCustomerId;
+	void setCreditCardCustomerId(String creditCardCustomerId) {
+		this.creditCardCustomerId = creditCardCustomerId;
+	}
+
+	private transient String creditCardCustomerTaxId;
+	void setCreditCardCustomerTaxId(String creditCardCustomerTaxId) {
+		this.creditCardCustomerTaxId = creditCardCustomerTaxId;
+	}
+
+	private transient String creditCardState;
+	void setCreditCardState(String creditCardState) {
+		this.creditCardState = creditCardState;
+	}
+
+	private transient String creditCardPostalCode;
+	void setCreditCardPostalCode(String creditCardPostalCode) {
+		this.creditCardPostalCode = creditCardPostalCode;
+	}
+
+	private transient String creditCardComment;
+	void setCreditCardComment(String creditCardComment) {
+		this.creditCardComment = creditCardComment;
+	}
+
+	private transient String shippingAddressFirstName;
+	void setShippingAddressFirstName(String shippingAddressFirstName) {
+		this.shippingAddressFirstName = shippingAddressFirstName;
+	}
+
+	private transient String shippingAddressLastName;
+	void setShippingAddressLastName(String shippingAddressLastName) {
+		this.shippingAddressLastName = shippingAddressLastName;
+	}
+
+	private transient String shippingAddressCompanyName;
+	void setShippingAddressCompanyName(String shippingAddressCompanyName) {
+		this.shippingAddressCompanyName = shippingAddressCompanyName;
+	}
+
+	private transient String shippingAddressStreetAddress1;
+	void setShippingAddressStreetAddress1(String shippingAddressStreetAddress1) {
+		this.shippingAddressStreetAddress1 = shippingAddressStreetAddress1;
+	}
+
+	private transient String shippingAddressStreetAddress2;
+	void setShippingAddressStreetAddress2(String shippingAddressStreetAddress2) {
+		this.shippingAddressStreetAddress2 = shippingAddressStreetAddress2;
+	}
+
+	private transient String shippingAddressCity;
+	void setShippingAddressCity(String shippingAddressCity) {
+		this.shippingAddressCity = shippingAddressCity;
+	}
+
+	private transient String shippingAddressState;
+	void setShippingAddressState(String shippingAddressState) {
+		this.shippingAddressState = shippingAddressState;
+	}
+
+	private transient String shippingAddressPostalCode;
+	void setShippingAddressPostalCode(String shippingAddressPostalCode) {
+		this.shippingAddressPostalCode = shippingAddressPostalCode;
+	}
+
+	private transient String shippingAddressCountryCode;
+	void setShippingAddressCountryCode(String shippingAddressCountryCode) {
+		this.shippingAddressCountryCode = shippingAddressCountryCode;
+	}
+	// </editor-fold>
+
+	// <editor-fold desc="The result of the processing">
+	private transient AuthorizationResult authorizationResult;
+	AuthorizationResult getAuthorizationResult() {
+		return authorizationResult;
+	}
+	// </editor-fold>
 
 	private void init() {
+		// Attributes
 		capture = true;
 		test = false;
+		// Set by nested tags
 		orderNumber = null;
 		currencyCode = null;
 		amount = null;
@@ -164,187 +329,16 @@ public class PaymentTag extends BodyTagSupport {
 		shippingAddressState = null;
 		shippingAddressPostalCode = null;
 		shippingAddressCountryCode = null;
+		// The result of the processing
 		authorizationResult = null;
 	}
 
-	public boolean getCapture() {
-		return capture;
-	}
-
-	public void setCapture(boolean capture) {
-		this.capture = capture;
-	}
-
-	public boolean getTest() {
-		return test;
-	}
-
-	public void setTest(boolean test) {
-		this.test = test;
-	}
-
-	void setOrderNumber(String orderNumber) {
-		this.orderNumber = orderNumber;
-	}
-
-	void setCurrencyCode(String currencyCode) {
-		this.currencyCode = currencyCode;
-	}
-
-	void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
-
-	void setTaxAmount(BigDecimal taxAmount) {
-		this.taxAmount = taxAmount;
-	}
-
-	void setTaxExempt(boolean taxExempt) {
-		this.taxExempt = taxExempt;
-	}
-
-	void setShippingAmount(BigDecimal shippingAmount) {
-		this.shippingAmount = shippingAmount;
-	}
-
-	void setDutyAmount(BigDecimal dutyAmount) {
-		this.dutyAmount = dutyAmount;
-	}
-
-	void setMerchantEmail(String merchantEmail) {
-		this.merchantEmail = merchantEmail;
-	}
-
-	void setInvoiceNumber(String invoiceNumber) {
-		this.invoiceNumber = invoiceNumber;
-	}
-
-	void setPurchaseOrderNumber(String purchaseOrderNumber) {
-		this.purchaseOrderNumber = purchaseOrderNumber;
-	}
-
-	void setComment(String comment) {
-		this.comment = comment;
-	}
-
-	void setCreditCardCardNumber(String creditCardCardNumber) {
-		this.creditCardCardNumber = creditCardCardNumber;
-	}
-
-	void setCreditCardMaskedCardNumber(String creditCardMaskedCardNumber) {
-		this.creditCardMaskedCardNumber = creditCardMaskedCardNumber;
-	}
-
-	void setCreditCardExpirationMonth(byte creditCardExpirationMonth) {
-		this.creditCardExpirationMonth = creditCardExpirationMonth;
-	}
-
-	void setCreditCardExpirationYear(short creditCardExpirationYear) {
-		this.creditCardExpirationYear = creditCardExpirationYear;
-	}
-
-	void setCreditCardCardCode(String creditCardCardCode) {
-		this.creditCardCardCode = creditCardCardCode;
-	}
-
-	void setCreditCardGUID(String creditCardGUID) {
-		this.creditCardGUID = creditCardGUID;
-	}
-
-	void setCreditCardFirstName(String creditCardFirstName) {
-		this.creditCardFirstName = creditCardFirstName;
-	}
-
-	void setCreditCardLastName(String creditCardLastName) {
-		this.creditCardLastName = creditCardLastName;
-	}
-
-	void setCreditCardCompanyName(String creditCardCompanyName) {
-		this.creditCardCompanyName = creditCardCompanyName;
-	}
-
-	void setCreditCardStreetAddress1(String creditCardStreetAddress1) {
-		this.creditCardStreetAddress1 = creditCardStreetAddress1;
-	}
-
-	void setCreditCardStreetAddress2(String creditCardStreetAddress2) {
-		this.creditCardStreetAddress2 = creditCardStreetAddress2;
-	}
-
-	void setCreditCardCity(String creditCardCity) {
-		this.creditCardCity = creditCardCity;
-	}
-
-	void setCreditCardCountryCode(String creditCardCountryCode) {
-		this.creditCardCountryCode = creditCardCountryCode;
-	}
-
-	void setCreditCardEmail(String creditCardEmail) {
-		this.creditCardEmail = creditCardEmail;
-	}
-
-	void setCreditCardPhone(String creditCardPhone) {
-		this.creditCardPhone = creditCardPhone;
-	}
-
-	void setCreditCardFax(String creditCardFax) {
-		this.creditCardFax = creditCardFax;
-	}
-
-	void setCreditCardCustomerId(String creditCardCustomerId) {
-		this.creditCardCustomerId = creditCardCustomerId;
-	}
-
-	void setCreditCardCustomerTaxId(String creditCardCustomerTaxId) {
-		this.creditCardCustomerTaxId = creditCardCustomerTaxId;
-	}
-
-	void setCreditCardState(String creditCardState) {
-		this.creditCardState = creditCardState;
-	}
-
-	void setCreditCardPostalCode(String creditCardPostalCode) {
-		this.creditCardPostalCode = creditCardPostalCode;
-	}
-
-	void setCreditCardComment(String creditCardComment) {
-		this.creditCardComment = creditCardComment;
-	}
-
-	void setShippingAddressFirstName(String shippingAddressFirstName) {
-		this.shippingAddressFirstName = shippingAddressFirstName;
-	}
-
-	void setShippingAddressLastName(String shippingAddressLastName) {
-		this.shippingAddressLastName = shippingAddressLastName;
-	}
-
-	void setShippingAddressCompanyName(String shippingAddressCompanyName) {
-		this.shippingAddressCompanyName = shippingAddressCompanyName;
-	}
-
-	void setShippingAddressStreetAddress1(String shippingAddressStreetAddress1) {
-		this.shippingAddressStreetAddress1 = shippingAddressStreetAddress1;
-	}
-
-	void setShippingAddressStreetAddress2(String shippingAddressStreetAddress2) {
-		this.shippingAddressStreetAddress2 = shippingAddressStreetAddress2;
-	}
-
-	void setShippingAddressCity(String shippingAddressCity) {
-		this.shippingAddressCity = shippingAddressCity;
-	}
-
-	void setShippingAddressState(String shippingAddressState) {
-		this.shippingAddressState = shippingAddressState;
-	}
-
-	void setShippingAddressPostalCode(String shippingAddressPostalCode) {
-		this.shippingAddressPostalCode = shippingAddressPostalCode;
-	}
-
-	void setShippingAddressCountryCode(String shippingAddressCountryCode) {
-		this.shippingAddressCountryCode = shippingAddressCountryCode;
+	@Override
+	public int doStartTag() throws JspException {
+		// Make sure the processor is set
+		MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
+		if(processor==null) throw new JspTagException("processor not set, please set processor with the useProcessor tag first");
+		return EVAL_BODY_INCLUDE;
 	}
 
 	void process() throws JspException {
@@ -417,7 +411,18 @@ public class PaymentTag extends BodyTagSupport {
 		}
 	}
 
-	AuthorizationResult getAuthorizationResult() {
-		return authorizationResult;
+	@Override
+	public int doEndTag() throws JspException {
+		return EVAL_PAGE;
+	}
+
+	@Override
+	public void doCatch(Throwable t) throws Throwable {
+		throw t;
+	}
+
+	@Override
+	public void doFinally() {
+		init();
 	}
 }

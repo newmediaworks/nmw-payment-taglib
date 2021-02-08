@@ -28,6 +28,7 @@ import com.aoindustries.creditcards.MerchantServicesProvider;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.TryCatchFinally;
 
 /**
  * Captures the funds from a previous authorization-only transaction (from {@link PaymentTag} with {@link PaymentTag#setCapture(boolean) capture=false}).
@@ -36,20 +37,35 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class CaptureTag extends BodyTagSupport {
+public class CaptureTag extends BodyTagSupport implements TryCatchFinally {
 
 	public static final String TAG_NAME = "<payment:capture>";
 
-	private static final long serialVersionUID = 2L;
-
-	// Set by nested tags
-	private transient String transactionId;
-
-	/** The result of the processing. */
-	private transient CaptureResult captureResult;
-
 	public CaptureTag() {
 		init();
+	}
+
+	private static final long serialVersionUID = 2L;
+
+	// <editor-fold desc="Set by nested tags">
+	private transient String transactionId;
+	void setTransactionId(String transactionId) {
+		this.transactionId = transactionId;
+	}
+	// </editor-fold>
+
+	// <editor-fold desc="The result of the processing">
+	private transient CaptureResult captureResult;
+	CaptureResult getCaptureResult() {
+		return captureResult;
+	}
+	// </editor-fold>
+
+	private void init() {
+		// Set by nested tags
+		transactionId = null;
+		// The result of the processing
+		captureResult = null;
 	}
 
 	@Override
@@ -58,27 +74,6 @@ public class CaptureTag extends BodyTagSupport {
 		MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
 		if(processor==null) throw new JspTagException("processor not set, please set processor with the useProcessor tag first");
 		return EVAL_BODY_INCLUDE;
-	}
-
-	@Override
-	public int doEndTag() throws JspException {
-		init();
-		return EVAL_PAGE;
-	}
-
-	@Override
-	public void release() {
-		super.release();
-		init();
-	}
-
-	private void init() {
-		transactionId = null;
-		captureResult = null;
-	}
-
-	void setTransactionId(String transactionId) {
-		this.transactionId = transactionId;
 	}
 
 	void process() throws JspException {
@@ -110,7 +105,13 @@ public class CaptureTag extends BodyTagSupport {
 		);
 	}
 
-	CaptureResult getCaptureResult() {
-		return captureResult;
+	@Override
+	public void doCatch(Throwable t) throws Throwable {
+		throw t;
+	}
+
+	@Override
+	public void doFinally() {
+		init();
 	}
 }

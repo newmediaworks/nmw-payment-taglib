@@ -37,6 +37,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.TryCatchFinally;
 
 /**
  * Selects the processor that will be used for subsequent transactions.
@@ -50,11 +51,9 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class UseProcessorTag extends BodyTagSupport {
+public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally {
 
 	public static final String TAG_NAME = "<payment:useProcessor>";
-
-	private static final long serialVersionUID = 1L;
 
 	/** The previously created processors are reused. */
 	private final static List<TestMerchantServicesProvider> testMerchantServicesProviders = new ArrayList<>();
@@ -138,12 +137,44 @@ public class UseProcessorTag extends BodyTagSupport {
 		}
 	}
 
-	// Set by nested tags
-	private transient String connectorName;
-	private transient Map<String,String> parameters;
-
 	public UseProcessorTag() {
 		init();
+	}
+
+	private static final long serialVersionUID = 1L;
+
+	// <editor-fold desc="Set by nested tags">
+	private transient String connectorName;
+	/**
+	 * Sets the connector name.
+	 * 
+	 * @throws JspException if name already set.
+	 */
+	void setConnectorName(String connectorName) {
+		if(this.connectorName != null) throw new IllegalStateException("connectorName already set");
+		this.connectorName = connectorName;
+	}
+
+	private transient Map<String,String> parameters;
+	/**
+	 * Adds a parameter.
+	 * 
+	 * @throws JspException if name already set.
+	 */
+	void addParameter(String name, String value) {
+		if(this.parameters.containsKey(name)) throw new IllegalStateException("parameter already set: " + name);
+		this.parameters.put(name, value);
+	}
+	// </editor-fold>
+
+	private void init() {
+		// Set by nested tags
+		connectorName = null;
+		if(parameters == null) {
+			parameters = new HashMap<>();
+		} else {
+			parameters.clear();
+		}
 	}
 
 	/**
@@ -191,43 +222,16 @@ public class UseProcessorTag extends BodyTagSupport {
 		// Set in the request attributes
 		pageContext.getRequest().setAttribute(Constants.processor, provider);
 
-		// Get ready for the next iteration
-		init();
 		return EVAL_PAGE;
 	}
 
 	@Override
-	public void release() {
-		super.release();
+	public void doCatch(Throwable t) throws Throwable {
+		throw t;
+	}
+
+	@Override
+	public void doFinally() {
 		init();
-	}
-
-	private void init() {
-		connectorName = null;
-		if(parameters == null) {
-			parameters = new HashMap<>();
-		} else {
-			parameters.clear();
-		}
-	}
-
-	/**
-	 * Sets the connector name.
-	 * 
-	 * @throws JspException if name already set.
-	 */
-	void setConnectorName(String connectorName) {
-		if(this.connectorName != null) throw new IllegalStateException("connectorName already set");
-		this.connectorName = connectorName;
-	}
-
-	/**
-	 * Adds a parameter.
-	 * 
-	 * @throws JspException if name already set.
-	 */
-	void addParameter(String name, String value) {
-		if(this.parameters.containsKey(name)) throw new IllegalStateException("parameter already set: " + name);
-		this.parameters.put(name, value);
 	}
 }

@@ -28,6 +28,7 @@ import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.TryCatchFinally;
 
 /**
  * Stores a credit card number to a bank-provided, CISP-compliant storage mechanism.
@@ -36,35 +37,134 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class StoreCreditCardTag extends BodyTagSupport {
+public class StoreCreditCardTag extends BodyTagSupport implements TryCatchFinally {
 
 	public static final String TAG_NAME = "<payment:storeCreditCard>";
 
-	private static final long serialVersionUID = 2L;
-
-	// Set by nested tags
-	private transient String cardNumber;
-	private transient byte expirationMonth;
-	private transient short expirationYear;
-	private transient String cardCode;
-	private transient String firstName;
-	private transient String lastName;
-	private transient String companyName;
-	private transient String email;
-	private transient String phone;
-	private transient String fax;
-	private transient String customerId;
-	private transient String customerTaxId;
-	private transient String streetAddress1;
-	private transient String streetAddress2;
-	private transient String city;
-	private transient String state;
-	private transient String postalCode;
-	private transient String countryCode;
-	private transient String comment;
-
 	public StoreCreditCardTag() {
 		init();
+	}
+
+	private static final long serialVersionUID = 2L;
+
+	// <editor-fold desc="Set by nested tags">
+	private transient String cardNumber;
+	void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+
+	private transient byte expirationMonth;
+	void setExpirationMonth(byte expirationMonth) {
+		this.expirationMonth = expirationMonth;
+	}
+
+	private transient short expirationYear;
+	void setExpirationYear(short expirationYear) {
+		this.expirationYear = expirationYear;
+	}
+
+	private transient String cardCode;
+	void setCardCode(String cardCode) {
+		this.cardCode = cardCode;
+	}
+
+	private transient String firstName;
+	void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	private transient String lastName;
+	void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	private transient String companyName;
+	void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	private transient String email;
+	void setEmail(String email) {
+		this.email = email;
+	}
+
+	private transient String phone;
+	void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	private transient String fax;
+	void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	private transient String customerId;
+	void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
+
+	private transient String customerTaxId;
+	void setCustomerTaxId(String customerTaxId) {
+		this.customerTaxId = customerTaxId;
+	}
+
+	private transient String streetAddress1;
+	void setStreetAddress1(String streetAddress1) {
+		this.streetAddress1 = streetAddress1;
+	}
+
+	private transient String streetAddress2;
+	void setStreetAddress2(String streetAddress2) {
+		this.streetAddress2 = streetAddress2;
+	}
+
+	private transient String city;
+	void setCity(String city) {
+		this.city = city;
+	}
+
+	private transient String state;
+	void setState(String state) {
+		this.state = state;
+	}
+
+	private transient String postalCode;
+	void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+
+	private transient String countryCode;
+	void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
+	private transient String comment;
+	void setComment(String comment) {
+		this.comment = comment;
+	}
+	// </editor-fold>
+
+	private void init() {
+		// Set by nested tags
+		cardNumber = null;
+		expirationMonth = (byte)-1;
+		expirationYear = (short)-1;
+		cardCode = null;
+		firstName = null;
+		lastName = null;
+		companyName = null;
+		email = null;
+		phone = null;
+		fax = null;
+		customerId = null;
+		customerTaxId = null;
+		streetAddress1 = null;
+		streetAddress2 = null;
+		city = null;
+		state = null;
+		postalCode = null;
+		countryCode = null;
+		comment = null;
 	}
 
 	@Override
@@ -119,116 +219,19 @@ public class StoreCreditCardTag extends BodyTagSupport {
 			// Write the unique ID
 			pageContext.getOut().write(providerUniqueId);
 
-			// Get ready for the next iteration
 			return EVAL_PAGE;
 		} catch(IOException e) {
 			throw new JspTagException(e);
-		} finally {
-			init();
 		}
 	}
 
 	@Override
-	public void release() {
-		super.release();
+	public void doCatch(Throwable t) throws Throwable {
+		throw t;
+	}
+
+	@Override
+	public void doFinally() {
 		init();
-	}
-
-	private void init() {
-		cardNumber=null;
-		expirationMonth=(byte)-1;
-		expirationYear=(short)-1;
-		cardCode=null;
-		firstName=null;
-		lastName=null;
-		companyName=null;
-		email=null;
-		phone=null;
-		fax=null;
-		customerId=null;
-		customerTaxId=null;
-		streetAddress1=null;
-		streetAddress2=null;
-		city=null;
-		state=null;
-		postalCode=null;
-		countryCode=null;
-		comment=null;
-	}
-
-	void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
-	}
-
-	void setExpirationMonth(byte expirationMonth) {
-		this.expirationMonth = expirationMonth;
-	}
-
-	void setExpirationYear(short expirationYear) {
-		this.expirationYear = expirationYear;
-	}
-
-	void setCardCode(String cardCode) {
-		this.cardCode = cardCode;
-	}
-
-	void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-
-	void setEmail(String email) {
-		this.email = email;
-	}
-
-	void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	void setFax(String fax) {
-		this.fax = fax;
-	}
-
-	void setCustomerId(String customerId) {
-		this.customerId = customerId;
-	}
-
-	void setCustomerTaxId(String customerTaxId) {
-		this.customerTaxId = customerTaxId;
-	}
-
-	void setStreetAddress1(String streetAddress1) {
-		this.streetAddress1 = streetAddress1;
-	}
-
-	void setStreetAddress2(String streetAddress2) {
-		this.streetAddress2 = streetAddress2;
-	}
-
-	void setCity(String city) {
-		this.city = city;
-	}
-
-	void setState(String state) {
-		this.state = state;
-	}
-
-	void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
-
-	void setCountryCode(String countryCode) {
-		this.countryCode = countryCode;
-	}
-
-	void setComment(String comment) {
-		this.comment = comment;
 	}
 }

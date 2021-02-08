@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020, 2021  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -38,10 +38,10 @@ public class PhoneTag extends BodyTagSupport {
 
 	public static final String TAG_NAME = "<payment:phone>";
 
-	private static final long serialVersionUID = 1L;
-
 	public PhoneTag() {
 	}
+
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public int doStartTag() throws JspException {

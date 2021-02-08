@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020, 2021  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -25,6 +25,7 @@ package com.newmediaworks.taglib.payment;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.TryCatchFinally;
 
 /**
  * Provides a connector-specific parameter for the {@link UseProcessorTag}.
@@ -33,17 +34,29 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class ParameterTag extends BodyTagSupport {
+public class ParameterTag extends BodyTagSupport implements TryCatchFinally {
 
 	public static final String TAG_NAME = "<payment:parameter>";
 
-	private static final long serialVersionUID = 1L;
-
-	/** Attributes */
-	private String name;
-
 	public ParameterTag() {
 		init();
+	}
+
+	private static final long serialVersionUID = 1L;
+
+	// <editor-fold desc="Attributes">
+	private String name;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	// </editor-fold>
+
+	private void init() {
+		// Attributes
+		name = null;
 	}
 
 	@Override
@@ -56,25 +69,16 @@ public class ParameterTag extends BodyTagSupport {
 		JspTagUtils.requireAncestor(TAG_NAME, this, UseProcessorTag.TAG_NAME, UseProcessorTag.class)
 			.addParameter(name, getBodyContent().getString().trim());
 
-		init(); // TODO: TryCatchFinally for all init() methods, since still needs reset when exceptions occur.  Search all taglib implementations
 		return EVAL_PAGE;
 	}
 
 	@Override
-	public void release() {
-		super.release();
+	public void doCatch(Throwable t) throws Throwable {
+		throw t;
+	}
+
+	@Override
+	public void doFinally() {
 		init();
-	}
-
-	private void init() {
-		name=null;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 }

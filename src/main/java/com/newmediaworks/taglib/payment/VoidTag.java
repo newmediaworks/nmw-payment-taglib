@@ -29,6 +29,7 @@ import com.aoindustries.creditcards.VoidResult;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.TryCatchFinally;
 
 /**
  * Voids a previous transaction (from {@link PaymentTag}).
@@ -37,20 +38,35 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class VoidTag extends BodyTagSupport {
+public class VoidTag extends BodyTagSupport implements TryCatchFinally {
 
 	public static final String TAG_NAME = "<payment:void>";
 
-	private static final long serialVersionUID = 2L;
-
-	// Set by nested tags
-	private transient String transactionId;
-
-	/** The result of the processing. */
-	private transient VoidResult voidResult;
-
 	public VoidTag() {
 		init();
+	}
+
+	private static final long serialVersionUID = 2L;
+
+	// <editor-fold desc="Set by nested tags">
+	private transient String transactionId;
+	void setTransactionId(String transactionId) {
+		this.transactionId = transactionId;
+	}
+	// </editor-fold>
+
+	// <editor-fold desc="The result of the processing">
+	private transient VoidResult voidResult;
+	VoidResult getVoidResult() {
+		return voidResult;
+	}
+	// </editor-fold>
+
+	private void init() {
+		// Set by nested tags
+		transactionId = null;
+		// The result of the processing
+		voidResult = null;
 	}
 
 	@Override
@@ -59,27 +75,6 @@ public class VoidTag extends BodyTagSupport {
 		MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
 		if(processor==null) throw new JspTagException("processor not set, please set processor with the useProcessor tag first");
 		return EVAL_BODY_INCLUDE;
-	}
-
-	@Override
-	public int doEndTag() throws JspException {
-		init();
-		return EVAL_PAGE;
-	}
-
-	@Override
-	public void release() {
-		super.release();
-		init();
-	}
-
-	private void init() {
-		transactionId = null;
-		voidResult = null;
-	}
-
-	void setTransactionId(String transactionId) {
-		this.transactionId = transactionId;
 	}
 
 	void process() throws JspException {
@@ -127,7 +122,13 @@ public class VoidTag extends BodyTagSupport {
 		);
 	}
 
-	VoidResult getVoidResult() {
-		return voidResult;
+	@Override
+	public void doCatch(Throwable t) throws Throwable {
+		throw t;
+	}
+
+	@Override
+	public void doFinally() {
+		init();
 	}
 }
