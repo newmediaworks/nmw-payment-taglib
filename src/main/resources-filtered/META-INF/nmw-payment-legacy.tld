@@ -42,7 +42,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
 	version="2.1">
 	<!-- datePublished="2013-01-24T05:22:33-0600" -->
-	<!-- dateModified="2021-02-07T23:29:56-06:00" -->
+	<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 <!-- </common> -->
 	<!-- allowRobots="false" -->
 <!-- <common> -->
@@ -78,10 +78,8 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 			All auto-encoding tags generate correct output for their context, provide context information for nested
 			tags, and validate the output of nested tags.  For example,
 			<a href="https://aoindustries.com/ao-taglib/]]>&aoTld;<![CDATA[/tag-message">&lt;ao:message&gt;</a> within
-			<a href="@{project.url}]]>&tld;<![CDATA[/tag-subject">&lt;email:subject&gt;</a> will write its output
-			encoded as <a href="https://aoindustries.com/ao-encoding/apidocs/com/aoindustries/encoding/MediaType.html#TEXT">TEXT</a>,
-			while within <a href="@{project.url}]]>&tld;<![CDATA[/tag-content">&lt;email:content&gt;</a> (of type "text/html") will write its
-			output encoded as <a href="https://aoindustries.com/ao-encoding/apidocs/com/aoindustries/encoding/MediaType.html#XHTML">XHTML</a>.
+			<a href="@{project.url}]]>&tld;<![CDATA[/tag-comment">&lt;payment:comment&gt;</a> will write its output
+			encoded as <a href="https://aoindustries.com/ao-encoding/apidocs/com/aoindustries/encoding/MediaType.html#TEXT">TEXT</a>.
 		</p>
 		<p>
 			This suite includes, but is not limited to:
@@ -105,7 +103,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 	<uri>&tld_uri;</uri>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2020-11-29T06:48:29-06:00" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Selects the processor that will be used for subsequent transactions.
@@ -115,6 +113,10 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 			</p>
 			<p>
 				May contain any number of <a href="@{project.url}]]>&tld;<![CDATA[/tag-parameter">&lt;payment:parameter&gt;</a> tags to provide connector-specific configuration values.
+			</p>
+			<p>
+				Any attribute that has no namespace and begins with <code>param.</code> is added as a parameter.
+				The parameter name is the part of the attribute name following <code>param.</code>.
 			</p>
 			<p>
 				Currently supports:
@@ -245,10 +247,25 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>useProcessor</name>
 		<tag-class>com.newmediaworks.taglib.payment.UseProcessorTag</tag-class>
 		<body-content>JSP</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the connector name.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-connectorName">&lt;payment:connectorName&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>connectorName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the connector name for the <a href="@{project.url}]]>&tld;<![CDATA[/tag-useProcessor">&lt;payment:useProcessor&gt;</a> tag.
@@ -260,18 +277,30 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>connectorName</name>
 		<tag-class>&package;.ConnectorNameTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the connector name.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the connector name.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides a connector-specific parameter for the <a href="@{project.url}]]>&tld;<![CDATA[/tag-useProcessor">&lt;payment:useProcessor&gt;</a> tag.
 			</p>
 			<p>
 				Any number of parameters may be nested inside a <a href="@{project.url}]]>&tld;<![CDATA[/tag-useProcessor">&lt;payment:useProcessor&gt;</a> tag; however,
-				each parameter must have a unique name.  The value for the parameter is taken from
-				the body and is trimmed (beginning and ending whitespace removed).
+				each parameter must have a unique name.
 			</p>
 			<p>
 				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-useProcessor">&lt;payment:useProcessor&gt;</a> tag.
@@ -291,10 +320,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.String</type>
 		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the parameter value.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the parameter value.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-28T00:21:11-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Stores a credit card number to a bank-provided, CISP-compliant storage mechanism.
@@ -419,10 +461,310 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>storeCreditCard</name>
 		<tag-class>com.newmediaworks.taglib.payment.StoreCreditCardTag</tag-class>
 		<body-content>JSP</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the card number.
+				</p>
+				<p>
+					Any non-numeric characters will be ignored.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-cardNumber">&lt;payment:cardNumber&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>cardNumber</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the expiration month.
+				</p>
+				<p>
+					Must be in the range 1 to 12.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-expirationMonth">&lt;payment:expirationMonth&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>expirationMonth</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>byte</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the expiration year.
+				</p>
+				<p>
+					May be either a two-digit or four-digit year.  If a two-digit year (or any number between 0 and 99),
+					will be assumed to be in the current century.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-expirationYear">&lt;payment:expirationYear&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>expirationYear</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>short</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the expiration month and year.
+				</p>
+				<p>
+					Must be in the format <code>MM/YY</code> or <code>MM/YYYY</code>.
+				</p>
+				<p>
+					Month must be in the range 1 to 12.
+				</p>
+				<p>
+					Year may be either a two-digit or four-digit year.  If a two-digit year (or any number between 0 and 99),
+					will be assumed to be in the current century.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-expirationDate">&lt;payment:expirationDate&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>expirationDate</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the CVV2 card security code (three or four digits).
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-cardCode">&lt;payment:cardCode&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>cardCode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides a first/given name.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-firstName">&lt;payment:firstName&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>firstName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides a last/family name.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-lastName">&lt;payment:lastName&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>lastName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides a company name.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-companyName">&lt;payment:companyName&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>companyName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the email address.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-email">&lt;payment:email&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>email</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the phone number of the customer.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-phone">&lt;payment:phone&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>phone</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the fax number of the customer.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-fax">&lt;payment:fax&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>fax</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides an application-specific customer identifier.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-customerId">&lt;payment:customerId&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>customerId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the Social Security Number (SSN) or Employer Identification Number (EIN) of the customer.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-customerTaxId">&lt;payment:customerTaxId&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>customerTaxId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the street address (line 1).
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-streetAddress1">&lt;payment:streetAddress1&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>streetAddress1</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the street address (line 2).
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-streetAddress2">&lt;payment:streetAddress2&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>streetAddress2</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the city.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-city">&lt;payment:city&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>city</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the state/province/prefecture.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-state">&lt;payment:state&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>state</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the ZIP/postal code.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-postalCode">&lt;payment:postalCode&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>postalCode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides a two-digit <a href="https://wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-countryCode">&lt;payment:countryCode&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>countryCode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the comment.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-comment">&lt;payment:comment&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>comment</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-28T01:07:21-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Processes a credit card transaction.
@@ -676,10 +1018,164 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 			<rtexprvalue>true</rtexprvalue>
 			<type>boolean</type>
 		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the application-specific unique order number.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-orderNumber">&lt;payment:orderNumber&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>orderNumber</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the 3-digit <a href="https://wikipedia.org/wiki/ISO_4217">ISO 4217</a> currency code.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-currencyCode">&lt;payment:currencyCode&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>currencyCode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the amount.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-amount">&lt;payment:amount&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>amount</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the tax amount.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-taxAmount">&lt;payment:taxAmount&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>taxAmount</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the tax exempt flag.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-taxExempt">&lt;payment:taxExempt&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>taxExempt</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the shipping amount.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-shippingAmount">&lt;payment:shippingAmount&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>shippingAmount</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the duty amount.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-dutyAmount">&lt;payment:dutyAmount&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>dutyAmount</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the email address of the merchant.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-merchantEmail">&lt;payment:merchantEmail&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>merchantEmail</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the invoice number of this transaction.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-invoiceNumber">&lt;payment:invoiceNumber&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>invoiceNumber</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the purchase order number of this transaction.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-purchaseOrderNumber">&lt;payment:purchaseOrderNumber&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>purchaseOrderNumber</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the comment.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-comment">&lt;payment:comment&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>comment</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Captures the funds from a previous authorization-only transaction (from <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment capture="false"&gt;</a>).
@@ -717,10 +1213,24 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>capture</name>
 		<tag-class>com.newmediaworks.taglib.payment.CaptureTag</tag-class>
 		<body-content>JSP</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the transaction ID.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-transactionId">&lt;payment:transactionId&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>transactionId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-28T00:39:08-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Voids a previous transaction (from <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a>).
@@ -766,25 +1276,49 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>void</name>
 		<tag-class>com.newmediaworks.taglib.payment.VoidTag</tag-class>
 		<body-content>JSP</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the transaction ID.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-transactionId">&lt;payment:transactionId&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>transactionId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-28T00:07:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Masks a credit card number by only showing the first and last digits, hiding all the middle digits.
-			</p>
-			<p>
-				The card number is provided in the body of this tag.
 			</p>
 		]]></description>
 		<name>maskCardNumber</name>
 		<tag-class>&package;.MaskCardNumberTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the card number.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the card number.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-28T00:21:11-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the credit card details to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
@@ -889,10 +1423,342 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>creditCard</name>
 		<tag-class>com.newmediaworks.taglib.payment.CreditCardTag</tag-class>
 		<body-content>JSP</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the card number.
+				</p>
+				<p>
+					Any non-numeric characters will be ignored.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-cardNumber">&lt;payment:cardNumber&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>cardNumber</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the masked (partial) card number.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-maskedCardNumber">&lt;payment:maskedCardNumber&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>maskedCardNumber</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the expiration month.
+				</p>
+				<p>
+					Must be in the range 1 to 12.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-expirationMonth">&lt;payment:expirationMonth&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>expirationMonth</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>byte</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the expiration year.
+				</p>
+				<p>
+					May be either a two-digit or four-digit year.  If a two-digit year (or any number between 0 and 99),
+					will be assumed to be in the current century.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-expirationYear">&lt;payment:expirationYear&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>expirationYear</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>short</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the expiration month and year.
+				</p>
+				<p>
+					Must be in the format <code>MM/YY</code> or <code>MM/YYYY</code>.
+				</p>
+				<p>
+					Month must be in the range 1 to 12.
+				</p>
+				<p>
+					Year may be either a two-digit or four-digit year.  If a two-digit year (or any number between 0 and 99),
+					will be assumed to be in the current century.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-expirationDate">&lt;payment:expirationDate&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>expirationDate</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the CVV2 card security code (three or four digits).
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-cardCode">&lt;payment:cardCode&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>cardCode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the token of a stored credit card.
+				</p>
+				<p>
+					See <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>
+					for storing cards.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-creditCardGUID">&lt;payment:creditCardGUID&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>creditCardGUID</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides a first/given name.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-firstName">&lt;payment:firstName&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>firstName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides a last/family name.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-lastName">&lt;payment:lastName&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>lastName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides a company name.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-companyName">&lt;payment:companyName&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>companyName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the email address.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-email">&lt;payment:email&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>email</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the phone number of the customer.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-phone">&lt;payment:phone&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>phone</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the fax number of the customer.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-fax">&lt;payment:fax&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>fax</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides an application-specific customer identifier.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-customerId">&lt;payment:customerId&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>customerId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the Social Security Number (SSN) or Employer Identification Number (EIN) of the customer.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-customerTaxId">&lt;payment:customerTaxId&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>customerTaxId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the street address (line 1).
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-streetAddress1">&lt;payment:streetAddress1&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>streetAddress1</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the street address (line 2).
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-streetAddress2">&lt;payment:streetAddress2&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>streetAddress2</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the city.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-city">&lt;payment:city&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>city</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the state/province/prefecture.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-state">&lt;payment:state&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>state</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the ZIP/postal code.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-postalCode">&lt;payment:postalCode&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>postalCode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides a two-digit <a href="https://wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-countryCode">&lt;payment:countryCode&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>countryCode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the comment.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-comment">&lt;payment:comment&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>comment</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the card number to either a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>
@@ -909,10 +1775,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>cardNumber</name>
 		<tag-class>&package;.CardNumberTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the card number.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the card number.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the expiration month to either a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>
@@ -929,10 +1808,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>expirationMonth</name>
 		<tag-class>&package;.ExpirationMonthTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the expiration month.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the expiration month.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>byte</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the expiration year to either a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>
@@ -950,10 +1842,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>expirationYear</name>
 		<tag-class>&package;.ExpirationYearTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the expiration year.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the expiration year.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>short</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the expiration month and year to either a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>
@@ -977,10 +1882,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>expirationDate</name>
 		<tag-class>&package;.ExpirationDateTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the expiration date.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the expiration date.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the CVV2 card security code (three or four digits) to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>
@@ -994,10 +1912,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>cardCode</name>
 		<tag-class>&package;.CardCodeTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the card code.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the card code.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the masked (partial) card number to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-creditCard">&lt;payment:creditCard&gt;</a> tag.
@@ -1009,10 +1940,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>maskedCardNumber</name>
 		<tag-class>&package;.MaskedCardNumberTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the masked card number.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the masked card number.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:49:03-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the token of a stored credit card to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-creditCard">&lt;payment:creditCard&gt;</a> tag.
@@ -1028,10 +1972,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>creditCardGUID</name>
 		<tag-class>&package;.CreditCardGUIDTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the credit card GUID.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the credit card GUID.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-28T00:21:11-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the shipping details to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
@@ -1079,10 +2036,136 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>shippingAddress</name>
 		<tag-class>com.newmediaworks.taglib.payment.ShippingAddressTag</tag-class>
 		<body-content>JSP</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides a first/given name.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-firstName">&lt;payment:firstName&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>firstName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides a last/family name.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-lastName">&lt;payment:lastName&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>lastName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides a company name.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-companyName">&lt;payment:companyName&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>companyName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the street address (line 1).
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-streetAddress1">&lt;payment:streetAddress1&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>streetAddress1</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the street address (line 2).
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-streetAddress2">&lt;payment:streetAddress2&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>streetAddress2</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the city.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-city">&lt;payment:city&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>city</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the state/province/prefecture.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-state">&lt;payment:state&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>state</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides the ZIP/postal code.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-postalCode">&lt;payment:postalCode&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>postalCode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p class="semanticcms-tag-reference-summary">
+					Provides a two-digit <a href="https://wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code.
+				</p>
+				<p>
+					A nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-countryCode">&lt;payment:countryCode&gt;</a> tag will override this value.
+				</p>
+			]]></description>
+			<name>countryCode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides a first/given name to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>,
@@ -1098,10 +2181,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>firstName</name>
 		<tag-class>&package;.FirstNameTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the first/given name.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the first/given name.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides a last/family name to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>,
@@ -1117,10 +2213,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>lastName</name>
 		<tag-class>&package;.LastNameTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the last/family name.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the last/family name.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides a company name to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>,
@@ -1136,10 +2245,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>companyName</name>
 		<tag-class>&package;.CompanyNameTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the company name.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the company name.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the email address of the customer to either a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>
@@ -1153,10 +2275,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>email</name>
 		<tag-class>&package;.EmailTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the email.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the email.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the phone number of the customer to either a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>
@@ -1170,10 +2305,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>phone</name>
 		<tag-class>&package;.PhoneTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the phone.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the phone.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the fax number of the customer to either a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>
@@ -1187,10 +2335,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>fax</name>
 		<tag-class>&package;.FaxTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the fax.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the fax.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides an application-specific customer identifier to either a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>
@@ -1204,10 +2365,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>customerId</name>
 		<tag-class>&package;.CustomerIdTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the customer ID.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the customer ID.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the Social Security Number (SSN) or Employer Identification Number (EIN) of the customer
@@ -1222,10 +2396,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>customerTaxId</name>
 		<tag-class>&package;.CustomerTaxIdTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the customer tax ID.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the customer tax ID.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the street address (line 1) to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>,
@@ -1241,10 +2428,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>streetAddress1</name>
 		<tag-class>&package;.StreetAddress1Tag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the street address line 1.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the street address line 1.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the street address (line 2) to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>,
@@ -1260,10 +2460,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>streetAddress2</name>
 		<tag-class>&package;.StreetAddress2Tag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the street address line 2.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the street address line 2.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the city to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>,
@@ -1279,10 +2492,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>city</name>
 		<tag-class>&package;.CityTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the city.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the city.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the state/province/prefecture to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>,
@@ -1298,10 +2524,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>state</name>
 		<tag-class>&package;.StateTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the state/province/prefecture.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the state/province/prefecture.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the ZIP/postal code to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>,
@@ -1317,10 +2556,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>postalCode</name>
 		<tag-class>&package;.PostalCodeTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the ZIP/postal code.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the ZIP/postal code.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-28T00:21:11-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides a two-digit <a href="https://wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code to a
@@ -1337,10 +2589,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>countryCode</name>
 		<tag-class>&package;.CountryCodeTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the country code.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the country code.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-28T13:35:46-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides a comment to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-storeCreditCard">&lt;payment:storeCreditCard&gt;</a>,
@@ -1356,10 +2621,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>comment</name>
 		<tag-class>&package;.CommentTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the comment.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the comment.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-28T13:35:46-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the application-specific unique order number to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
@@ -1371,10 +2649,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>orderNumber</name>
 		<tag-class>&package;.OrderNumberTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the order number.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the order number.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-28T13:35:46-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the 3-digit <a href="https://wikipedia.org/wiki/ISO_4217">ISO 4217</a> currency code to a
@@ -1387,10 +2678,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>currencyCode</name>
 		<tag-class>&package;.CurrencyCodeTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the currency code.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the currency code.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the amount of the payment to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
@@ -1402,10 +2706,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>amount</name>
 		<tag-class>&package;.AmountTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the amount.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the amount.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the tax amount of the payment to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
@@ -1417,10 +2734,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>taxAmount</name>
 		<tag-class>&package;.TaxAmountTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the tax amount.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the tax amount.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the tax exempt flag to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
@@ -1435,10 +2765,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>taxExempt</name>
 		<tag-class>&package;.TaxExemptTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the tax exempt flag.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the tax exempt flag.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the shipping amount to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
@@ -1450,10 +2793,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>shippingAmount</name>
 		<tag-class>&package;.ShippingAmountTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the shipping amount.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the shipping amount.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the duty amount to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
@@ -1465,10 +2821,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>dutyAmount</name>
 		<tag-class>&package;.DutyAmountTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the duty amount.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the duty amount.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the email address of the merchant to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
@@ -1480,10 +2849,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>merchantEmail</name>
 		<tag-class>&package;.MerchantEmailTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the merchant email.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the merchant email.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the invoice number of this transaction to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
@@ -1495,10 +2877,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>invoiceNumber</name>
 		<tag-class>&package;.InvoiceNumberTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the invoice number.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the invoice number.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the purchase order number of this transaction to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
@@ -1510,10 +2905,23 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>purchaseOrderNumber</name>
 		<tag-class>&package;.PurchaseOrderNumberTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the purchase order number.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the purchase order number.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides the transaction ID to a <a href="@{project.url}]]>&tld;<![CDATA[/tag-capture">&lt;payment:capture&gt;</a>
@@ -1527,6 +2935,19 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<name>transactionId</name>
 		<tag-class>&package;.TransactionIdTag</tag-class>
 		<body-content>&JSP;</body-content>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					Provides the transaction ID.
+					When provided, the body is not invoked.
+					When not provided, the body content trimmed will be used as the transaction ID.
+				</p>
+			]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->

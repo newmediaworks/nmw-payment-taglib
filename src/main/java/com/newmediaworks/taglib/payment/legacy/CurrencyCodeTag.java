@@ -26,6 +26,7 @@ import com.aoindustries.creditcards.TransactionRequest;
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.taglib.legacy.EncodingBufferedBodyTag;
 import com.aoindustries.io.buffer.BufferResult;
+import com.aoindustries.lang.Strings;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import static com.newmediaworks.taglib.payment.CurrencyCodeTag.TAG_NAME;
 import com.newmediaworks.taglib.payment.PaymentTag;
@@ -47,6 +48,10 @@ public class CurrencyCodeTag extends EncodingBufferedBodyTag {
 	public static final String TAG_NAME = "<payment:currencyCode>";
 /**/
 
+	public CurrencyCodeTag() {
+		init();
+	}
+
 	@Override
 	public MediaType getContentType() {
 		return MediaType.TEXT;
@@ -58,8 +63,28 @@ public class CurrencyCodeTag extends EncodingBufferedBodyTag {
 	}
 
 /* BodyTag only: */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 /**/
+
+	private String value;
+	public void setValue(String value) {
+		this.value = Strings.trimNullIfEmpty(value);
+	}
+
+	private void init() {
+		value = null;
+	}
+
+	@Override
+/* BodyTag only: */
+	protected int doStartTag(Writer out) throws JspException, IOException {
+		return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+/**/
+/* SimpleTag only:
+	protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+		if(value == null) super.invoke(body, captureValidator);
+/**/
+	}
 
 	@Override
 /* BodyTag only: */
@@ -69,9 +94,20 @@ public class CurrencyCodeTag extends EncodingBufferedBodyTag {
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
 		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class)
-			.setCurrencyCode(capturedBody.trim().toString());
+			.setCurrencyCode((value != null) ? value : capturedBody.trim().toString());
 /* BodyTag only: */
 		return EVAL_PAGE;
 /**/
 	}
+
+/* BodyTag only: */
+	@Override
+	public void doFinally() {
+		try {
+			init();
+		} finally {
+			super.doFinally();
+		}
+	}
+/**/
 }

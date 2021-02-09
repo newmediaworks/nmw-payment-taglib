@@ -24,6 +24,7 @@ package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.creditcards.MerchantServicesProvider;
+import com.aoindustries.lang.Strings;
 import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
@@ -47,150 +48,127 @@ public class StoreCreditCardTag extends BodyTagSupport implements TryCatchFinall
 
 	private static final long serialVersionUID = 2L;
 
-	// <editor-fold desc="Set by nested tags">
-	private transient String cardNumber;
-	// Java 9: module-private
+	private transient CreditCard creditCard;
+
 	public void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
+		creditCard.setCardNumber(Strings.trimNullIfEmpty(cardNumber));
 	}
 
-	private transient byte expirationMonth;
-	// Java 9: module-private
 	public void setExpirationMonth(byte expirationMonth) {
-		this.expirationMonth = expirationMonth;
+		CreditCard.validateExpirationMonth(expirationMonth, false);
+		creditCard.setExpirationMonth(expirationMonth);
 	}
 
-	private transient short expirationYear;
-	// Java 9: module-private
 	public void setExpirationYear(short expirationYear) {
-		this.expirationYear = expirationYear;
+		CreditCard.validateExpirationYear(expirationYear, false);
+		creditCard.setExpirationYear(expirationYear);
 	}
 
-	private transient String cardCode;
-	// Java 9: module-private
+	public void setExpirationDate(String expirationDate) {
+		expirationDate = Strings.trimNullIfEmpty(expirationDate);
+		if(expirationDate == null) {
+			creditCard.setExpirationMonth(CreditCard.UNKNOWN_EXPIRATION_MONTH);
+			creditCard.setExpirationYear(CreditCard.UNKNOWN_EXPIRATION_YEAR);
+		} else {
+			int slashPos = expirationDate.indexOf('/');
+			if(slashPos == -1) throw new IllegalArgumentException("Invalid expirationDate, unable to find / : " + expirationDate);
+
+			String expirationMonthString = expirationDate.substring(0, slashPos).trim();
+			byte expirationMonth;
+			try {
+				expirationMonth = Byte.parseByte(expirationMonthString);
+			} catch(NumberFormatException err) {
+				throw new IllegalArgumentException("Invalid expirationMonth: " + expirationMonthString, err);
+			}
+			CreditCard.validateExpirationMonth(expirationMonth, false);
+
+			String expirationYearString = expirationDate.substring(slashPos+1).trim();
+			short expirationYear;
+			try {
+				expirationYear = Short.parseShort(expirationYearString);
+			} catch(NumberFormatException err) {
+				throw new IllegalArgumentException("Invalid expirationYear: " + expirationYearString, err);
+			}
+			CreditCard.validateExpirationYear(expirationYear, false);
+
+			creditCard.setExpirationMonth(expirationMonth);
+			creditCard.setExpirationYear(expirationYear);
+		}
+	}
+
 	public void setCardCode(String cardCode) {
-		this.cardCode = cardCode;
+		creditCard.setCardCode(Strings.trimNullIfEmpty(cardCode));
 	}
 
-	private transient String firstName;
-	// Java 9: module-private
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		creditCard.setFirstName(Strings.trimNullIfEmpty(firstName));
 	}
 
-	private transient String lastName;
-	// Java 9: module-private
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		creditCard.setLastName(Strings.trimNullIfEmpty(lastName));
 	}
 
-	private transient String companyName;
-	// Java 9: module-private
 	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+		creditCard.setCompanyName(Strings.trimNullIfEmpty(companyName));
 	}
 
-	private transient String email;
-	// Java 9: module-private
 	public void setEmail(String email) {
-		this.email = email;
+		creditCard.setEmail(Strings.trimNullIfEmpty(email));
 	}
 
-	private transient String phone;
-	// Java 9: module-private
 	public void setPhone(String phone) {
-		this.phone = phone;
+		creditCard.setPhone(Strings.trimNullIfEmpty(phone));
 	}
 
-	private transient String fax;
-	// Java 9: module-private
 	public void setFax(String fax) {
-		this.fax = fax;
+		creditCard.setFax(Strings.trimNullIfEmpty(fax));
 	}
 
-	private transient String customerId;
-	// Java 9: module-private
 	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
+		creditCard.setCustomerId(Strings.trimNullIfEmpty(customerId));
 	}
 
-	private transient String customerTaxId;
-	// Java 9: module-private
 	public void setCustomerTaxId(String customerTaxId) {
-		this.customerTaxId = customerTaxId;
+		creditCard.setCustomerTaxId(Strings.trimNullIfEmpty(customerTaxId));
 	}
 
-	private transient String streetAddress1;
-	// Java 9: module-private
 	public void setStreetAddress1(String streetAddress1) {
-		this.streetAddress1 = streetAddress1;
+		creditCard.setStreetAddress1(Strings.trimNullIfEmpty(streetAddress1));
 	}
 
-	private transient String streetAddress2;
-	// Java 9: module-private
 	public void setStreetAddress2(String streetAddress2) {
-		this.streetAddress2 = streetAddress2;
+		creditCard.setStreetAddress2(Strings.trimNullIfEmpty(streetAddress2));
 	}
 
-	private transient String city;
-	// Java 9: module-private
 	public void setCity(String city) {
-		this.city = city;
+		creditCard.setCity(Strings.trimNullIfEmpty(city));
 	}
 
-	private transient String state;
-	// Java 9: module-private
 	public void setState(String state) {
-		this.state = state;
+		creditCard.setState(Strings.trimNullIfEmpty(state));
 	}
 
-	private transient String postalCode;
-	// Java 9: module-private
 	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
+		creditCard.setPostalCode(Strings.trimNullIfEmpty(postalCode));
 	}
 
-	private transient String countryCode;
-	// Java 9: module-private
 	public void setCountryCode(String countryCode) {
-		this.countryCode = countryCode;
+		creditCard.setCountryCode(Strings.trimNullIfEmpty(countryCode));
 	}
 
-	private transient String comment;
-	// Java 9: module-private
 	public void setComment(String comment) {
-		this.comment = comment;
+		creditCard.setComments(Strings.trimNullIfEmpty(comment));
 	}
-	// </editor-fold>
 
 	private void init() {
-		// Set by nested tags
-		cardNumber = null;
-		expirationMonth = (byte)-1;
-		expirationYear = (short)-1;
-		cardCode = null;
-		firstName = null;
-		lastName = null;
-		companyName = null;
-		email = null;
-		phone = null;
-		fax = null;
-		customerId = null;
-		customerTaxId = null;
-		streetAddress1 = null;
-		streetAddress2 = null;
-		city = null;
-		state = null;
-		postalCode = null;
-		countryCode = null;
-		comment = null;
+		creditCard = new CreditCard();
 	}
 
 	@Override
 	public int doStartTag() throws JspException {
 		// Make sure the processor is set
 		MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
-		if(processor==null) throw new JspTagException("processor not set, please set processor with the useProcessor tag first");
+		if(processor == null) throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
 		return EVAL_BODY_INCLUDE;
 	}
 
@@ -202,38 +180,13 @@ public class StoreCreditCardTag extends BodyTagSupport implements TryCatchFinall
 		try {
 			// Get the current processor
 			MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
-			if(processor==null) throw new JspTagException("processor not set, please set processor with the useProcessor tag first");
+			if(processor == null) throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
 
 			// Add credit card
-			String providerUniqueId = processor.storeCreditCard(
-				new CreditCard(
-					null,
-					null,
-					null,
-					processor.getProviderId(),
-					null,
-					cardNumber,
-					null,
-					expirationMonth,
-					expirationYear,
-					cardCode,
-					firstName,
-					lastName,
-					companyName,
-					email,
-					phone,
-					fax,
-					customerId,
-					customerTaxId,
-					streetAddress1,
-					streetAddress2,
-					city,
-					state,
-					postalCode,
-					countryCode,
-					comment
-				)
-			);
+			if(creditCard.getProviderId() == null) {
+				creditCard.setProviderId(processor.getProviderId());
+			}
+			String providerUniqueId = processor.storeCreditCard(creditCard);
 
 			// Write the unique ID
 			pageContext.getOut().write(providerUniqueId);

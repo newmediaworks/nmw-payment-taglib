@@ -24,11 +24,14 @@ package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.MediaValidator;
 import com.aoindustries.encoding.taglib.EncodingBufferedTag;
 import com.aoindustries.io.buffer.BufferResult;
+import com.aoindustries.lang.Strings;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.JspFragment;
 
 /**
  * Provides the phone number of the customer to either a {@link StoreCreditCardTag}
@@ -44,6 +47,10 @@ public class PhoneTag extends EncodingBufferedTag {
 	public static final String TAG_NAME = "<payment:phone>";
 /**/
 
+	public PhoneTag() {
+		init();
+	}
+
 	@Override
 	public MediaType getContentType() {
 		return MediaType.TEXT;
@@ -55,8 +62,28 @@ public class PhoneTag extends EncodingBufferedTag {
 	}
 
 /* BodyTag only:
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 /**/
+
+	private String value;
+	public void setValue(String value) {
+		this.value = Strings.trimNullIfEmpty(value);
+	}
+
+	private void init() {
+		value = null;
+	}
+
+	@Override
+/* BodyTag only:
+	protected int doStartTag(Writer out) throws JspException, IOException {
+		return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+/**/
+/* SimpleTag only: */
+	protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+		if(value == null) super.invoke(body, captureValidator);
+/**/
+	}
 
 	@Override
 /* BodyTag only:
@@ -66,14 +93,25 @@ public class PhoneTag extends EncodingBufferedTag {
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
 		PropertyHelper.setCardProperty(
-			capturedBody.trim().toString(),
+			(value != null) ? value : capturedBody.trim().toString(),
 			TAG_NAME,
 			this,
 			StoreCreditCardTag::setPhone,
-			PaymentTag::setCreditCardPhone
+			CreditCardTag::setPhone
 		);
 /* BodyTag only:
 		return EVAL_PAGE;
 /**/
 	}
+
+/* BodyTag only:
+	@Override
+	public void doFinally() {
+		try {
+			init();
+		} finally {
+			super.doFinally();
+		}
+	}
+/**/
 }

@@ -28,6 +28,9 @@ import com.aoindustries.creditcards.payflowPro.PayflowPro;
 import com.aoindustries.creditcards.stripe.Stripe;
 import com.aoindustries.creditcards.test.TestMerchantServicesProvider;
 import com.aoindustries.creditcards.usaepay.USAePay;
+import com.aoindustries.encoding.Coercion;
+import com.aoindustries.lang.Strings;
+import com.aoindustries.servlet.jsp.LocalizedJspTagException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +40,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.DynamicAttributes;
 import javax.servlet.jsp.tagext.TryCatchFinally;
 
 /**
@@ -51,9 +55,14 @@ import javax.servlet.jsp.tagext.TryCatchFinally;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally {
+public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, DynamicAttributes {
 
 	public static final String TAG_NAME = "<payment:useProcessor>";
+
+	/**
+	 * The prefix for <code>param.*</code> dynamic attributes.
+	 */
+	private static final String PARAM_ATTRIBUTE_PREFIX = "param.";
 
 	/** The previously created processors are reused. */
 	private final static List<TestMerchantServicesProvider> testMerchantServicesProviders = new ArrayList<>();
@@ -143,34 +152,43 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally {
 
 	private static final long serialVersionUID = 1L;
 
-	// <editor-fold desc="Set by nested tags">
-	private transient String connectorName;
+	private String connectorName;
 	/**
 	 * Sets the connector name.
-	 * 
-	 * @throws IllegalStateException if name already set.
 	 */
-	// Java 9: module-private
-	public void setConnectorName(String connectorName) throws IllegalStateException {
-		if(this.connectorName != null) throw new IllegalStateException("connectorName already set");
-		this.connectorName = connectorName;
+	public void setConnectorName(String connectorName) {
+		this.connectorName = Strings.trimNullIfEmpty(connectorName);
 	}
 
-	private transient Map<String,String> parameters;
+	private Map<String,String> parameters;
 	/**
 	 * Adds a parameter.
 	 * 
 	 * @throws IllegalStateException if name already set.
 	 */
-	// Java 9: module-private
 	public void addParameter(String name, String value) throws IllegalStateException {
 		if(this.parameters.containsKey(name)) throw new IllegalStateException("parameter already set: " + name);
 		this.parameters.put(name, value);
 	}
-	// </editor-fold>
+
+	@Override
+	public void setDynamicAttribute(String uri, String localName, Object value) throws JspException {
+		if(
+			uri == null
+			&& localName.startsWith(PARAM_ATTRIBUTE_PREFIX)
+		) {
+			if(value != null) {
+				addParameter(
+					localName.substring(PARAM_ATTRIBUTE_PREFIX.length()),
+					Coercion.toString(value)
+				);
+			}
+		} else {
+			throw new JspTagException("Unexpected dynamic attribute for " + TAG_NAME + ": \"" + localName + "\", only expecting \"" + PARAM_ATTRIBUTE_PREFIX + "*\"");
+		}
+	}
 
 	private void init() {
-		// Set by nested tags
 		connectorName = null;
 		if(parameters == null) {
 			parameters = new HashMap<>();

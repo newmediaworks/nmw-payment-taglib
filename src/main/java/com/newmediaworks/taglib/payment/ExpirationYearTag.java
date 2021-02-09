@@ -24,12 +24,14 @@ package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.MediaValidator;
 import com.aoindustries.encoding.taglib.EncodingBufferedTag;
 import com.aoindustries.io.buffer.BufferResult;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
+import javax.servlet.jsp.tagext.JspFragment;
 
 /**
  * Provides the expiration year to either a {@link StoreCreditCardTag}
@@ -45,6 +47,10 @@ public class ExpirationYearTag extends EncodingBufferedTag {
 	public static final String TAG_NAME = "<payment:expirationYear>";
 /**/
 
+	public ExpirationYearTag() {
+		init();
+	}
+
 	@Override
 	public MediaType getContentType() {
 		return MediaType.TEXT;
@@ -56,8 +62,28 @@ public class ExpirationYearTag extends EncodingBufferedTag {
 	}
 
 /* BodyTag only:
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 /**/
+
+	private Short value;
+	public void setValue(short value) {
+		this.value = value;
+	}
+
+	private void init() {
+		value = null;
+	}
+
+	@Override
+/* BodyTag only:
+	protected int doStartTag(Writer out) throws JspException, IOException {
+		return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+/**/
+/* SimpleTag only: */
+	protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+		if(value == null) super.invoke(body, captureValidator);
+/**/
+	}
 
 	@Override
 /* BodyTag only:
@@ -66,12 +92,16 @@ public class ExpirationYearTag extends EncodingBufferedTag {
 /* SimpleTag only: */
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
-		String expirationYearString = capturedBody.trim().toString();
 		short expirationYear;
-		try {
-			expirationYear = Short.parseShort(expirationYearString);
-		} catch(NumberFormatException err) {
-			throw new JspTagException("Invalid expirationYear: "+expirationYearString, err);
+		if(value != null) {
+			expirationYear = value;
+		} else {
+			String expirationYearString = capturedBody.trim().toString();
+			try {
+				expirationYear = Short.parseShort(expirationYearString);
+			} catch(NumberFormatException err) {
+				throw new JspTagException("Invalid value for " + TAG_NAME + ": " + expirationYearString, err);
+			}
 		}
 
 		PropertyHelper.setCardProperty(
@@ -79,10 +109,21 @@ public class ExpirationYearTag extends EncodingBufferedTag {
 			TAG_NAME,
 			this,
 			StoreCreditCardTag::setExpirationYear,
-			PaymentTag::setCreditCardExpirationYear
+			CreditCardTag::setExpirationYear
 		);
 /* BodyTag only:
 		return EVAL_PAGE;
 /**/
 	}
+
+/* BodyTag only:
+	@Override
+	public void doFinally() {
+		try {
+			init();
+		} finally {
+			super.doFinally();
+		}
+	}
+/**/
 }

@@ -24,6 +24,7 @@ package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.TransactionRequest;
 import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.MediaValidator;
 import com.aoindustries.encoding.taglib.EncodingBufferedTag;
 import com.aoindustries.io.buffer.BufferResult;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
@@ -31,6 +32,7 @@ import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
+import javax.servlet.jsp.tagext.JspFragment;
 
 /**
  * Provides the tax exempt flag to a {@link PaymentTag}.
@@ -45,6 +47,10 @@ public class TaxExemptTag extends EncodingBufferedTag {
 	public static final String TAG_NAME = "<payment:taxExempt>";
 /**/
 
+	public TaxExemptTag() {
+		init();
+	}
+
 	@Override
 	public MediaType getContentType() {
 		return MediaType.TEXT;
@@ -56,8 +62,28 @@ public class TaxExemptTag extends EncodingBufferedTag {
 	}
 
 /* BodyTag only:
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 /**/
+
+	private Boolean value;
+	public void setValue(Boolean value) {
+		this.value = value;
+	}
+
+	private void init() {
+		value = null;
+	}
+
+	@Override
+/* BodyTag only:
+	protected int doStartTag(Writer out) throws JspException, IOException {
+		return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+/**/
+/* SimpleTag only: */
+	protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+		if(value == null) super.invoke(body, captureValidator);
+/**/
+	}
 
 	@Override
 /* BodyTag only:
@@ -66,11 +92,15 @@ public class TaxExemptTag extends EncodingBufferedTag {
 /* SimpleTag only: */
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
-		String taxExemptString = capturedBody.trim().toString();
 		boolean taxExempt;
-		if("true".equalsIgnoreCase(taxExemptString)) taxExempt = true;
-		else if("false".equalsIgnoreCase(taxExemptString)) taxExempt = false;
-		else throw new JspTagException("Invalid value for taxExempt, should be either true or false: "+taxExemptString); // TODO: TAG_NAME in this message, too?  Review others if so
+		if(value != null) {
+			taxExempt = value;
+		} else {
+			String taxExemptString = capturedBody.trim().toString();
+			if("true".equalsIgnoreCase(taxExemptString)) taxExempt = true;
+			else if("false".equalsIgnoreCase(taxExemptString)) taxExempt = false;
+			else throw new JspTagException("Invalid value for " + TAG_NAME + ", should be either true or false: " + taxExemptString);
+		}
 
 		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class)
 			.setTaxExempt(taxExempt);
@@ -78,4 +108,15 @@ public class TaxExemptTag extends EncodingBufferedTag {
 		return EVAL_PAGE;
 /**/
 	}
+
+/* BodyTag only:
+	@Override
+	public void doFinally() {
+		try {
+			init();
+		} finally {
+			super.doFinally();
+		}
+	}
+/**/
 }

@@ -23,9 +23,10 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
+import com.aoindustries.util.function.BiConsumerE;
 import java.util.Optional;
 import java.util.function.BiConsumer;
-import javax.servlet.jsp.JspTagException;
+import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspTag;
 
 /**
@@ -48,16 +49,15 @@ public class PropertyHelper {
 		String fromName,
 		JspTag from,
 		BiConsumer<? super StoreCreditCardTag, ? super V> storeCreditCardSetter,
-		BiConsumer<? super PaymentTag, ? super V> creditCardSetter
-	) throws JspTagException {
+		BiConsumerE<? super CreditCardTag, ? super V, ? extends JspException> creditCardSetter
+	) throws JspException {
 		// Java 9: ifPresentOrElse
 		Optional<StoreCreditCardTag> storeCreditCardTag = JspTagUtils.findAncestor(from, StoreCreditCardTag.class);
 		if(storeCreditCardTag.isPresent()) {
 			storeCreditCardSetter.accept(storeCreditCardTag.get(), value);
 		} else {
 			CreditCardTag creditCardTag = JspTagUtils.requireAncestor(fromName, from, StoreCreditCardTag.TAG_NAME + " or " + CreditCardTag.TAG_NAME, CreditCardTag.class);
-			PaymentTag paymentTag = JspTagUtils.requireAncestor(CreditCardTag.TAG_NAME, creditCardTag, PaymentTag.TAG_NAME, PaymentTag.class);
-			creditCardSetter.accept(paymentTag, value);
+			creditCardSetter.accept(creditCardTag, value);
 		}
 	}
 
@@ -71,9 +71,9 @@ public class PropertyHelper {
 		String fromName,
 		JspTag from,
 		BiConsumer<? super StoreCreditCardTag, ? super V> storeCreditCardSetter,
-		BiConsumer<? super PaymentTag, ? super V> creditCardSetter,
-		BiConsumer<? super PaymentTag, ? super V> shippingAddressSetter
-	) throws JspTagException {
+		BiConsumerE<? super CreditCardTag, ? super V, ? extends JspException> creditCardSetter,
+		BiConsumerE<? super ShippingAddressTag, ? super V, ? extends JspException> shippingAddressSetter
+	) throws JspException {
 		// Java 9: ifPresentOrElse
 		Optional<StoreCreditCardTag> storeCreditCardTag = JspTagUtils.findAncestor(from, StoreCreditCardTag.class);
 		if(storeCreditCardTag.isPresent()) {
@@ -81,12 +81,10 @@ public class PropertyHelper {
 		} else {
 			Optional<CreditCardTag> creditCardTag = JspTagUtils.findAncestor(from, CreditCardTag.class);
 			if(creditCardTag.isPresent()) {
-				PaymentTag paymentTag = JspTagUtils.requireAncestor(CreditCardTag.TAG_NAME, creditCardTag.get(), PaymentTag.TAG_NAME, PaymentTag.class);
-				creditCardSetter.accept(paymentTag, value);
+				creditCardSetter.accept(creditCardTag.get(), value);
 			} else {
 				ShippingAddressTag shippingAddressTag = JspTagUtils.requireAncestor(fromName, from, StoreCreditCardTag.TAG_NAME + ", " + CreditCardTag.TAG_NAME + ", or " + ShippingAddressTag.TAG_NAME, ShippingAddressTag.class);
-				PaymentTag paymentTag = JspTagUtils.requireAncestor(ShippingAddressTag.TAG_NAME, shippingAddressTag, PaymentTag.TAG_NAME, PaymentTag.class);
-				shippingAddressSetter.accept(paymentTag, value);
+				shippingAddressSetter.accept(shippingAddressTag, value);
 			}
 		}
 	}

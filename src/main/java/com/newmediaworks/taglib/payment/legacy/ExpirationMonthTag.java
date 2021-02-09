@@ -28,7 +28,6 @@ import com.aoindustries.encoding.taglib.legacy.EncodingBufferedBodyTag;
 import com.aoindustries.io.buffer.BufferResult;
 import com.newmediaworks.taglib.payment.CreditCardTag;
 import static com.newmediaworks.taglib.payment.ExpirationMonthTag.TAG_NAME;
-import com.newmediaworks.taglib.payment.PaymentTag;
 import com.newmediaworks.taglib.payment.PropertyHelper;
 import com.newmediaworks.taglib.payment.StoreCreditCardTag;
 import java.io.IOException;
@@ -50,6 +49,10 @@ public class ExpirationMonthTag extends EncodingBufferedBodyTag {
 	public static final String TAG_NAME = "<payment:expirationMonth>";
 /**/
 
+	public ExpirationMonthTag() {
+		init();
+	}
+
 	@Override
 	public MediaType getContentType() {
 		return MediaType.TEXT;
@@ -61,8 +64,28 @@ public class ExpirationMonthTag extends EncodingBufferedBodyTag {
 	}
 
 /* BodyTag only: */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 /**/
+
+	private Byte value;
+	public void setValue(byte value) {
+		this.value = value;
+	}
+
+	private void init() {
+		value = null;
+	}
+
+	@Override
+/* BodyTag only: */
+	protected int doStartTag(Writer out) throws JspException, IOException {
+		return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+/**/
+/* SimpleTag only:
+	protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+		if(value == null) super.invoke(body, captureValidator);
+/**/
+	}
 
 	@Override
 /* BodyTag only: */
@@ -71,24 +94,38 @@ public class ExpirationMonthTag extends EncodingBufferedBodyTag {
 /* SimpleTag only:
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
-		String expirationMonthString = capturedBody.trim().toString();
 		byte expirationMonth;
-		try {
-			expirationMonth = Byte.parseByte(expirationMonthString);
-		} catch(NumberFormatException err) {
-			throw new JspTagException("Invalid expirationMonth: "+expirationMonthString, err);
+		if(value != null) {
+			expirationMonth = value;
+		} else {
+			String expirationMonthString = capturedBody.trim().toString();
+			try {
+				expirationMonth = Byte.parseByte(expirationMonthString);
+			} catch(NumberFormatException err) {
+				throw new JspTagException("Invalid value for " + TAG_NAME + ": " + expirationMonthString, err);
+			}
 		}
-		if(expirationMonth<1 || expirationMonth>12) throw new JspTagException("Invalid expirationMonth, must be between 1 and 12 inclusive: "+expirationMonth);
 
 		PropertyHelper.setCardProperty(
 			expirationMonth,
 			TAG_NAME,
 			this,
 			StoreCreditCardTag::setExpirationMonth,
-			PaymentTag::setCreditCardExpirationMonth
+			CreditCardTag::setExpirationMonth
 		);
 /* BodyTag only: */
 		return EVAL_PAGE;
 /**/
 	}
+
+/* BodyTag only: */
+	@Override
+	public void doFinally() {
+		try {
+			init();
+		} finally {
+			super.doFinally();
+		}
+	}
+/**/
 }

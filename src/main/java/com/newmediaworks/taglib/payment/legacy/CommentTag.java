@@ -27,6 +27,7 @@ import com.aoindustries.creditcards.TransactionRequest;
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.taglib.legacy.EncodingBufferedBodyTag;
 import com.aoindustries.io.buffer.BufferResult;
+import com.aoindustries.lang.Strings;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import static com.newmediaworks.taglib.payment.CommentTag.TAG_NAME;
 import com.newmediaworks.taglib.payment.CreditCardTag;
@@ -53,6 +54,10 @@ public class CommentTag extends EncodingBufferedBodyTag {
 	public static final String TAG_NAME = "<payment:comment>";
 /**/
 
+	public CommentTag() {
+		init();
+	}
+
 	@Override
 	public MediaType getContentType() {
 		return MediaType.TEXT;
@@ -64,8 +69,28 @@ public class CommentTag extends EncodingBufferedBodyTag {
 	}
 
 /* BodyTag only: */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 /**/
+
+	private String value;
+	public void setValue(String value) {
+		this.value = Strings.trimNullIfEmpty(value);
+	}
+
+	private void init() {
+		value = null;
+	}
+
+	@Override
+/* BodyTag only: */
+	protected int doStartTag(Writer out) throws JspException, IOException {
+		return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+/**/
+/* SimpleTag only:
+	protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+		if(value == null) super.invoke(body, captureValidator);
+/**/
+	}
 
 	@Override
 /* BodyTag only: */
@@ -74,7 +99,7 @@ public class CommentTag extends EncodingBufferedBodyTag {
 /* SimpleTag only:
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
-		String comment = capturedBody.trim().toString();
+		String comment = (value != null) ? value : capturedBody.trim().toString();
 		// Java 9: ifPresentOrElse
 		Optional<StoreCreditCardTag> storeCreditCardTag = JspTagUtils.findAncestor(this, StoreCreditCardTag.class);
 		if(storeCreditCardTag.isPresent()) {
@@ -82,8 +107,7 @@ public class CommentTag extends EncodingBufferedBodyTag {
 		} else {
 			Optional<CreditCardTag> creditCardTag = JspTagUtils.findAncestor(this, CreditCardTag.class);
 			if(creditCardTag.isPresent()) {
-				JspTagUtils.requireAncestor(CreditCardTag.TAG_NAME, creditCardTag.get(), PaymentTag.TAG_NAME, PaymentTag.class)
-					.setCreditCardComment(comment);
+				creditCardTag.get().setComment(comment);
 			} else {
 				JspTagUtils.requireAncestor(TAG_NAME, this, StoreCreditCardTag.TAG_NAME + ", " + CreditCardTag.TAG_NAME + ", or " + PaymentTag.TAG_NAME, PaymentTag.class)
 					.setComment(comment);
@@ -93,4 +117,15 @@ public class CommentTag extends EncodingBufferedBodyTag {
 		return EVAL_PAGE;
 /**/
 	}
+
+/* BodyTag only: */
+	@Override
+	public void doFinally() {
+		try {
+			init();
+		} finally {
+			super.doFinally();
+		}
+	}
+/**/
 }

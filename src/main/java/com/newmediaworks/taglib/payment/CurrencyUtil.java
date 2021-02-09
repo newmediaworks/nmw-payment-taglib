@@ -22,6 +22,7 @@
  */
 package com.newmediaworks.taglib.payment;
 
+import com.aoindustries.lang.Strings;
 import java.math.BigDecimal;
 import java.util.Currency;
 
@@ -40,10 +41,13 @@ public final class CurrencyUtil {
 	 * TODO: This is a US-locale specific implementation.
 	 * Should probably not make public again until a more locale-aware implementation is provided.
 	 * </p>
+	 *
+	 * @param  value  When {@code null} or empty (after trimming), returns {@code null}
 	 */
 	// Java 9: module-private
 	public static BigDecimal parseCurrency(String value) {
-		if(value==null) return null;
+		value = Strings.trimNullIfEmpty(value);
+		if(value == null) return null;
 		return new BigDecimal(value.replace("$", "").replace(",", ""));
 	}
 

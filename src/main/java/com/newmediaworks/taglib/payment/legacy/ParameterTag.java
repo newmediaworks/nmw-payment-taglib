@@ -25,6 +25,7 @@ package com.newmediaworks.taglib.payment.legacy;
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.taglib.legacy.EncodingBufferedBodyTag;
 import com.aoindustries.io.buffer.BufferResult;
+import com.aoindustries.lang.Strings;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import static com.newmediaworks.taglib.payment.ParameterTag.TAG_NAME;
 import com.newmediaworks.taglib.payment.UseProcessorTag;
@@ -60,22 +61,33 @@ public class ParameterTag extends EncodingBufferedBodyTag {
 	}
 
 /* BodyTag only: */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 /**/
 
-	// <editor-fold desc="Attributes">
 	private String name;
-	public String getName() {
-		return name;
-	}
 	public void setName(String name) {
-		this.name = name;
+		this.name = Strings.trim(name);
 	}
-	// </editor-fold>
+
+	private String value;
+	public void setValue(String value) {
+		this.value = Strings.trimNullIfEmpty(value);
+	}
 
 	private void init() {
-		// Attributes
 		name = null;
+		value = null;
+	}
+
+	@Override
+/* BodyTag only: */
+	protected int doStartTag(Writer out) throws JspException, IOException {
+		return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+/**/
+/* SimpleTag only:
+	protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+		if(value == null) super.invoke(body, captureValidator);
+/**/
 	}
 
 	@Override
@@ -86,7 +98,7 @@ public class ParameterTag extends EncodingBufferedBodyTag {
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
 		JspTagUtils.requireAncestor(TAG_NAME, this, UseProcessorTag.TAG_NAME, UseProcessorTag.class)
-			.addParameter(name, capturedBody.trim().toString());
+			.addParameter(name, (value != null) ? value : capturedBody.trim().toString());
 /* BodyTag only: */
 		return EVAL_PAGE;
 /**/

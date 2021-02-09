@@ -26,9 +26,9 @@ import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.taglib.legacy.EncodingBufferedBodyTag;
 import com.aoindustries.io.buffer.BufferResult;
+import com.aoindustries.lang.Strings;
 import com.newmediaworks.taglib.payment.CreditCardTag;
 import static com.newmediaworks.taglib.payment.CustomerTaxIdTag.TAG_NAME;
-import com.newmediaworks.taglib.payment.PaymentTag;
 import com.newmediaworks.taglib.payment.PropertyHelper;
 import com.newmediaworks.taglib.payment.StoreCreditCardTag;
 import java.io.IOException;
@@ -50,6 +50,10 @@ public class CustomerTaxIdTag extends EncodingBufferedBodyTag {
 	public static final String TAG_NAME = "<payment:customerTaxId>";
 /**/
 
+	public CustomerTaxIdTag() {
+		init();
+	}
+
 	@Override
 	public MediaType getContentType() {
 		return MediaType.TEXT;
@@ -61,8 +65,28 @@ public class CustomerTaxIdTag extends EncodingBufferedBodyTag {
 	}
 
 /* BodyTag only: */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 /**/
+
+	private String value;
+	public void setValue(String value) {
+		this.value = Strings.trimNullIfEmpty(value);
+	}
+
+	private void init() {
+		value = null;
+	}
+
+	@Override
+/* BodyTag only: */
+	protected int doStartTag(Writer out) throws JspException, IOException {
+		return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+/**/
+/* SimpleTag only:
+	protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+		if(value == null) super.invoke(body, captureValidator);
+/**/
+	}
 
 	@Override
 /* BodyTag only: */
@@ -72,14 +96,25 @@ public class CustomerTaxIdTag extends EncodingBufferedBodyTag {
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
 		PropertyHelper.setCardProperty(
-			capturedBody.trim().toString(),
+			(value != null) ? value : capturedBody.trim().toString(),
 			TAG_NAME,
 			this,
 			StoreCreditCardTag::setCustomerTaxId,
-			PaymentTag::setCreditCardCustomerTaxId
+			CreditCardTag::setCustomerTaxId
 		);
 /* BodyTag only: */
 		return EVAL_PAGE;
 /**/
 	}
+
+/* BodyTag only: */
+	@Override
+	public void doFinally() {
+		try {
+			init();
+		} finally {
+			super.doFinally();
+		}
+	}
+/**/
 }

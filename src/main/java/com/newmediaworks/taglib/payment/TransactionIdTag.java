@@ -24,13 +24,16 @@ package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.AuthorizationResult;
 import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.MediaValidator;
 import com.aoindustries.encoding.taglib.EncodingBufferedTag;
 import com.aoindustries.io.buffer.BufferResult;
+import com.aoindustries.lang.Strings;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Optional;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.JspFragment;
 
 /**
  * Provides the transaction ID to a {@link CaptureTag}
@@ -46,6 +49,10 @@ public class TransactionIdTag extends EncodingBufferedTag {
 	public static final String TAG_NAME = "<payment:transactionId>";
 /**/
 
+	public TransactionIdTag() {
+		init();
+	}
+
 	@Override
 	public MediaType getContentType() {
 		return MediaType.TEXT;
@@ -57,8 +64,28 @@ public class TransactionIdTag extends EncodingBufferedTag {
 	}
 
 /* BodyTag only:
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 /**/
+
+	private String value;
+	public void setValue(String value) {
+		this.value = Strings.trimNullIfEmpty(value);
+	}
+
+	private void init() {
+		value = null;
+	}
+
+	@Override
+/* BodyTag only:
+	protected int doStartTag(Writer out) throws JspException, IOException {
+		return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+/**/
+/* SimpleTag only: */
+	protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+		if(value == null) super.invoke(body, captureValidator);
+/**/
+	}
 
 	@Override
 /* BodyTag only:
@@ -67,7 +94,7 @@ public class TransactionIdTag extends EncodingBufferedTag {
 /* SimpleTag only: */
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
-		String transactionId = capturedBody.trim().toString();
+		String transactionId = (value != null) ? value : capturedBody.trim().toString();
 		// Java 9: Optional.ifPresentOrElse
 		Optional<CaptureTag> captureTag = JspTagUtils.findAncestor(this, CaptureTag.class);
 		if(captureTag.isPresent()) {
@@ -80,4 +107,15 @@ public class TransactionIdTag extends EncodingBufferedTag {
 		return EVAL_PAGE;
 /**/
 	}
+
+/* BodyTag only:
+	@Override
+	public void doFinally() {
+		try {
+			init();
+		} finally {
+			super.doFinally();
+		}
+	}
+/**/
 }

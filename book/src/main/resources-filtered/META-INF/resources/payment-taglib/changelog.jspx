@@ -37,7 +37,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-05-26T16:13:02-0500"
-		dateModified="2021-02-07T23:29:56-06:00"
+		dateModified="2021-02-08T04:45:38-06:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -86,6 +86,10 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 							within <core:link page="nmw-payment.tld/tag-comment" /> will automatically encoding its output
 							as <ao:a href="https://aoindustries.com/ao-encoding/apidocs/com/aoindustries/encoding/MediaType.html#TEXT">TEXT</ao:a>.
 						</p>
+					</li>
+					<li>
+						Added more attributes for <ao:a rel="nofollow" href="https://docs.oracle.com/cd/E19226-01/820-7627/gjddd/">JSP Expression Language</ao:a>
+						integration.  Implementations still fall-back to body content when the attribute is not specified.
 					</li>
 					<li>
 						Added <core:link page="nmw-payment-legacy.tld/">alternate implementation</core:link> compatible

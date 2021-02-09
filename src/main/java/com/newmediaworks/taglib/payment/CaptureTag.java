@@ -25,6 +25,7 @@ package com.newmediaworks.taglib.payment;
 import com.aoindustries.creditcards.AuthorizationResult;
 import com.aoindustries.creditcards.CaptureResult;
 import com.aoindustries.creditcards.MerchantServicesProvider;
+import com.aoindustries.lang.Strings;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -47,11 +48,10 @@ public class CaptureTag extends BodyTagSupport implements TryCatchFinally {
 
 	private static final long serialVersionUID = 2L;
 
-	// <editor-fold desc="Set by nested tags">
-	private transient String transactionId;
-	// Java 9: module-private
+	// <editor-fold desc="Attributes">
+	private String transactionId;
 	public void setTransactionId(String transactionId) {
-		this.transactionId = transactionId;
+		this.transactionId = Strings.trimNullIfEmpty(transactionId);
 	}
 	// </editor-fold>
 
@@ -63,7 +63,7 @@ public class CaptureTag extends BodyTagSupport implements TryCatchFinally {
 	// </editor-fold>
 
 	private void init() {
-		// Set by nested tags
+		// Attributes
 		transactionId = null;
 		// The result of the processing
 		captureResult = null;
@@ -73,14 +73,14 @@ public class CaptureTag extends BodyTagSupport implements TryCatchFinally {
 	public int doStartTag() throws JspException {
 		// Make sure the processor is set
 		MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
-		if(processor==null) throw new JspTagException("processor not set, please set processor with the useProcessor tag first");
+		if(processor == null) throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
 		return EVAL_BODY_INCLUDE;
 	}
 
 	void process() throws JspException {
 		// Make sure the processor is set
 		MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
-		if(processor==null) throw new JspTagException("processor not set, please set processor with the useProcessor tag first");
+		if(processor == null) throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
 
 		captureResult = processor.capture(
 			new AuthorizationResult(

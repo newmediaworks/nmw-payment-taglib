@@ -47,6 +47,10 @@ public class TaxExemptTag extends EncodingBufferedBodyTag {
 	public static final String TAG_NAME = "<payment:taxExempt>";
 /**/
 
+	public TaxExemptTag() {
+		init();
+	}
+
 	@Override
 	public MediaType getContentType() {
 		return MediaType.TEXT;
@@ -58,8 +62,28 @@ public class TaxExemptTag extends EncodingBufferedBodyTag {
 	}
 
 /* BodyTag only: */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 /**/
+
+	private Boolean value;
+	public void setValue(Boolean value) {
+		this.value = value;
+	}
+
+	private void init() {
+		value = null;
+	}
+
+	@Override
+/* BodyTag only: */
+	protected int doStartTag(Writer out) throws JspException, IOException {
+		return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+/**/
+/* SimpleTag only:
+	protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+		if(value == null) super.invoke(body, captureValidator);
+/**/
+	}
 
 	@Override
 /* BodyTag only: */
@@ -68,11 +92,15 @@ public class TaxExemptTag extends EncodingBufferedBodyTag {
 /* SimpleTag only:
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
-		String taxExemptString = capturedBody.trim().toString();
 		boolean taxExempt;
-		if("true".equalsIgnoreCase(taxExemptString)) taxExempt = true;
-		else if("false".equalsIgnoreCase(taxExemptString)) taxExempt = false;
-		else throw new JspTagException("Invalid value for taxExempt, should be either true or false: "+taxExemptString); // TODO: TAG_NAME in this message, too?  Review others if so
+		if(value != null) {
+			taxExempt = value;
+		} else {
+			String taxExemptString = capturedBody.trim().toString();
+			if("true".equalsIgnoreCase(taxExemptString)) taxExempt = true;
+			else if("false".equalsIgnoreCase(taxExemptString)) taxExempt = false;
+			else throw new JspTagException("Invalid value for " + TAG_NAME + ", should be either true or false: " + taxExemptString);
+		}
 
 		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class)
 			.setTaxExempt(taxExempt);
@@ -80,4 +108,15 @@ public class TaxExemptTag extends EncodingBufferedBodyTag {
 		return EVAL_PAGE;
 /**/
 	}
+
+/* BodyTag only: */
+	@Override
+	public void doFinally() {
+		try {
+			init();
+		} finally {
+			super.doFinally();
+		}
+	}
+/**/
 }

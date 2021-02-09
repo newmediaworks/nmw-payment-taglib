@@ -26,10 +26,10 @@ import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.taglib.legacy.EncodingBufferedBodyTag;
 import com.aoindustries.io.buffer.BufferResult;
+import com.aoindustries.lang.Strings;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import com.newmediaworks.taglib.payment.CreditCardTag;
 import static com.newmediaworks.taglib.payment.MaskedCardNumberTag.TAG_NAME;
-import com.newmediaworks.taglib.payment.PaymentTag;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
@@ -47,6 +47,10 @@ public class MaskedCardNumberTag extends EncodingBufferedBodyTag {
 	public static final String TAG_NAME = "<payment:maskedCardNumber>";
 /**/
 
+	public MaskedCardNumberTag() {
+		init();
+	}
+
 	@Override
 	public MediaType getContentType() {
 		return MediaType.TEXT;
@@ -58,8 +62,28 @@ public class MaskedCardNumberTag extends EncodingBufferedBodyTag {
 	}
 
 /* BodyTag only: */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 /**/
+
+	private String value;
+	public void setValue(String value) {
+		this.value = Strings.trimNullIfEmpty(value);
+	}
+
+	private void init() {
+		value = null;
+	}
+
+	@Override
+/* BodyTag only: */
+	protected int doStartTag(Writer out) throws JspException, IOException {
+		return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+/**/
+/* SimpleTag only:
+	protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+		if(value == null) super.invoke(body, captureValidator);
+/**/
+	}
 
 	@Override
 /* BodyTag only: */
@@ -68,11 +92,21 @@ public class MaskedCardNumberTag extends EncodingBufferedBodyTag {
 /* SimpleTag only:
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
-		CreditCardTag creditCardTag = JspTagUtils.requireAncestor(TAG_NAME, this, CreditCardTag.TAG_NAME, CreditCardTag.class);
-		JspTagUtils.requireAncestor(CreditCardTag.TAG_NAME, creditCardTag, PaymentTag.TAG_NAME, PaymentTag.class)
-			.setCreditCardMaskedCardNumber(capturedBody.trim().toString());
+		JspTagUtils.requireAncestor(TAG_NAME, this, CreditCardTag.TAG_NAME, CreditCardTag.class)
+			.setMaskedCardNumber((value != null) ? value : capturedBody.trim().toString());
 /* BodyTag only: */
 		return EVAL_PAGE;
 /**/
 	}
+
+/* BodyTag only: */
+	@Override
+	public void doFinally() {
+		try {
+			init();
+		} finally {
+			super.doFinally();
+		}
+	}
+/**/
 }

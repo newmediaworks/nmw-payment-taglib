@@ -26,15 +26,13 @@ import com.aoindustries.creditcards.TransactionRequest;
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.taglib.legacy.EncodingBufferedBodyTag;
 import com.aoindustries.io.buffer.BufferResult;
+import com.aoindustries.lang.Strings;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
-import com.newmediaworks.taglib.payment.CurrencyUtil;
 import static com.newmediaworks.taglib.payment.DutyAmountTag.TAG_NAME;
 import com.newmediaworks.taglib.payment.PaymentTag;
 import java.io.IOException;
 import java.io.Writer;
-import java.math.BigDecimal;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
 
 /**
  * Provides the duty amount to a {@link PaymentTag}.
@@ -49,6 +47,10 @@ public class DutyAmountTag extends EncodingBufferedBodyTag {
 	public static final String TAG_NAME = "<payment:dutyAmount>";
 /**/
 
+	public DutyAmountTag() {
+		init();
+	}
+
 	@Override
 	public MediaType getContentType() {
 		return MediaType.TEXT;
@@ -60,8 +62,28 @@ public class DutyAmountTag extends EncodingBufferedBodyTag {
 	}
 
 /* BodyTag only: */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 /**/
+
+	private String value;
+	public void setValue(String value) {
+		this.value = Strings.trimNullIfEmpty(value);
+	}
+
+	private void init() {
+		value = null;
+	}
+
+	@Override
+/* BodyTag only: */
+	protected int doStartTag(Writer out) throws JspException, IOException {
+		return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+/**/
+/* SimpleTag only:
+	protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+		if(value == null) super.invoke(body, captureValidator);
+/**/
+	}
 
 	@Override
 /* BodyTag only: */
@@ -70,17 +92,21 @@ public class DutyAmountTag extends EncodingBufferedBodyTag {
 /* SimpleTag only:
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
-		String dutyAmountString = capturedBody.trim().toString();
-		BigDecimal dutyAmount;
-		try {
-			dutyAmount = CurrencyUtil.parseCurrency(dutyAmountString);
-		} catch(NumberFormatException err) {
-			throw new JspTagException("Invalid dutyAmount: "+dutyAmountString, err);
-		}
 		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class)
-			.setDutyAmount(dutyAmount);
+			.setDutyAmount((value != null) ? value : capturedBody.trim().toString());
 /* BodyTag only: */
 		return EVAL_PAGE;
 /**/
 	}
+
+/* BodyTag only: */
+	@Override
+	public void doFinally() {
+		try {
+			init();
+		} finally {
+			super.doFinally();
+		}
+	}
+/**/
 }

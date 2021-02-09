@@ -24,11 +24,14 @@ package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.encoding.MediaType;
+import com.aoindustries.encoding.MediaValidator;
 import com.aoindustries.encoding.taglib.EncodingBufferedTag;
 import com.aoindustries.io.buffer.BufferResult;
+import com.aoindustries.lang.Strings;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.JspFragment;
 
 /**
  * Masks a credit card number by only showing the first and last digits, hiding all the middle digits.
@@ -38,6 +41,10 @@ import javax.servlet.jsp.JspException;
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
 public class MaskCardNumberTag extends EncodingBufferedTag {
+
+	public MaskCardNumberTag() {
+		init();
+	}
 
 	@Override
 	public MediaType getContentType() {
@@ -50,8 +57,28 @@ public class MaskCardNumberTag extends EncodingBufferedTag {
 	}
 
 /* BodyTag only:
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 /**/
+
+	private String value;
+	public void setValue(String value) {
+		this.value = Strings.trimNullIfEmpty(value);
+	}
+
+	private void init() {
+		value = null;
+	}
+
+	@Override
+/* BodyTag only:
+	protected int doStartTag(Writer out) throws JspException, IOException {
+		return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+/**/
+/* SimpleTag only: */
+	protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+		if(value == null) super.invoke(body, captureValidator);
+/**/
+	}
 
 	@Override
 /* BodyTag only:
@@ -60,9 +87,20 @@ public class MaskCardNumberTag extends EncodingBufferedTag {
 /* SimpleTag only: */
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
-		out.write(CreditCard.maskCreditCardNumber(capturedBody.trim().toString()));
+		out.write(CreditCard.maskCreditCardNumber((value != null) ? value : capturedBody.trim().toString()));
 /* BodyTag only:
 		return EVAL_PAGE;
 /**/
 	}
+
+/* BodyTag only:
+	@Override
+	public void doFinally() {
+		try {
+			init();
+		} finally {
+			super.doFinally();
+		}
+	}
+/**/
 }

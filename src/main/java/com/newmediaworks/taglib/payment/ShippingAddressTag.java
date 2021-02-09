@@ -23,6 +23,7 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.TransactionRequest;
+import com.aoindustries.lang.Strings;
 import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -50,6 +51,51 @@ public class ShippingAddressTag extends BodyTagSupport {
 	}
 
 	private static final long serialVersionUID = 1L;
+
+	public void setFirstName(String firstName) throws JspException {
+		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getTransactionRequest()
+			.setShippingFirstName(Strings.trimNullIfEmpty(firstName));
+	}
+
+	public void setLastName(String lastName) throws JspException {
+		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getTransactionRequest()
+			.setShippingLastName(Strings.trimNullIfEmpty(lastName));
+	}
+
+	public void setCompanyName(String companyName) throws JspException {
+		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getTransactionRequest()
+			.setShippingCompanyName(Strings.trimNullIfEmpty(companyName));
+	}
+
+	public void setStreetAddress1(String streetAddress1) throws JspException {
+		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getTransactionRequest()
+			.setShippingStreetAddress1(Strings.trimNullIfEmpty(streetAddress1));
+	}
+
+	public void setStreetAddress2(String streetAddress2) throws JspException {
+		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getTransactionRequest()
+			.setShippingStreetAddress2(Strings.trimNullIfEmpty(streetAddress2));
+	}
+
+	public void setCity(String city) throws JspException {
+		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getTransactionRequest()
+			.setShippingCity(Strings.trimNullIfEmpty(city));
+	}
+
+	public void setState(String state) throws JspException {
+		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getTransactionRequest()
+			.setShippingState(Strings.trimNullIfEmpty(state));
+	}
+
+	public void setPostalCode(String postalCode) throws JspException {
+		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getTransactionRequest()
+			.setShippingPostalCode(Strings.trimNullIfEmpty(postalCode));
+	}
+
+	public void setCountryCode(String countryCode) throws JspException {
+		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getTransactionRequest()
+			.setShippingCountryCode(Strings.trimNullIfEmpty(countryCode));
+	}
 
 	@Override
 	public int doStartTag() throws JspException {
