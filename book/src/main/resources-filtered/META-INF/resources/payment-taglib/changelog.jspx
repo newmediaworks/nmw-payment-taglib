@@ -37,7 +37,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-05-26T16:13:02-0500"
-		dateModified="2021-02-10T06:07:41-06:00"
+		dateModified="2021-02-10T06:23:25-06:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -93,7 +93,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 					</p>
 					<p>
 						As an example, use of <ao:a href="https://aoindustries.com/ao-taglib/ao.tld/tag-out"><![CDATA[&lt;ao:out&gt;]]></ao:a>
-						within <core:link page="nmw-payment.tld/tag-comment" /> will automatically encoding its output
+						within <core:link page="nmw-payment.tld/tag-comment" /> will automatically encode its output
 						as <ao:a href="https://aoindustries.com/ao-encoding/apidocs/com/aoindustries/encoding/MediaType.html#TEXT">TEXT</ao:a>.
 					</p>
 				</li>
