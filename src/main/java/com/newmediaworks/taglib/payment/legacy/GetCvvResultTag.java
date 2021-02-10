@@ -25,9 +25,8 @@ package com.newmediaworks.taglib.payment.legacy;
 import com.aoindustries.creditcards.AuthorizationResult;
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.taglib.legacy.EncodingNullBodyTag;
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
+import com.newmediaworks.taglib.payment.Functions;
 import static com.newmediaworks.taglib.payment.GetCvvResultTag.TAG_NAME;
-import com.newmediaworks.taglib.payment.PaymentTag;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
@@ -35,6 +34,7 @@ import javax.servlet.jsp.JspException;
 /**
  * Gets the CVV2 (card security code) verification result.
  *
+ * @see  Functions#getCvvResult()
  * @see  AuthorizationResult#getCvvResult()
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
@@ -60,11 +60,10 @@ public class GetCvvResultTag extends EncodingNullBodyTag {
 /**/
 /* SimpleTag only:
 	protected void doTag(Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
-		PaymentTag paymentTag = JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class);
-
-		AuthorizationResult.CvvResult cvvResult = paymentTag.getAuthorizationResult().getCvvResult();
-		if(cvvResult != null) out.write(cvvResult.toString());
+		String cvvResult = Functions.getCvvResult(TAG_NAME, pageContext.getRequest());
+		if(cvvResult != null) out.write(cvvResult);
 /* BodyTag only: */
 		return SKIP_BODY;
 /**/

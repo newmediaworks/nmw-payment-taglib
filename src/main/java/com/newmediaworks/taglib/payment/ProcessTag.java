@@ -23,9 +23,10 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.MerchantServicesProvider;
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.util.Optional;
+import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
@@ -52,17 +53,22 @@ public class ProcessTag extends TagSupport {
 
 	@Override
 	public int doStartTag() throws JspException {
+		ServletRequest request = pageContext.getRequest();
 		// Java 9: ifPresentOfElse
-		Optional<PaymentTag> paymentTag = JspTagUtils.findAncestor(this, PaymentTag.class);
+		Optional<PaymentTag> paymentTag = PaymentTag.getCurrent(request);
 		if(paymentTag.isPresent()) {
 			paymentTag.get().process();
 		} else {
-			Optional<CaptureTag> captureTag = JspTagUtils.findAncestor(this, CaptureTag.class);
+			Optional<CaptureTag> captureTag = CaptureTag.getCurrent(request);
 			if(captureTag.isPresent()) {
 				captureTag.get().process();
 			} else {
-				JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME + ", " + CaptureTag.TAG_NAME + ", or " + VoidTag.TAG_NAME, VoidTag.class)
-					.process();
+				Optional<VoidTag> voidTag = VoidTag.getCurrent(request);
+				if(voidTag.isPresent()) {
+					voidTag.get().process();
+				} else {
+					throw new JspTagException(TAG_NAME + " must be within " + PaymentTag.TAG_NAME + ", " + CaptureTag.TAG_NAME + ", or " + VoidTag.TAG_NAME);
+				}
 			}
 		}
 		return SKIP_BODY;

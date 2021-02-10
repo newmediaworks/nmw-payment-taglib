@@ -25,14 +25,15 @@ package com.newmediaworks.taglib.payment;
 import com.aoindustries.creditcards.AuthorizationResult;
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.taglib.EncodingNullTag;
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 
 /**
  * Gets the per-processor unique transaction ID.
  *
+ * @see  Functions#getTransactionId()
  * @see  AuthorizationResult#getProviderUniqueId()
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
@@ -58,12 +59,10 @@ public class GetTransactionIdTag extends EncodingNullTag {
 /**/
 /* SimpleTag only: */
 	protected void doTag(Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
-		PaymentTag paymentTag = JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class);
-
-		AuthorizationResult authorizationResult = paymentTag.getAuthorizationResult();
-
-		out.write(authorizationResult.getProviderUniqueId());
+		String transactionId = Functions.getTransactionId(TAG_NAME, pageContext.getRequest());
+		if(transactionId != null) out.write(transactionId);
 /* BodyTag only:
 		return SKIP_BODY;
 /**/

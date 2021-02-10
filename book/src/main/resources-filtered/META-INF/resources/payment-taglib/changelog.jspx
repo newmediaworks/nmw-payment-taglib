@@ -37,7 +37,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-05-26T16:13:02-0500"
-		dateModified="2021-02-08T04:45:38-06:00"
+		dateModified="2021-02-10T02:32:57-06:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -95,6 +95,11 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 						Added <core:link page="nmw-payment-legacy.tld/">alternate implementation</core:link> compatible
 						with legacy JSP that use scriptlets.
 					</li>
+					<li>
+						Added a set of <ao:a rel="nofollow" href="https://docs.oracle.com/cd/E19226-01/820-7627/gjddd/">JSP Expression Language</ao:a>
+						functions as functional counterparts to the existing tags.
+					</li>
+					<li>Tag nesting relationships are now tracked with request attributes, so nesting may span page includes.</li>
 				</ul>
 			</changelog:release>
 		</c:if>

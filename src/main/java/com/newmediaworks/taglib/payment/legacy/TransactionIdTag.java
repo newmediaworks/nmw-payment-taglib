@@ -27,14 +27,15 @@ import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.taglib.legacy.EncodingBufferedBodyTag;
 import com.aoindustries.io.buffer.BufferResult;
 import com.aoindustries.lang.Strings;
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import com.newmediaworks.taglib.payment.CaptureTag;
 import static com.newmediaworks.taglib.payment.TransactionIdTag.TAG_NAME;
 import com.newmediaworks.taglib.payment.VoidTag;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Optional;
+import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
 
 /**
  * Provides the transaction ID to a {@link CaptureTag}
@@ -94,15 +95,21 @@ public class TransactionIdTag extends EncodingBufferedBodyTag {
 /**/
 /* SimpleTag only:
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
+		ServletRequest request = pageContext.getRequest();
 		String transactionId = (value != null) ? value : capturedBody.trim().toString();
 		// Java 9: Optional.ifPresentOrElse
-		Optional<CaptureTag> captureTag = JspTagUtils.findAncestor(this, CaptureTag.class);
+		Optional<CaptureTag> captureTag = CaptureTag.getCurrent(request);
 		if(captureTag.isPresent()) {
 			captureTag.get().setTransactionId(transactionId);
 		} else {
-			JspTagUtils.requireAncestor(TAG_NAME, this, CaptureTag.TAG_NAME + " or " + VoidTag.TAG_NAME, VoidTag.class)
-				.setTransactionId(transactionId);
+			Optional<VoidTag> voidTag = VoidTag.getCurrent(request);
+			if(voidTag.isPresent()) {
+				voidTag.get().setTransactionId(transactionId);
+			} else {
+				throw new JspTagException(TAG_NAME + " must be within " + CaptureTag.TAG_NAME + " or " + VoidTag.TAG_NAME);
+			}
 		}
 /* BodyTag only: */
 		return EVAL_PAGE;

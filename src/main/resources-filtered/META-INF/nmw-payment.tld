@@ -42,7 +42,7 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
 	version="2.1">
 	<!-- datePublished="2013-01-24T05:22:33-0600" -->
-	<!-- dateModified="2021-02-08T04:45:38-06:00" -->
+	<!-- dateModified="2021-02-09T16:08:15-06:00" -->
 <!-- </common> -->
 	<!-- allowRobots="auto" -->
 <!-- <common> -->
@@ -68,9 +68,7 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 		<p>
 			TODO: batch management?
 		</p>
-		<p>
-			TODO: Better JSTL interaction: Add a ${payment:maskCardNumber} function along with more attribute support and functions across the taglib?
-		</p>
+		-->
 		<hr />
 		<p>
 			This taglib is part of an extensible suite of interoperable, context-aware,
@@ -92,7 +90,6 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 			<li><a href="@{project.url}]]>&tld;<![CDATA[/">NMW Payment Taglib</a> (this taglib)</li>
 			<!-- TODO: nmw-persistence-taglib once open-source, and many others -->
 		</ul>
-		-->
 	]]></description>
 	<display-name>&tld_displayName;</display-name>
 	<tlib-version>
@@ -2972,7 +2969,7 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				The body of this tag will be processed when there was any type of error processing the
@@ -2982,6 +2979,7 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 			</p>
 			<p>
 				May use <a href="@{project.url}]]>&tld;<![CDATA[/tag-getErrorReason">&lt;payment:getErrorReason&gt;</a>
+				or <a href="@{project.url}]]>&tld;<![CDATA[/function-getErrorReason">${payment:getErrorReason()}</a>
 				to get the reason for the error.
 			</p>
 			<p>
@@ -2997,13 +2995,16 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Gets the reason for a processing error.
 			</p>
 			<p>
-				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-error">&lt;payment:error&gt;</a> tag.
+				Must be nested in a
+				<a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a>,
+				<a href="@{project.url}]]>&tld;<![CDATA[/tag-capture">&lt;payment:capture&gt;</a>,
+				or <a href="@{project.url}]]>&tld;<![CDATA[/tag-void">&lt;payment:void&gt;</a> tag.
 			</p>
 		]]></description>
 		<name>getErrorReason</name>
@@ -3012,17 +3013,19 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				The body of this tag will be processed when the payment was accepted (approved).
 			</p>
 			<p>
 				May use <a href="@{project.url}]]>&tld;<![CDATA[/tag-getAuthorizationCode">&lt;payment:getAuthorizationCode&gt;</a>
+				or <a href="@{project.url}]]>&tld;<![CDATA[/function-getAuthorizationCode">${payment:getAuthorizationCode()}</a>
 				to get the authorization code to display to the customer.
 			</p>
 			<p>
 				May use <a href="@{project.url}]]>&tld;<![CDATA[/tag-getTransactionId">&lt;payment:getTransactionId&gt;</a>
+				or <a href="@{project.url}]]>&tld;<![CDATA[/function-getTransactionId">${payment:getTransactionId()}</a>
 				to get the per-processor unique transaction ID.
 			</p>
 			<p>
@@ -3035,13 +3038,13 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Gets the authorization code to display to the customer.
 			</p>
 			<p>
-				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-accepted">&lt;payment:accepted&gt;</a> tag.
+				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
 			</p>
 		]]></description>
 		<name>getAuthorizationCode</name>
@@ -3050,19 +3053,23 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Gets the per-processor unique transaction ID.
 			</p>
 			<p>
 				This is guaranteed to be available when the payment is accepted.
-				When the transaction ID is required, only use inside a <a href="@{project.url}]]>&tld;<![CDATA[/tag-accepted">&lt;payment:accepted&gt;</a> tag.
+				When the transaction ID is required, only use inside a
+				<a href="@{project.url}]]>&tld;<![CDATA[/tag-accepted">&lt;payment:accepted&gt;</a> tag or when
+				<a href="@{project.url}]]>&tld;<![CDATA[/function-isAccepted">${payment:isAccepted()}</a>.
 			</p>
 			<p>
 				Depending on the processor, this may also be available within
 				<a href="@{project.url}]]>&tld;<![CDATA[/tag-error">&lt;payment:error&gt;</a>
-				and <a href="@{project.url}]]>&tld;<![CDATA[/tag-rejected">&lt;payment:rejected&gt;</a> tags.
+				and <a href="@{project.url}]]>&tld;<![CDATA[/tag-rejected">&lt;payment:rejected&gt;</a> tags
+				(or when <a href="@{project.url}]]>&tld;<![CDATA[/function-isError">${payment:isError()}</a>
+				or <a href="@{project.url}]]>&tld;<![CDATA[/function-isRejected">${payment:isRejected()}</a>).
 			</p>
 			<p>
 				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
@@ -3074,13 +3081,14 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				The body of this tag will be processed when the payment was held (pending some sort of review).
 			</p>
 			<p>
 				May use <a href="@{project.url}]]>&tld;<![CDATA[/tag-getReviewReason">&lt;payment:getReviewReason&gt;</a>
+				or <a href="@{project.url}]]>&tld;<![CDATA[/function-getReviewReason">${payment:getReviewReason()}</a>
 				to get the reason for the hold.
 			</p>
 			<p>
@@ -3093,13 +3101,13 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Gets the review reason for a transaction that has been placed on hold.
 			</p>
 			<p>
-				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-held">&lt;payment:held&gt;</a> tag.
+				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
 			</p>
 		]]></description>
 		<name>getReviewReason</name>
@@ -3108,13 +3116,14 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				The body of this tag will be processed when the payment was rejected (declined).
 			</p>
 			<p>
 				May use <a href="@{project.url}]]>&tld;<![CDATA[/tag-getRejectedReason">&lt;payment:getRejectedReason&gt;</a>
+				or <a href="@{project.url}]]>&tld;<![CDATA[/function-getRejectedReason">${payment:getRejectedReason()}</a>
 				to get the reason for the rejection to display to the customer.
 			</p>
 			<p>
@@ -3127,13 +3136,13 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Gets the rejected reason for a payment attempt.
 			</p>
 			<p>
-				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-rejected">&lt;payment:rejected&gt;</a> tag.
+				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
 			</p>
 		]]></description>
 		<name>getRejectedReason</name>
@@ -3142,7 +3151,7 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-28T01:03:43-0500" -->
+		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Gets the CVV2 (card security code) verification result.
@@ -3152,7 +3161,10 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 				per-processor basis.  However, if supported, it should generally be
 				available within <a href="@{project.url}]]>&tld;<![CDATA[/tag-accepted">&lt;payment:accepted&gt;</a>,
 				<a href="@{project.url}]]>&tld;<![CDATA[/tag-rejected">&lt;payment:rejected&gt;</a>,
-				and <a href="@{project.url}]]>&tld;<![CDATA[/tag-held">&lt;payment:held&gt;</a> tags.
+				and <a href="@{project.url}]]>&tld;<![CDATA[/tag-held">&lt;payment:held&gt;</a> tags (or when
+				<a href="@{project.url}]]>&tld;<![CDATA[/function-isAccepted">${payment:isAccepted()}</a>,
+				<a href="@{project.url}]]>&tld;<![CDATA[/function-isRejected">${payment:isRejected()}</a>,
+				or <a href="@{project.url}]]>&tld;<![CDATA[/function-isHeld">${payment:isHeld()}</a>).
 			</p>
 			<p>
 				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
@@ -3164,7 +3176,7 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 	</tag>
 	<tag>
 		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-28T01:03:43-0500" -->
+		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Gets the AVS (address verification system) result.
@@ -3174,7 +3186,10 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 				per-processor basis.  However, if supported, it should generally be
 				available within <a href="@{project.url}]]>&tld;<![CDATA[/tag-accepted">&lt;payment:accepted&gt;</a>,
 				<a href="@{project.url}]]>&tld;<![CDATA[/tag-rejected">&lt;payment:rejected&gt;</a>,
-				and <a href="@{project.url}]]>&tld;<![CDATA[/tag-held">&lt;payment:held&gt;</a> tags.
+				and <a href="@{project.url}]]>&tld;<![CDATA[/tag-held">&lt;payment:held&gt;</a> tags (or when
+				<a href="@{project.url}]]>&tld;<![CDATA[/function-isAccepted">${payment:isAccepted()}</a>,
+				<a href="@{project.url}]]>&tld;<![CDATA[/function-isRejected">${payment:isRejected()}</a>,
+				or <a href="@{project.url}]]>&tld;<![CDATA[/function-isHeld">${payment:isHeld()}</a>).
 			</p>
 			<p>
 				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
@@ -3184,5 +3199,249 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 		<tag-class>&package;.GetAvsResultTag</tag-class>
 		<body-content>empty</body-content>
 	</tag>
+	<function>
+		<!-- datePublished="2021-02-10T03:21:17-06:00" -->
+		<description><![CDATA[
+			<p class="semanticcms-tag-reference-summary">
+				Masks a credit card number by only showing the first and last digits, hiding all the middle digits.
+			</p>
+		]]></description>
+		<name>maskCardNumber</name>
+		<function-class>com.newmediaworks.taglib.payment.Functions</function-class>
+		<function-signature>java.lang.String maskCardNumber(java.lang.String)</function-signature>
+		<example><![CDATA[<code>${payment:maskCardNumber(cardNumber)}</code>]]></example>
+	</function>
+	<function>
+		<!-- datePublished="2021-02-10T03:21:17-06:00" -->
+		<description><![CDATA[
+			<p class="semanticcms-tag-reference-summary">
+				Determines if there was any type of error processing the
+				<a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a>,
+				<a href="@{project.url}]]>&tld;<![CDATA[/tag-capture">&lt;payment:capture&gt;</a>,
+				or <a href="@{project.url}]]>&tld;<![CDATA[/tag-void">&lt;payment:void&gt;</a>.
+			</p>
+			<p>
+				May use <a href="@{project.url}]]>&tld;<![CDATA[/tag-getErrorReason">&lt;payment:getErrorReason&gt;</a>
+				or <a href="@{project.url}]]>&tld;<![CDATA[/function-getErrorReason">${payment:getErrorReason()}</a>
+				to get the reason for the error.
+			</p>
+			<p>
+				Must be nested in a
+				<a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a>,
+				<a href="@{project.url}]]>&tld;<![CDATA[/tag-capture">&lt;payment:capture&gt;</a>,
+				or <a href="@{project.url}]]>&tld;<![CDATA[/tag-void">&lt;payment:void&gt;</a> tag.
+			</p>
+		]]></description>
+		<name>isError</name>
+		<function-class>com.newmediaworks.taglib.payment.Functions</function-class>
+		<function-signature>boolean isError()</function-signature>
+		<example><![CDATA[<code>${payment:isError()}</code>]]></example>
+	</function>
+	<function>
+		<!-- datePublished="2021-02-10T03:21:17-06:00" -->
+		<description><![CDATA[
+			<p class="semanticcms-tag-reference-summary">
+				Gets the reason for a processing error.
+			</p>
+			<p>
+				Must be nested in a
+				<a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a>,
+				<a href="@{project.url}]]>&tld;<![CDATA[/tag-capture">&lt;payment:capture&gt;</a>,
+				or <a href="@{project.url}]]>&tld;<![CDATA[/tag-void">&lt;payment:void&gt;</a> tag.
+			</p>
+		]]></description>
+		<name>getErrorReason</name>
+		<function-class>com.newmediaworks.taglib.payment.Functions</function-class>
+		<function-signature>java.lang.String getErrorReason()</function-signature>
+		<example><![CDATA[<code>${payment:getErrorReason()}</code>]]></example>
+	</function>
+	<function>
+		<!-- datePublished="2021-02-10T03:21:17-06:00" -->
+		<description><![CDATA[
+			<p class="semanticcms-tag-reference-summary">
+				Determines if the payment was accepted (approved).
+			</p>
+			<p>
+				May use <a href="@{project.url}]]>&tld;<![CDATA[/tag-getAuthorizationCode">&lt;payment:getAuthorizationCode&gt;</a>
+				or <a href="@{project.url}]]>&tld;<![CDATA[/function-getAuthorizationCode">${payment:getAuthorizationCode()}</a>
+				to get the authorization code to display to the customer.
+			</p>
+			<p>
+				May use <a href="@{project.url}]]>&tld;<![CDATA[/tag-getTransactionId">&lt;payment:getTransactionId&gt;</a>
+				or <a href="@{project.url}]]>&tld;<![CDATA[/function-getTransactionId">${payment:getTransactionId()}</a>
+				to get the per-processor unique transaction ID.
+			</p>
+			<p>
+				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
+			</p>
+		]]></description>
+		<name>isAccepted</name>
+		<function-class>com.newmediaworks.taglib.payment.Functions</function-class>
+		<function-signature>boolean isAccepted()</function-signature>
+		<example><![CDATA[<code>${payment:isAccepted()}</code>]]></example>
+	</function>
+	<function>
+		<!-- datePublished="2021-02-10T03:21:17-06:00" -->
+		<description><![CDATA[
+			<p class="semanticcms-tag-reference-summary">
+				Gets the authorization code to display to the customer.
+			</p>
+			<p>
+				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
+			</p>
+		]]></description>
+		<name>getAuthorizationCode</name>
+		<function-class>com.newmediaworks.taglib.payment.Functions</function-class>
+		<function-signature>java.lang.String getAuthorizationCode()</function-signature>
+		<example><![CDATA[<code>${payment:getAuthorizationCode()}</code>]]></example>
+	</function>
+	<function>
+		<!-- datePublished="2021-02-10T03:21:17-06:00" -->
+		<description><![CDATA[
+			<p class="semanticcms-tag-reference-summary">
+				Gets the per-processor unique transaction ID.
+			</p>
+			<p>
+				This is guaranteed to be available when the payment is accepted.
+				When the transaction ID is required, only use inside a
+				<a href="@{project.url}]]>&tld;<![CDATA[/tag-accepted">&lt;payment:accepted&gt;</a> tag or when
+				<a href="@{project.url}]]>&tld;<![CDATA[/function-isAccepted">${payment:isAccepted()}</a>.
+			</p>
+			<p>
+				Depending on the processor, this may also be available within
+				<a href="@{project.url}]]>&tld;<![CDATA[/tag-error">&lt;payment:error&gt;</a>
+				and <a href="@{project.url}]]>&tld;<![CDATA[/tag-rejected">&lt;payment:rejected&gt;</a> tags
+				(or when <a href="@{project.url}]]>&tld;<![CDATA[/function-isError">${payment:isError()}</a>
+				or <a href="@{project.url}]]>&tld;<![CDATA[/function-isRejected">${payment:isRejected()}</a>).
+			</p>
+			<p>
+				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
+			</p>
+		]]></description>
+		<name>getTransactionId</name>
+		<function-class>com.newmediaworks.taglib.payment.Functions</function-class>
+		<function-signature>java.lang.String getTransactionId()</function-signature>
+		<example><![CDATA[<code>${payment:getTransactionId()}</code>]]></example>
+	</function>
+	<function>
+		<!-- datePublished="2021-02-10T03:21:17-06:00" -->
+		<description><![CDATA[
+			<p class="semanticcms-tag-reference-summary">
+				Determines if the payment was held (pending some sort of review).
+			</p>
+			<p>
+				May use <a href="@{project.url}]]>&tld;<![CDATA[/tag-getReviewReason">&lt;payment:getReviewReason&gt;</a>
+				or <a href="@{project.url}]]>&tld;<![CDATA[/function-getReviewReason">${payment:getReviewReason()}</a>
+				to get the reason for the hold.
+			</p>
+			<p>
+				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
+			</p>
+		]]></description>
+		<name>isHeld</name>
+		<function-class>com.newmediaworks.taglib.payment.Functions</function-class>
+		<function-signature>boolean isHeld()</function-signature>
+		<example><![CDATA[<code>${payment:isHeld()}</code>]]></example>
+	</function>
+	<function>
+		<!-- datePublished="2021-02-10T03:21:17-06:00" -->
+		<description><![CDATA[
+			<p class="semanticcms-tag-reference-summary">
+				Gets the review reason for a transaction that has been placed on hold.
+			</p>
+			<p>
+				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
+			</p>
+		]]></description>
+		<name>getReviewReason</name>
+		<function-class>com.newmediaworks.taglib.payment.Functions</function-class>
+		<function-signature>java.lang.String getReviewReason()</function-signature>
+		<example><![CDATA[<code>${payment:getReviewReason()}</code>]]></example>
+	</function>
+	<function>
+		<!-- datePublished="2021-02-10T03:21:17-06:00" -->
+		<description><![CDATA[
+			<p class="semanticcms-tag-reference-summary">
+				Determines if the payment was rejected (declined).
+			</p>
+			<p>
+				May use <a href="@{project.url}]]>&tld;<![CDATA[/tag-getReviewReason">&lt;payment:getReviewReason&gt;</a>
+				or <a href="@{project.url}]]>&tld;<![CDATA[/function-getReviewReason">${payment:getReviewReason()}</a>
+				to get the reason for the hold.
+			</p>
+			<p>
+				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
+			</p>
+		]]></description>
+		<name>isRejected</name>
+		<function-class>com.newmediaworks.taglib.payment.Functions</function-class>
+		<function-signature>boolean isRejected()</function-signature>
+		<example><![CDATA[<code>${payment:isRejected()}</code>]]></example>
+	</function>
+	<function>
+		<!-- datePublished="2021-02-10T03:21:17-06:00" -->
+		<description><![CDATA[
+			<p class="semanticcms-tag-reference-summary">
+				Gets the rejected reason for a payment attempt.
+			</p>
+			<p>
+				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
+			</p>
+		]]></description>
+		<name>getRejectedReason</name>
+		<function-class>com.newmediaworks.taglib.payment.Functions</function-class>
+		<function-signature>java.lang.String getRejectedReason()</function-signature>
+		<example><![CDATA[<code>${payment:getRejectedReason()}</code>]]></example>
+	</function>
+	<function>
+		<!-- datePublished="2021-02-10T03:21:17-06:00" -->
+		<description><![CDATA[
+			<p class="semanticcms-tag-reference-summary">
+				Gets the CVV2 (card security code) verification result.
+			</p>
+			<p>
+				The result value may or may not be available under various circumstances on a
+				per-processor basis.  However, if supported, it should generally be
+				available within <a href="@{project.url}]]>&tld;<![CDATA[/tag-accepted">&lt;payment:accepted&gt;</a>,
+				<a href="@{project.url}]]>&tld;<![CDATA[/tag-rejected">&lt;payment:rejected&gt;</a>,
+				and <a href="@{project.url}]]>&tld;<![CDATA[/tag-held">&lt;payment:held&gt;</a> tags (or when
+				<a href="@{project.url}]]>&tld;<![CDATA[/function-isAccepted">${payment:isAccepted()}</a>,
+				<a href="@{project.url}]]>&tld;<![CDATA[/function-isRejected">${payment:isRejected()}</a>,
+				or <a href="@{project.url}]]>&tld;<![CDATA[/function-isHeld">${payment:isHeld()}</a>).
+			</p>
+			<p>
+				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
+			</p>
+		]]></description>
+		<name>getCvvResult</name>
+		<function-class>com.newmediaworks.taglib.payment.Functions</function-class>
+		<function-signature>java.lang.String getCvvResult()</function-signature>
+		<example><![CDATA[<code>${payment:getCvvResult()}</code>]]></example>
+	</function>
+	<function>
+		<!-- datePublished="2021-02-10T03:21:17-06:00" -->
+		<description><![CDATA[
+			<p class="semanticcms-tag-reference-summary">
+				Gets the AVS (address verification system) result.
+			</p>
+			<p>
+				The result value may or may not be available under various circumstances on a
+				per-processor basis.  However, if supported, it should generally be
+				available within <a href="@{project.url}]]>&tld;<![CDATA[/tag-accepted">&lt;payment:accepted&gt;</a>,
+				<a href="@{project.url}]]>&tld;<![CDATA[/tag-rejected">&lt;payment:rejected&gt;</a>,
+				and <a href="@{project.url}]]>&tld;<![CDATA[/tag-held">&lt;payment:held&gt;</a> tags (or when
+				<a href="@{project.url}]]>&tld;<![CDATA[/function-isAccepted">${payment:isAccepted()}</a>,
+				<a href="@{project.url}]]>&tld;<![CDATA[/function-isRejected">${payment:isRejected()}</a>,
+				or <a href="@{project.url}]]>&tld;<![CDATA[/function-isHeld">${payment:isHeld()}</a>).
+			</p>
+			<p>
+				Must be nested in a <a href="@{project.url}]]>&tld;<![CDATA[/tag-payment">&lt;payment:payment&gt;</a> tag.
+			</p>
+		]]></description>
+		<name>getAvsResult</name>
+		<function-class>com.newmediaworks.taglib.payment.Functions</function-class>
+		<function-signature>java.lang.String getAvsResult()</function-signature>
+		<example><![CDATA[<code>${payment:getAvsResult()}</code>]]></example>
+	</function>
 </taglib>
 <!-- </common> -->

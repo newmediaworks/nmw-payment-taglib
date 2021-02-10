@@ -30,13 +30,14 @@ import com.aoindustries.creditcards.test.TestMerchantServicesProvider;
 import com.aoindustries.creditcards.usaepay.USAePay;
 import com.aoindustries.encoding.Coercion;
 import com.aoindustries.lang.Strings;
-import com.aoindustries.servlet.jsp.LocalizedJspTagException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -146,11 +147,29 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 		}
 	}
 
+	/**
+	 * The name of the request-scope attribute containing the current use processor tag.
+	 */
+	private static final String REQUEST_ATTRIBUTE_NAME = UseProcessorTag.class.getName();
+
+	// Java 9: module-private
+	public static Optional<UseProcessorTag> getCurrent(ServletRequest request) {
+		return Optional.ofNullable((UseProcessorTag)request.getAttribute(REQUEST_ATTRIBUTE_NAME));
+	}
+	// Java 9: module-private
+	public static UseProcessorTag requireCurrent(String fromName, ServletRequest request) throws JspException {
+		return getCurrent(request).orElseThrow(
+			() -> new JspTagException(fromName + " must be within " + TAG_NAME)
+		);
+	}
+
 	public UseProcessorTag() {
 		init();
 	}
 
 	private static final long serialVersionUID = 1L;
+
+	private transient boolean requestAttributeSet;
 
 	private String connectorName;
 	/**
@@ -189,12 +208,23 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 	}
 
 	private void init() {
+		requestAttributeSet = false;
 		connectorName = null;
 		if(parameters == null) {
 			parameters = new HashMap<>();
 		} else {
 			parameters.clear();
 		}
+	}
+
+	@Override
+	public int doStartTag() throws JspException {
+		ServletRequest request = pageContext.getRequest();
+		// Store this on the request
+		if(getCurrent(request).isPresent()) throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
+		request.setAttribute(REQUEST_ATTRIBUTE_NAME, this);
+		requestAttributeSet = true;
+		return super.doStartTag();
 	}
 
 	/**
@@ -252,6 +282,9 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 
 	@Override
 	public void doFinally() {
+		if(requestAttributeSet) {
+			pageContext.getRequest().removeAttribute(REQUEST_ATTRIBUTE_NAME);
+		}
 		init();
 	}
 }

@@ -94,11 +94,12 @@ public class CustomerTaxIdTag extends EncodingBufferedBodyTag {
 /**/
 /* SimpleTag only:
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
 		PropertyHelper.setCardProperty(
 			(value != null) ? value : capturedBody.trim().toString(),
 			TAG_NAME,
-			this,
+			pageContext.getRequest(),
 			StoreCreditCardTag::setCustomerTaxId,
 			CreditCardTag::setCustomerTaxId
 		);

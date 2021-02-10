@@ -32,6 +32,7 @@ import com.aoindustries.lang.Strings;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 
 /**
@@ -95,11 +96,12 @@ public class CountryCodeTag extends EncodingBufferedTag {
 /**/
 /* SimpleTag only: */
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
 		PropertyHelper.setAddressProperty(
 			(value != null) ? value : capturedBody.trim().toString(),
 			TAG_NAME,
-			this,
+			pageContext.getRequest(),
 			StoreCreditCardTag::setCountryCode,
 			CreditCardTag::setCountryCode,
 			ShippingAddressTag::setCountryCode

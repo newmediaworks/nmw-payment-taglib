@@ -27,6 +27,8 @@ import com.aoindustries.creditcards.MerchantServicesProvider;
 import com.aoindustries.creditcards.Transaction;
 import com.aoindustries.creditcards.VoidResult;
 import com.aoindustries.lang.Strings;
+import java.util.Optional;
+import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -43,11 +45,29 @@ public class VoidTag extends BodyTagSupport implements TryCatchFinally {
 
 	public static final String TAG_NAME = "<payment:void>";
 
+	/**
+	 * The name of the request-scope attribute containing the current void tag.
+	 */
+	private static final String REQUEST_ATTRIBUTE_NAME = VoidTag.class.getName();
+
+	// Java 9: module-private
+	public static Optional<VoidTag> getCurrent(ServletRequest request) {
+		return Optional.ofNullable((VoidTag)request.getAttribute(REQUEST_ATTRIBUTE_NAME));
+	}
+	// Java 9: module-private
+	public static VoidTag requireCurrent(String fromName, ServletRequest request) throws JspException {
+		return getCurrent(request).orElseThrow(
+			() -> new JspTagException(fromName + " must be within " + TAG_NAME)
+		);
+	}
+
 	public VoidTag() {
 		init();
 	}
 
 	private static final long serialVersionUID = 2L;
+
+	private transient boolean requestAttributeSet;
 
 	// <editor-fold desc="Attributes">
 	private String transactionId;
@@ -64,6 +84,7 @@ public class VoidTag extends BodyTagSupport implements TryCatchFinally {
 	// </editor-fold>
 
 	private void init() {
+		requestAttributeSet = false;
 		// Attributes
 		transactionId = null;
 		// The result of the processing
@@ -72,9 +93,14 @@ public class VoidTag extends BodyTagSupport implements TryCatchFinally {
 
 	@Override
 	public int doStartTag() throws JspException {
+		ServletRequest request = pageContext.getRequest();
 		// Make sure the processor is set
-		MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
+		MerchantServicesProvider processor = (MerchantServicesProvider)request.getAttribute(Constants.processor);
 		if(processor == null) throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
+		// Store this on the request
+		if(getCurrent(request).isPresent()) throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
+		request.setAttribute(REQUEST_ATTRIBUTE_NAME, this);
+		requestAttributeSet = true;
 		return EVAL_BODY_INCLUDE;
 	}
 
@@ -130,6 +156,9 @@ public class VoidTag extends BodyTagSupport implements TryCatchFinally {
 
 	@Override
 	public void doFinally() {
+		if(requestAttributeSet) {
+			pageContext.getRequest().removeAttribute(REQUEST_ATTRIBUTE_NAME);
+		}
 		init();
 	}
 }

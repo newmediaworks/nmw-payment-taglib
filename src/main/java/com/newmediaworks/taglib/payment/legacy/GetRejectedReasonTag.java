@@ -25,10 +25,8 @@ package com.newmediaworks.taglib.payment.legacy;
 import com.aoindustries.creditcards.AuthorizationResult;
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.taglib.legacy.EncodingNullBodyTag;
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
+import com.newmediaworks.taglib.payment.Functions;
 import static com.newmediaworks.taglib.payment.GetRejectedReasonTag.TAG_NAME;
-import com.newmediaworks.taglib.payment.PaymentTag;
-import com.newmediaworks.taglib.payment.RejectedTag;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
@@ -36,6 +34,7 @@ import javax.servlet.jsp.JspException;
 /**
  * Gets the rejected reason for a payment attempt.
  *
+ * @see  Functions#getRejectedReason()
  * @see  AuthorizationResult#getDeclineReason()
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
@@ -61,11 +60,10 @@ public class GetRejectedReasonTag extends EncodingNullBodyTag {
 /**/
 /* SimpleTag only:
 	protected void doTag(Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
-		RejectedTag rejectedTag = JspTagUtils.requireAncestor(TAG_NAME, this, RejectedTag.TAG_NAME, RejectedTag.class);
-		PaymentTag paymentTag = JspTagUtils.requireAncestor(RejectedTag.TAG_NAME, rejectedTag, PaymentTag.TAG_NAME, PaymentTag.class);
-
-		out.write(paymentTag.getAuthorizationResult().getDeclineReason().toString());
+		String rejectedReason = Functions.getRejectedReason(TAG_NAME, pageContext.getRequest());
+		if(rejectedReason != null) out.write(rejectedReason);
 /* BodyTag only: */
 		return SKIP_BODY;
 /**/

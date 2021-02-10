@@ -27,10 +27,10 @@ import com.aoindustries.encoding.MediaValidator;
 import com.aoindustries.encoding.taglib.EncodingBufferedTag;
 import com.aoindustries.io.buffer.BufferResult;
 import com.aoindustries.lang.Strings;
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 
 /**
@@ -96,8 +96,9 @@ public class ParameterTag extends EncodingBufferedTag {
 /**/
 /* SimpleTag only: */
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
-		JspTagUtils.requireAncestor(TAG_NAME, this, UseProcessorTag.TAG_NAME, UseProcessorTag.class)
+		UseProcessorTag.requireCurrent(TAG_NAME, pageContext.getRequest())
 			.addParameter(name, (value != null) ? value : capturedBody.trim().toString());
 /* BodyTag only:
 		return EVAL_PAGE;

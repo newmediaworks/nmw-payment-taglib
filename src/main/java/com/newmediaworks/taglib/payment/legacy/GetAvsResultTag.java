@@ -25,9 +25,8 @@ package com.newmediaworks.taglib.payment.legacy;
 import com.aoindustries.creditcards.AuthorizationResult;
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.taglib.legacy.EncodingNullBodyTag;
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
+import com.newmediaworks.taglib.payment.Functions;
 import static com.newmediaworks.taglib.payment.GetAvsResultTag.TAG_NAME;
-import com.newmediaworks.taglib.payment.PaymentTag;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
@@ -35,6 +34,7 @@ import javax.servlet.jsp.JspException;
 /**
  * Gets the AVS (address verification system) result.
  *
+ * @see  Functions#getAvsResult()
  * @see  AuthorizationResult#getAvsResult()
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
@@ -60,11 +60,10 @@ public class GetAvsResultTag extends EncodingNullBodyTag {
 /**/
 /* SimpleTag only:
 	protected void doTag(Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
-		PaymentTag paymentTag = JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class);
-
-		AuthorizationResult.AvsResult avsResult = paymentTag.getAuthorizationResult().getAvsResult();
-		if(avsResult != null) out.write(avsResult.toString());
+		String avsResult = Functions.getAvsResult(TAG_NAME, pageContext.getRequest());
+		if(avsResult != null) out.write(avsResult);
 /* BodyTag only: */
 		return SKIP_BODY;
 /**/

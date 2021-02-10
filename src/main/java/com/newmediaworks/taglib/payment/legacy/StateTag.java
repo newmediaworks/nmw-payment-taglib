@@ -97,11 +97,12 @@ public class StateTag extends EncodingBufferedBodyTag {
 /**/
 /* SimpleTag only:
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
 		PropertyHelper.setAddressProperty(
 			(value != null) ? value : capturedBody.trim().toString(),
 			TAG_NAME,
-			this,
+			pageContext.getRequest(),
 			StoreCreditCardTag::setState,
 			CreditCardTag::setState,
 			ShippingAddressTag::setState

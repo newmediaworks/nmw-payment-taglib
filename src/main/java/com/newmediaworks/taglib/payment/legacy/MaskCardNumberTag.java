@@ -27,6 +27,7 @@ import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.taglib.legacy.EncodingBufferedBodyTag;
 import com.aoindustries.io.buffer.BufferResult;
 import com.aoindustries.lang.Strings;
+import com.newmediaworks.taglib.payment.Functions;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
@@ -34,6 +35,7 @@ import javax.servlet.jsp.JspException;
 /**
  * Masks a credit card number by only showing the first and last digits, hiding all the middle digits.
  *
+ * @see  Functions#maskCardNumber(java.lang.String)
  * @see  CreditCard#maskCreditCardNumber(java.lang.String)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
@@ -85,7 +87,7 @@ public class MaskCardNumberTag extends EncodingBufferedBodyTag {
 /* SimpleTag only:
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
-		out.write(CreditCard.maskCreditCardNumber((value != null) ? value : capturedBody.trim().toString()));
+		out.write(Functions.maskCardNumber((value != null) ? value : capturedBody.trim().toString()));
 /* BodyTag only: */
 		return EVAL_PAGE;
 /**/

@@ -22,12 +22,12 @@
  */
 package com.newmediaworks.taglib.payment;
 
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import com.aoindustries.util.function.BiConsumerE;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.JspTag;
+import javax.servlet.jsp.JspTagException;
 
 /**
  * Provides utilities to assign properties to the correct tags when the properties exist in multiple places.
@@ -47,17 +47,21 @@ public class PropertyHelper {
 	public static <V> void setCardProperty(
 		V value,
 		String fromName,
-		JspTag from,
+		ServletRequest request,
 		BiConsumer<? super StoreCreditCardTag, ? super V> storeCreditCardSetter,
 		BiConsumerE<? super CreditCardTag, ? super V, ? extends JspException> creditCardSetter
 	) throws JspException {
 		// Java 9: ifPresentOrElse
-		Optional<StoreCreditCardTag> storeCreditCardTag = JspTagUtils.findAncestor(from, StoreCreditCardTag.class);
+		Optional<StoreCreditCardTag> storeCreditCardTag = StoreCreditCardTag.getCurrent(request);
 		if(storeCreditCardTag.isPresent()) {
 			storeCreditCardSetter.accept(storeCreditCardTag.get(), value);
 		} else {
-			CreditCardTag creditCardTag = JspTagUtils.requireAncestor(fromName, from, StoreCreditCardTag.TAG_NAME + " or " + CreditCardTag.TAG_NAME, CreditCardTag.class);
-			creditCardSetter.accept(creditCardTag, value);
+			Optional<CreditCardTag> creditCardTag = CreditCardTag.getCurrent(request);
+			if(creditCardTag.isPresent()) {
+				creditCardSetter.accept(creditCardTag.get(), value);
+			} else {
+				throw new JspTagException(fromName + " must be within " + StoreCreditCardTag.TAG_NAME + " or " + CreditCardTag.TAG_NAME);
+			}
 		}
 	}
 
@@ -69,22 +73,26 @@ public class PropertyHelper {
 	public static <V> void setAddressProperty(
 		V value,
 		String fromName,
-		JspTag from,
+		ServletRequest request,
 		BiConsumer<? super StoreCreditCardTag, ? super V> storeCreditCardSetter,
 		BiConsumerE<? super CreditCardTag, ? super V, ? extends JspException> creditCardSetter,
 		BiConsumerE<? super ShippingAddressTag, ? super V, ? extends JspException> shippingAddressSetter
 	) throws JspException {
 		// Java 9: ifPresentOrElse
-		Optional<StoreCreditCardTag> storeCreditCardTag = JspTagUtils.findAncestor(from, StoreCreditCardTag.class);
+		Optional<StoreCreditCardTag> storeCreditCardTag = StoreCreditCardTag.getCurrent(request);
 		if(storeCreditCardTag.isPresent()) {
 			storeCreditCardSetter.accept(storeCreditCardTag.get(), value);
 		} else {
-			Optional<CreditCardTag> creditCardTag = JspTagUtils.findAncestor(from, CreditCardTag.class);
+			Optional<CreditCardTag> creditCardTag = CreditCardTag.getCurrent(request);
 			if(creditCardTag.isPresent()) {
 				creditCardSetter.accept(creditCardTag.get(), value);
 			} else {
-				ShippingAddressTag shippingAddressTag = JspTagUtils.requireAncestor(fromName, from, StoreCreditCardTag.TAG_NAME + ", " + CreditCardTag.TAG_NAME + ", or " + ShippingAddressTag.TAG_NAME, ShippingAddressTag.class);
-				shippingAddressSetter.accept(shippingAddressTag, value);
+				Optional<ShippingAddressTag> shippingAddressTag = ShippingAddressTag.getCurrent(request);
+				if(shippingAddressTag.isPresent()) {
+					shippingAddressSetter.accept(shippingAddressTag.get(), value);
+				} else {
+					throw new JspTagException(fromName + " must be within " + StoreCreditCardTag.TAG_NAME + ", " + CreditCardTag.TAG_NAME + ", or " + ShippingAddressTag.TAG_NAME);
+				}
 			}
 		}
 	}

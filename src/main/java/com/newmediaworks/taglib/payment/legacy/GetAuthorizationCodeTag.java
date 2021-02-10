@@ -25,10 +25,8 @@ package com.newmediaworks.taglib.payment.legacy;
 import com.aoindustries.creditcards.AuthorizationResult;
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.taglib.legacy.EncodingNullBodyTag;
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
-import com.newmediaworks.taglib.payment.AcceptedTag;
+import com.newmediaworks.taglib.payment.Functions;
 import static com.newmediaworks.taglib.payment.GetAuthorizationCodeTag.TAG_NAME;
-import com.newmediaworks.taglib.payment.PaymentTag;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
@@ -36,6 +34,7 @@ import javax.servlet.jsp.JspException;
 /**
  * Gets the authorization code to display to the customer.
  *
+ * @see  Functions#getAuthorizationCode()
  * @see  AuthorizationResult#getApprovalCode()
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
@@ -61,12 +60,10 @@ public class GetAuthorizationCodeTag extends EncodingNullBodyTag {
 /**/
 /* SimpleTag only:
 	protected void doTag(Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
-		AcceptedTag acceptedTag = JspTagUtils.requireAncestor(TAG_NAME, this, AcceptedTag.TAG_NAME, AcceptedTag.class);
-		PaymentTag paymentTag = JspTagUtils.requireAncestor(AcceptedTag.TAG_NAME, acceptedTag, PaymentTag.TAG_NAME, PaymentTag.class);
-		AuthorizationResult authorizationResult = paymentTag.getAuthorizationResult();
-
-		out.write(authorizationResult.getApprovalCode());
+		String authorizationCode = Functions.getAuthorizationCode(TAG_NAME, pageContext.getRequest());
+		if(authorizationCode != null) out.write(authorizationCode);
 /* BodyTag only: */
 		return SKIP_BODY;
 /**/

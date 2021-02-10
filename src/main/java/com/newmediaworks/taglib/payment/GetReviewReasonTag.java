@@ -25,14 +25,15 @@ package com.newmediaworks.taglib.payment;
 import com.aoindustries.creditcards.AuthorizationResult;
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.taglib.EncodingNullTag;
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 
 /**
  * Gets the review reason for a transaction that has been placed on hold.
  *
+ * @see  Functions#getReviewReason()
  * @see  AuthorizationResult#getReviewReason()
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
@@ -58,12 +59,10 @@ public class GetReviewReasonTag extends EncodingNullTag {
 /**/
 /* SimpleTag only: */
 	protected void doTag(Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
-		HeldTag heldTag = JspTagUtils.requireAncestor(TAG_NAME, this, HeldTag.TAG_NAME, HeldTag.class);
-		PaymentTag paymentTag = JspTagUtils.requireAncestor(HeldTag.TAG_NAME, heldTag, PaymentTag.TAG_NAME, PaymentTag.class);
-
-		AuthorizationResult.ReviewReason reviewReason = paymentTag.getAuthorizationResult().getReviewReason();
-		if(reviewReason != null) out.write(reviewReason.toString());
+		String reviewReason = Functions.getReviewReason(TAG_NAME, pageContext.getRequest());
+		if(reviewReason != null) out.write(reviewReason);
 /* BodyTag only:
 		return SKIP_BODY;
 /**/

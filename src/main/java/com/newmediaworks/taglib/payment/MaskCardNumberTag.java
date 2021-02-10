@@ -36,6 +36,7 @@ import javax.servlet.jsp.tagext.JspFragment;
 /**
  * Masks a credit card number by only showing the first and last digits, hiding all the middle digits.
  *
+ * @see  Functions#maskCardNumber(java.lang.String)
  * @see  CreditCard#maskCreditCardNumber(java.lang.String)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
@@ -87,7 +88,7 @@ public class MaskCardNumberTag extends EncodingBufferedTag {
 /* SimpleTag only: */
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
-		out.write(CreditCard.maskCreditCardNumber((value != null) ? value : capturedBody.trim().toString()));
+		out.write(Functions.maskCardNumber((value != null) ? value : capturedBody.trim().toString()));
 /* BodyTag only:
 		return EVAL_PAGE;
 /**/

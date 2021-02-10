@@ -25,14 +25,15 @@ package com.newmediaworks.taglib.payment;
 import com.aoindustries.creditcards.TransactionResult;
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.taglib.EncodingNullTag;
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 
 /**
  * Gets the reason for a processing error.
  *
+ * @see  Functions#getErrorReason()
  * @see  TransactionResult#getProviderErrorCode()
  * @see  TransactionResult#getProviderErrorMessage()
  * @see  TransactionResult#getErrorCode()
@@ -61,18 +62,10 @@ public class GetErrorReasonTag extends EncodingNullTag {
 /**/
 /* SimpleTag only: */
 	protected void doTag(Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
-		ErrorTag errorTag = JspTagUtils.requireAncestor(TAG_NAME, this, ErrorTag.TAG_NAME, ErrorTag.class);
-
-		TransactionResult result = errorTag.getTransactionResult();
-		out.write(result.getErrorCode().toString());
-		System.err.println(
-			"Error from credit card transaction:\n"
-			+ "    providerUniqueId="+result.getProviderUniqueId()+"\n"
-			+ "    providerErrorCode="+result.getProviderErrorCode()+"\n"
-			+ "    providerErrorMessage="+result.getProviderErrorMessage()+"\n"
-			+ "    errorCode="+result.getErrorCode()+"\n"
-		);
+		String errorReason = Functions.getErrorReason(TAG_NAME, pageContext.getRequest());
+		if(errorReason != null) out.write(errorReason);
 /* BodyTag only:
 		return SKIP_BODY;
 /**/

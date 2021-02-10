@@ -23,12 +23,8 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.AuthorizationResult;
-import com.aoindustries.creditcards.TransactionResult;
 import com.aoindustries.creditcards.TransactionResult.CommunicationResult;
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
-import java.util.Optional;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
@@ -37,6 +33,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * {@link CaptureTag},
  * or {@link VoidTag}.
  *
+ * @see  Functions#isError()
  * @see  AuthorizationResult#getCommunicationResult()
  * @see  CommunicationResult#LOCAL_ERROR
  * @see  CommunicationResult#IO_ERROR
@@ -53,35 +50,8 @@ public class ErrorTag extends BodyTagSupport {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Gets the transaction result from one of the outer payment, capture, or void tags.
-	 */
-	// Java 9: module-private
-	public TransactionResult getTransactionResult() throws JspException {
-		// Java 9: ifPresentOrElse
-		Optional<PaymentTag> paymentTag = JspTagUtils.findAncestor(this, PaymentTag.class);
-		if(paymentTag.isPresent()) return paymentTag.get().getAuthorizationResult();
-
-		Optional<CaptureTag> captureTag = JspTagUtils.findAncestor(this, CaptureTag.class);
-		if(captureTag.isPresent()) return captureTag.get().getCaptureResult();
-
-		return JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME + ", " + CaptureTag.TAG_NAME + ", or " + VoidTag.TAG_NAME, VoidTag.class)
-			.getVoidResult();
-	}
-
 	@Override
 	public int doStartTag() throws JspException {
-		TransactionResult transactionResult = getTransactionResult();
-
-		switch(transactionResult.getCommunicationResult()) {
-			case LOCAL_ERROR:
-			case IO_ERROR:
-			case GATEWAY_ERROR:
-				return EVAL_BODY_INCLUDE;
-			case SUCCESS:
-				return SKIP_BODY;
-			default:
-				throw new JspTagException("Unexpected communication result: "+transactionResult.getCommunicationResult());
-		}
+		return Functions.isError(TAG_NAME, pageContext.getRequest()) ? EVAL_BODY_INCLUDE : SKIP_BODY;
 	}
 }

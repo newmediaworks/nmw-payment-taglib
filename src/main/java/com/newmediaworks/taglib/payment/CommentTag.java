@@ -29,11 +29,13 @@ import com.aoindustries.encoding.MediaValidator;
 import com.aoindustries.encoding.taglib.EncodingBufferedTag;
 import com.aoindustries.io.buffer.BufferResult;
 import com.aoindustries.lang.Strings;
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Optional;
+import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 
 /**
@@ -96,19 +98,25 @@ public class CommentTag extends EncodingBufferedTag {
 /**/
 /* SimpleTag only: */
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
+		ServletRequest request = pageContext.getRequest();
 		String comment = (value != null) ? value : capturedBody.trim().toString();
 		// Java 9: ifPresentOrElse
-		Optional<StoreCreditCardTag> storeCreditCardTag = JspTagUtils.findAncestor(this, StoreCreditCardTag.class);
+		Optional<StoreCreditCardTag> storeCreditCardTag = StoreCreditCardTag.getCurrent(request);
 		if(storeCreditCardTag.isPresent()) {
 			storeCreditCardTag.get().setComment(comment);
 		} else {
-			Optional<CreditCardTag> creditCardTag = JspTagUtils.findAncestor(this, CreditCardTag.class);
+			Optional<CreditCardTag> creditCardTag = CreditCardTag.getCurrent(request);
 			if(creditCardTag.isPresent()) {
 				creditCardTag.get().setComment(comment);
 			} else {
-				JspTagUtils.requireAncestor(TAG_NAME, this, StoreCreditCardTag.TAG_NAME + ", " + CreditCardTag.TAG_NAME + ", or " + PaymentTag.TAG_NAME, PaymentTag.class)
-					.setComment(comment);
+				Optional<PaymentTag> paymentTag = PaymentTag.getCurrent(request);
+				if(paymentTag.isPresent()) {
+					paymentTag.get().setComment(comment);
+				} else {
+					throw new JspTagException(TAG_NAME + " must be within " + StoreCreditCardTag.TAG_NAME + ", " + CreditCardTag.TAG_NAME + ", or " + PaymentTag.TAG_NAME);
+				}
 			}
 		}
 /* BodyTag only:

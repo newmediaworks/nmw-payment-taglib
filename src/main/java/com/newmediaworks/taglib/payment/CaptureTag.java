@@ -26,6 +26,8 @@ import com.aoindustries.creditcards.AuthorizationResult;
 import com.aoindustries.creditcards.CaptureResult;
 import com.aoindustries.creditcards.MerchantServicesProvider;
 import com.aoindustries.lang.Strings;
+import java.util.Optional;
+import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -42,11 +44,29 @@ public class CaptureTag extends BodyTagSupport implements TryCatchFinally {
 
 	public static final String TAG_NAME = "<payment:capture>";
 
+	/**
+	 * The name of the request-scope attribute containing the current capture tag.
+	 */
+	private static final String REQUEST_ATTRIBUTE_NAME = CaptureTag.class.getName();
+
+	// Java 9: module-private
+	public static Optional<CaptureTag> getCurrent(ServletRequest request) {
+		return Optional.ofNullable((CaptureTag)request.getAttribute(REQUEST_ATTRIBUTE_NAME));
+	}
+	// Java 9: module-private
+	public static CaptureTag requireCurrent(String fromName, ServletRequest request) throws JspException {
+		return getCurrent(request).orElseThrow(
+			() -> new JspTagException(fromName + " must be within " + TAG_NAME)
+		);
+	}
+
 	public CaptureTag() {
 		init();
 	}
 
 	private static final long serialVersionUID = 2L;
+
+	private transient boolean requestAttributeSet;
 
 	// <editor-fold desc="Attributes">
 	private String transactionId;
@@ -63,6 +83,7 @@ public class CaptureTag extends BodyTagSupport implements TryCatchFinally {
 	// </editor-fold>
 
 	private void init() {
+		requestAttributeSet = false;
 		// Attributes
 		transactionId = null;
 		// The result of the processing
@@ -71,9 +92,14 @@ public class CaptureTag extends BodyTagSupport implements TryCatchFinally {
 
 	@Override
 	public int doStartTag() throws JspException {
+		ServletRequest request = pageContext.getRequest();
 		// Make sure the processor is set
-		MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
+		MerchantServicesProvider processor = (MerchantServicesProvider)request.getAttribute(Constants.processor);
 		if(processor == null) throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
+		// Store this on the request
+		if(getCurrent(request).isPresent()) throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
+		request.setAttribute(REQUEST_ATTRIBUTE_NAME, this);
+		requestAttributeSet = true;
 		return EVAL_BODY_INCLUDE;
 	}
 
@@ -113,6 +139,9 @@ public class CaptureTag extends BodyTagSupport implements TryCatchFinally {
 
 	@Override
 	public void doFinally() {
+		if(requestAttributeSet) {
+			pageContext.getRequest().removeAttribute(REQUEST_ATTRIBUTE_NAME);
+		}
 		init();
 	}
 }

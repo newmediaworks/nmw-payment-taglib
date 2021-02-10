@@ -24,9 +24,12 @@ package com.newmediaworks.taglib.payment;
 
 import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.lang.Strings;
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
+import java.util.Optional;
+import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.TryCatchFinally;
 
 /**
  * Provides the credit card details to a {@link PaymentTag}.
@@ -35,38 +38,60 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public class CreditCardTag extends BodyTagSupport {
+public class CreditCardTag extends BodyTagSupport implements TryCatchFinally {
 
 	public static final String TAG_NAME = "<payment:creditCard>";
 
+	/**
+	 * The name of the request-scope attribute containing the current credit card tag.
+	 */
+	private static final String REQUEST_ATTRIBUTE_NAME = CreditCardTag.class.getName();
+
+	// Java 9: module-private
+	public static Optional<CreditCardTag> getCurrent(ServletRequest request) {
+		return Optional.ofNullable((CreditCardTag)request.getAttribute(REQUEST_ATTRIBUTE_NAME));
+	}
+	// Java 9: module-private
+	public static CreditCardTag requireCurrent(String fromName, ServletRequest request) throws JspException {
+		return getCurrent(request).orElseThrow(
+			() -> new JspTagException(fromName + " must be within " + TAG_NAME)
+		);
+	}
+
+	public CreditCardTag() {
+		init();
+	}
+
 	private static final long serialVersionUID = 2L;
 
+	private transient boolean requestAttributeSet;
+
 	public void setCardNumber(String cardNumber) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setCardNumber(Strings.trimNullIfEmpty(cardNumber));
 	}
 
 	public void setMaskedCardNumber(String maskedCardNumber) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setMaskedCardNumber(Strings.trimNullIfEmpty(maskedCardNumber));
 	}
 
 	public void setExpirationMonth(byte expirationMonth) throws IllegalArgumentException, JspException {
 		CreditCard.validateExpirationMonth(expirationMonth, false);
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setExpirationMonth(expirationMonth);
 	}
 
 	public void setExpirationYear(short expirationYear) throws IllegalArgumentException, JspException {
 		CreditCard.validateExpirationYear(expirationYear, false);
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setExpirationYear(expirationYear);
 	}
 
 	public void setExpirationDate(String expirationDate) throws IllegalArgumentException, JspException {
 		expirationDate = Strings.trimNullIfEmpty(expirationDate);
 		if(expirationDate == null) {
-			CreditCard creditCard = JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard();
+			CreditCard creditCard = PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard();
 			creditCard.setExpirationMonth(CreditCard.UNKNOWN_EXPIRATION_MONTH);
 			creditCard.setExpirationYear(CreditCard.UNKNOWN_EXPIRATION_YEAR);
 		} else {
@@ -91,102 +116,123 @@ public class CreditCardTag extends BodyTagSupport {
 			}
 			CreditCard.validateExpirationYear(expirationYear, false);
 
-			CreditCard creditCard = JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard();
+			CreditCard creditCard = PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard();
 			creditCard.setExpirationMonth(expirationMonth);
 			creditCard.setExpirationYear(expirationYear);
 		}
 	}
 
 	public void setCardCode(String cardCode) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setCardCode(Strings.trimNullIfEmpty(cardCode));
 	}
 
 	public void setCreditCardGUID(String creditCardGUID) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setProviderUniqueId(Strings.trimNullIfEmpty(creditCardGUID));
 	}
 
 	public void setFirstName(String firstName) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setFirstName(Strings.trimNullIfEmpty(firstName));
 	}
 
 	public void setLastName(String lastName) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setLastName(Strings.trimNullIfEmpty(lastName));
 	}
 
 	public void setCompanyName(String companyName) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setCompanyName(Strings.trimNullIfEmpty(companyName));
 	}
 
 	public void setEmail(String email) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setEmail(Strings.trimNullIfEmpty(email));
 	}
 
 	public void setPhone(String phone) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setPhone(Strings.trimNullIfEmpty(phone));
 	}
 
 	public void setFax(String fax) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setFax(Strings.trimNullIfEmpty(fax));
 	}
 
 	public void setCustomerId(String customerId) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setCustomerId(Strings.trimNullIfEmpty(customerId));
 	}
 
 	public void setCustomerTaxId(String customerTaxId) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setCustomerTaxId(Strings.trimNullIfEmpty(customerTaxId));
 	}
 
 	public void setStreetAddress1(String streetAddress1) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setStreetAddress1(Strings.trimNullIfEmpty(streetAddress1));
 	}
 
 	public void setStreetAddress2(String streetAddress2) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setStreetAddress2(Strings.trimNullIfEmpty(streetAddress2));
 	}
 
 	public void setCity(String city) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setCity(Strings.trimNullIfEmpty(city));
 	}
 
 	public void setState(String state) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setState(Strings.trimNullIfEmpty(state));
 	}
 
 	public void setPostalCode(String postalCode) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setPostalCode(Strings.trimNullIfEmpty(postalCode));
 	}
 
 	public void setCountryCode(String countryCode) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setCountryCode(Strings.trimNullIfEmpty(countryCode));
 	}
 
 	public void setComment(String comment) throws JspException {
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class).getCreditCard()
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
 			.setComments(Strings.trimNullIfEmpty(comment));
+	}
+
+	private void init() {
+		requestAttributeSet = false;
 	}
 
 	@Override
 	public int doStartTag() throws JspException {
+		ServletRequest request = pageContext.getRequest();
 		// Make sure nested in payment tag
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class);
-
+		PaymentTag.requireCurrent(TAG_NAME, request);
+		// Store this on the request
+		if(getCurrent(request).isPresent()) throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
+		request.setAttribute(REQUEST_ATTRIBUTE_NAME, this);
+		requestAttributeSet = true;
 		return EVAL_BODY_INCLUDE;
+	}
+
+	@Override
+	public void doCatch(Throwable t) throws Throwable {
+		throw t;
+	}
+
+	@Override
+	public void doFinally() {
+		if(requestAttributeSet) {
+			pageContext.getRequest().removeAttribute(REQUEST_ATTRIBUTE_NAME);
+		}
+		init();
 	}
 }

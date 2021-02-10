@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 
 /**
@@ -91,6 +92,7 @@ public class ExpirationMonthTag extends EncodingBufferedTag {
 /**/
 /* SimpleTag only: */
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
 		byte expirationMonth;
 		if(value != null) {
@@ -107,7 +109,7 @@ public class ExpirationMonthTag extends EncodingBufferedTag {
 		PropertyHelper.setCardProperty(
 			expirationMonth,
 			TAG_NAME,
-			this,
+			pageContext.getRequest(),
 			StoreCreditCardTag::setExpirationMonth,
 			CreditCardTag::setExpirationMonth
 		);

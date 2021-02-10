@@ -93,6 +93,7 @@ public class ExpirationYearTag extends EncodingBufferedBodyTag {
 /**/
 /* SimpleTag only:
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
 		short expirationYear;
 		if(value != null) {
@@ -109,7 +110,7 @@ public class ExpirationYearTag extends EncodingBufferedBodyTag {
 		PropertyHelper.setCardProperty(
 			expirationYear,
 			TAG_NAME,
-			this,
+			pageContext.getRequest(),
 			StoreCreditCardTag::setExpirationYear,
 			CreditCardTag::setExpirationYear
 		);

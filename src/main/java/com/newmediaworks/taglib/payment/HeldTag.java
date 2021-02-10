@@ -25,14 +25,13 @@ package com.newmediaworks.taglib.payment;
 import com.aoindustries.creditcards.AuthorizationResult;
 import com.aoindustries.creditcards.AuthorizationResult.ApprovalResult;
 import com.aoindustries.creditcards.TransactionResult.CommunicationResult;
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * The body of this tag will be processed when the payment was held (pending some sort of review).
  *
+ * @see  Functions#isHeld()
  * @see  AuthorizationResult#getCommunicationResult()
  * @see  CommunicationResult#SUCCESS
  * @see  AuthorizationResult#getApprovalResult()
@@ -51,26 +50,6 @@ public class HeldTag extends BodyTagSupport {
 
 	@Override
 	public int doStartTag() throws JspException {
-		PaymentTag paymentTag = JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class);
-		AuthorizationResult authorizationResult = paymentTag.getAuthorizationResult();
-
-		switch(authorizationResult.getCommunicationResult()) {
-			case LOCAL_ERROR:
-			case IO_ERROR:
-			case GATEWAY_ERROR:
-				return SKIP_BODY;
-			case SUCCESS:
-				switch(authorizationResult.getApprovalResult()) {
-					case DECLINED:
-					case APPROVED:
-						return SKIP_BODY;
-					case HOLD:
-						return EVAL_BODY_INCLUDE;
-					default:
-						throw new JspTagException("Unexpected approval result: "+authorizationResult.getApprovalResult());
-				}
-			default:
-				throw new JspTagException("Unexpected communication result: "+authorizationResult.getCommunicationResult());
-		}
+		return Functions.isHeld(TAG_NAME, pageContext.getRequest()) ? EVAL_BODY_INCLUDE : SKIP_BODY;
 	}
 }

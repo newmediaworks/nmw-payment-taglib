@@ -27,7 +27,6 @@ import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.taglib.legacy.EncodingBufferedBodyTag;
 import com.aoindustries.io.buffer.BufferResult;
 import com.aoindustries.lang.Strings;
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import static com.newmediaworks.taglib.payment.AmountTag.TAG_NAME;
 import com.newmediaworks.taglib.payment.PaymentTag;
 import java.io.IOException;
@@ -91,8 +90,9 @@ public class AmountTag extends EncodingBufferedBodyTag {
 /**/
 /* SimpleTag only:
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class)
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest())
 			.setAmount((value != null) ? value : capturedBody.trim().toString());
 /* BodyTag only: */
 		return EVAL_PAGE;

@@ -27,11 +27,11 @@ import com.aoindustries.encoding.MediaType;
 import com.aoindustries.encoding.MediaValidator;
 import com.aoindustries.encoding.taglib.EncodingBufferedTag;
 import com.aoindustries.io.buffer.BufferResult;
-import com.aoindustries.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 
 /**
@@ -91,6 +91,7 @@ public class TaxExemptTag extends EncodingBufferedTag {
 /**/
 /* SimpleTag only: */
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+		PageContext pageContext = (PageContext)getJspContext();
 /**/
 		boolean taxExempt;
 		if(value != null) {
@@ -102,7 +103,7 @@ public class TaxExemptTag extends EncodingBufferedTag {
 			else throw new JspTagException("Invalid value for " + TAG_NAME + ", should be either true or false: " + taxExemptString);
 		}
 
-		JspTagUtils.requireAncestor(TAG_NAME, this, PaymentTag.TAG_NAME, PaymentTag.class)
+		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest())
 			.setTaxExempt(taxExempt);
 /* BodyTag only:
 		return EVAL_PAGE;
