@@ -37,7 +37,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-05-26T16:13:02-0500"
-		dateModified="2021-02-10T05:54:46-06:00"
+		dateModified="2021-02-10T06:07:41-06:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -46,63 +46,72 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{project.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{project.scm.url}"
-			>
-				<ul>
-					<li>
-						<strong>Taglib URI changed</strong> from <code>http://taglibs.newmediaworks.com/payment</code> to
-						<code>@{project.url}</code>.
-					</li>
-					<li>Updated dependencies.</li>
-					<li>
-						<p>
-							Upgraded to current version of <ao:a href="https://search.maven.org/artifact/com.stripe/stripe-java/20.37.0/jar">com.stripe:stripe-java:jar:20.37.0</ao:a>,
-							which uses <ao:a href="https://stripe.com/docs/upgrades#2020-08-27">Stripe API version 2020-08-27</ao:a>.
-						</p>
-						<p>
-							Stripe releases minor updates on a regular basis.  We will only note future updates when they
-							change the Stripe API version, otherwise they will just be part of "Updated dependencies".
-						</p>
-					</li>
-					<li>
-						Cleaned-up use of <code>JspTagException</code> versus <code>JspException</code>.  Generally,
-						methods declare <code>throws JspException</code> while actually throwing instances of
-						<code>JspTagException</code>.  The exception to this is private implementation methods that
-						both declare and throw <code>JspTagException</code>.
-					</li>
-					<li>Attribute setters now throw <code>IllegalArgumentException</code> instead of <code>JspTagException</code>.</li>
-					<li>Case-insensitive boolean parsing.</li>
-					<li>
-						<strong><ao:a href="https://aoindustries.com/ao-credit-cards/sagePayments/">AO Credit Cards Sage Payment Solutions</ao:a> has been deprecated.</strong>
-						We have removed support for it from this package.
-					</li>
-					<li>
-						<p>
-							Integrated with <ao:a href="https://aoindustries.com/ao-encoding/taglib/">AO Encoding Taglib</ao:a>
-							for automatic encoding based on tag context.  This means more seamless interaction with other
-							AO Encoding-aware tools, such as <ao:a href="https://aoindustries.com/ao-taglib/">AO Taglib</ao:a>.
-						</p>
-						<p>
-							As an example, use of <ao:a href="https://aoindustries.com/ao-taglib/ao.tld/tag-out"><![CDATA[&lt;ao:out&gt;]]></ao:a>
-							within <core:link page="nmw-payment.tld/tag-comment" /> will automatically encoding its output
-							as <ao:a href="https://aoindustries.com/ao-encoding/apidocs/com/aoindustries/encoding/MediaType.html#TEXT">TEXT</ao:a>.
-						</p>
-					</li>
-					<li>
-						Added more attributes for <ao:a rel="nofollow" href="https://docs.oracle.com/cd/E19226-01/820-7627/gjddd/">JSP Expression Language</ao:a>
-						integration.  Implementations still fall-back to body content when the attribute is not specified.
-					</li>
-					<li>
-						Added <core:link page="nmw-payment-legacy.tld/">alternate implementation</core:link> compatible
-						with legacy JSP that use scriptlets.
-					</li>
-					<li>
-						Added a set of <ao:a rel="nofollow" href="https://docs.oracle.com/cd/E19226-01/820-7627/gjddd/">JSP Expression Language</ao:a>
-						functions as functional counterparts to the existing tags.
-					</li>
-					<li>Tag nesting relationships are now tracked with request attributes, so nesting may span page includes.</li>
-				</ul>
-			</changelog:release>
+			/>
 		</c:if>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="2.0.0"
+			datePublished="2021-02-10T06:07:41-06:00"
+			groupId="@{project.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{project.scm.url}"
+		>
+			<ul>
+				<li>
+					<strong>Taglib URI changed</strong> from <code>http://taglibs.newmediaworks.com/payment</code> to
+					<code>@{project.url}</code>.
+				</li>
+				<li>Updated dependencies.</li>
+				<li>
+					<p>
+						Upgraded to current version of <ao:a href="https://search.maven.org/artifact/com.stripe/stripe-java/20.37.0/jar">com.stripe:stripe-java:jar:20.37.0</ao:a>,
+						which uses <ao:a href="https://stripe.com/docs/upgrades#2020-08-27">Stripe API version 2020-08-27</ao:a>.
+					</p>
+					<p>
+						Stripe releases minor updates on a regular basis.  We will only note future updates when they
+						change the Stripe API version, otherwise they will just be part of "Updated dependencies".
+					</p>
+				</li>
+				<li>
+					Cleaned-up use of <code>JspTagException</code> versus <code>JspException</code>.  Generally,
+					methods declare <code>throws JspException</code> while actually throwing instances of
+					<code>JspTagException</code>.  The exception to this is private implementation methods that
+					both declare and throw <code>JspTagException</code>.
+				</li>
+				<li>Attribute setters now throw <code>IllegalArgumentException</code> instead of <code>JspTagException</code>.</li>
+				<li>Case-insensitive boolean parsing.</li>
+				<li>
+					<strong><ao:a href="https://aoindustries.com/ao-credit-cards/sagePayments/">AO Credit Cards Sage Payment Solutions</ao:a> has been deprecated.</strong>
+					We have removed support for it from this package.
+				</li>
+				<li>
+					<p>
+						Integrated with <ao:a href="https://aoindustries.com/ao-encoding/taglib/">AO Encoding Taglib</ao:a>
+						for automatic encoding based on tag context.  This means more seamless interaction with other
+						AO Encoding-aware tools, such as <ao:a href="https://aoindustries.com/ao-taglib/">AO Taglib</ao:a>.
+					</p>
+					<p>
+						As an example, use of <ao:a href="https://aoindustries.com/ao-taglib/ao.tld/tag-out"><![CDATA[&lt;ao:out&gt;]]></ao:a>
+						within <core:link page="nmw-payment.tld/tag-comment" /> will automatically encoding its output
+						as <ao:a href="https://aoindustries.com/ao-encoding/apidocs/com/aoindustries/encoding/MediaType.html#TEXT">TEXT</ao:a>.
+					</p>
+				</li>
+				<li>
+					Added more attributes for <ao:a rel="nofollow" href="https://docs.oracle.com/cd/E19226-01/820-7627/gjddd/">JSP Expression Language</ao:a>
+					integration.  Implementations still fall-back to body content when the attribute is not specified.
+				</li>
+				<li>
+					Added <core:link page="nmw-payment-legacy.tld/">alternate implementation</core:link> compatible
+					with legacy JSP that use scriptlets.
+				</li>
+				<li>
+					Added a set of <ao:a rel="nofollow" href="https://docs.oracle.com/cd/E19226-01/820-7627/gjddd/">JSP Expression Language</ao:a>
+					functions as functional counterparts to the existing tags.
+				</li>
+				<li>Tag nesting relationships are now tracked with request attributes, so nesting may span page includes.</li>
+			</ul>
+		</changelog:release>
 
 		<changelog:release
 			projectName="@{documented.name}"
