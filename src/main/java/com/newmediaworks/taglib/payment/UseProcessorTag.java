@@ -28,7 +28,7 @@ import com.aoindustries.creditcards.payflowPro.PayflowPro;
 import com.aoindustries.creditcards.stripe.Stripe;
 import com.aoindustries.creditcards.test.TestMerchantServicesProvider;
 import com.aoindustries.creditcards.usaepay.USAePay;
-import com.aoindustries.encoding.Coercion;
+import com.aoindustries.lang.Coercion;
 import com.aoindustries.lang.Strings;
 import java.util.ArrayList;
 import java.util.HashMap;
