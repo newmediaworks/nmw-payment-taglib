@@ -179,7 +179,7 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 		this.connectorName = Strings.trimNullIfEmpty(connectorName);
 	}
 
-	private Map<String,String> parameters;
+	private Map<String, String> parameters;
 	/**
 	 * Adds a parameter.
 	 * 
