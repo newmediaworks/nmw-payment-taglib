@@ -41,7 +41,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
 	version="2.1">
-	<!-- datePublished="2013-01-24T05:22:33-0600" -->
+	<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 	<!-- dateModified="2021-02-09T16:08:15-06:00" -->
 <!-- </common> -->
 	<!-- allowRobots="false" -->
@@ -99,7 +99,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 	<short-name>payment</short-name>
 	<uri>&tld_uri;</uri>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -261,7 +261,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<dynamic-attributes>true</dynamic-attributes>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -289,7 +289,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -332,7 +332,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -760,7 +760,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -1171,7 +1171,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -1226,7 +1226,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -1289,7 +1289,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -1314,7 +1314,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -1754,7 +1754,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -1787,7 +1787,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -1820,7 +1820,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -1854,7 +1854,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -1894,7 +1894,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -1924,7 +1924,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -1952,7 +1952,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -1984,7 +1984,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2161,7 +2161,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2193,7 +2193,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2225,7 +2225,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2257,7 +2257,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2287,7 +2287,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2317,7 +2317,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2347,7 +2347,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2377,7 +2377,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2408,7 +2408,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2440,7 +2440,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2472,7 +2472,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2504,7 +2504,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2536,7 +2536,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2568,7 +2568,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2601,7 +2601,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2633,7 +2633,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2661,7 +2661,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2690,7 +2690,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2718,7 +2718,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2746,7 +2746,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2777,7 +2777,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2805,7 +2805,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2833,7 +2833,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2861,7 +2861,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2889,7 +2889,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2917,7 +2917,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-08T04:45:38-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2947,8 +2947,8 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		</attribute>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
-		<!-- dateModified="2019-05-27T23:04:52-0500" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
+		<!-- dateModified="2019-05-27T23:04:52-05:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				This is the point where the bank is contacted and the
@@ -2968,7 +2968,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<body-content>empty</body-content>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -2994,7 +2994,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<body-content>JSP</body-content>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -3012,7 +3012,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<body-content>empty</body-content>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -3037,7 +3037,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<body-content>JSP</body-content>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -3052,7 +3052,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<body-content>empty</body-content>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -3080,7 +3080,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<body-content>empty</body-content>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -3100,7 +3100,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<body-content>JSP</body-content>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -3115,7 +3115,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<body-content>empty</body-content>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -3135,7 +3135,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<body-content>JSP</body-content>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -3150,7 +3150,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<body-content>empty</body-content>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
@@ -3175,7 +3175,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 		<body-content>empty</body-content>
 	</tag>
 	<tag>
-		<!-- datePublished="2013-01-24T05:22:33-0600" -->
+		<!-- datePublished="2013-01-24T05:22:33-06:00" -->
 		<!-- dateModified="2021-02-10T03:21:17-06:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
