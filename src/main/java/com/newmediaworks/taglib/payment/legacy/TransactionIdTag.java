@@ -99,7 +99,6 @@ public class TransactionIdTag extends EncodingBufferedBodyTag {
 /**/
 		ServletRequest request = pageContext.getRequest();
 		String transactionId = (value != null) ? value : capturedBody.trim().toString();
-		// Java 9: Optional.ifPresentOrElse
 		Optional<CaptureTag> captureTag = CaptureTag.getCurrent(request);
 		if(captureTag.isPresent()) {
 			captureTag.get().setTransactionId(transactionId);

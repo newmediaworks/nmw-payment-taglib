@@ -103,7 +103,6 @@ public class CommentTag extends EncodingBufferedBodyTag {
 /**/
 		ServletRequest request = pageContext.getRequest();
 		String comment = (value != null) ? value : capturedBody.trim().toString();
-		// Java 9: ifPresentOrElse
 		Optional<StoreCreditCardTag> storeCreditCardTag = StoreCreditCardTag.getCurrent(request);
 		if(storeCreditCardTag.isPresent()) {
 			storeCreditCardTag.get().setComment(comment);

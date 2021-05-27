@@ -51,7 +51,6 @@ public class PropertyHelper {
 		BiConsumer<? super StoreCreditCardTag, ? super V> storeCreditCardSetter,
 		BiConsumerE<? super CreditCardTag, ? super V, ? extends JspException> creditCardSetter
 	) throws JspException {
-		// Java 9: ifPresentOrElse
 		Optional<StoreCreditCardTag> storeCreditCardTag = StoreCreditCardTag.getCurrent(request);
 		if(storeCreditCardTag.isPresent()) {
 			storeCreditCardSetter.accept(storeCreditCardTag.get(), value);
@@ -78,7 +77,6 @@ public class PropertyHelper {
 		BiConsumerE<? super CreditCardTag, ? super V, ? extends JspException> creditCardSetter,
 		BiConsumerE<? super ShippingAddressTag, ? super V, ? extends JspException> shippingAddressSetter
 	) throws JspException {
-		// Java 9: ifPresentOrElse
 		Optional<StoreCreditCardTag> storeCreditCardTag = StoreCreditCardTag.getCurrent(request);
 		if(storeCreditCardTag.isPresent()) {
 			storeCreditCardSetter.accept(storeCreditCardTag.get(), value);

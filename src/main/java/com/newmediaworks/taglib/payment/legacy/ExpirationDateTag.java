@@ -100,7 +100,6 @@ public class ExpirationDateTag extends EncodingBufferedBodyTag {
 /**/
 		ServletRequest request = pageContext.getRequest();
 		String expirationDate = (value != null) ? value : capturedBody.trim().toString();
-		// Java 9: ifPresentOrElse
 		Optional<StoreCreditCardTag> storeCreditCardTag = StoreCreditCardTag.getCurrent(request);
 		if(storeCreditCardTag.isPresent()) {
 			storeCreditCardTag.get().setExpirationDate(expirationDate);

@@ -54,7 +54,6 @@ public class ProcessTag extends TagSupport {
 	@Override
 	public int doStartTag() throws JspException {
 		ServletRequest request = pageContext.getRequest();
-		// Java 9: ifPresentOfElse
 		Optional<PaymentTag> paymentTag = PaymentTag.getCurrent(request);
 		if(paymentTag.isPresent()) {
 			paymentTag.get().process();
