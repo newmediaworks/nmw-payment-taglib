@@ -37,7 +37,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-05-26T16:13:02-05:00"
-		dateModified="2021-05-26T06:36:49-05:00"
+		dateModified="2021-05-27T21:59:03-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -50,6 +50,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 				<ul>
 					<li>Updated to <ao:a rel="nofollow" href="https://www.oracle.com/java/technologies/javaee/javaeetechnologies.html#javaee7">Java™ EE 7 Web Profile</ao:a> (Servlet 3.1, JSP 2.3, EL 3.0, and JSTL 1.2).</li>
 					<li>Minimum Java version changed from 1.8 to 11.</li>
+					<li><ao:a href="https://github.com/aoindustries/ao-credit-cards-sagePayments">AO Credit Cards Sage Payment Solutions</ao:a> is end-of-life.</li>
 				</ul>
 			</changelog:release>
 		</c:if>
@@ -87,7 +88,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 				<li>Attribute setters now throw <code>IllegalArgumentException</code> instead of <code>JspTagException</code>.</li>
 				<li>Case-insensitive boolean parsing.</li>
 				<li>
-					<strong><ao:a href="https://aoindustries.com/ao-credit-cards/sagePayments/">AO Credit Cards Sage Payment Solutions</ao:a> has been deprecated.</strong>
+					<strong><ao:a href="https://github.com/aoindustries/ao-credit-cards-sagePayments">AO Credit Cards Sage Payment Solutions</ao:a> has been deprecated.</strong>
 					We have removed support for it from this package.
 				</li>
 				<li>
@@ -157,7 +158,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 				</li>
 				<li>
 					Please note: <strong>the next major release of this project will no longer support
-					the "Sage" processor</strong> due to the <ao:a href="https://aoindustries.com/ao-credit-cards/sagePayments/">underlying payment API</ao:a>
+					the "Sage" processor</strong> due to the <ao:a href="https://github.com/aoindustries/ao-credit-cards-sagePayments">underlying payment API</ao:a>
 					being deprecated.
 				</li>
 			</ul>
