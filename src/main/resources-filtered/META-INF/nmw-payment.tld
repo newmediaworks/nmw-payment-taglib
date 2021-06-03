@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
+nmw-payment-taglib - JSP taglib encapsulating the AO Payments API.
 Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020, 2021  New Media Works
     info@newmediaworks.com
     703 2nd Street #465
@@ -42,7 +42,7 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
 	version="2.1">
 	<!-- datePublished="2013-01-24T05:22:33-06:00" -->
-	<!-- dateModified="2021-02-09T16:08:15-06:00" -->
+	<!-- dateModified="2021-06-01T00:39:15-05:00" -->
 <!-- </common> -->
 	<!-- allowRobots="auto" -->
 <!-- <common> -->
@@ -72,19 +72,19 @@ For compatibility with legacy applications that use JSP scriptlets, please use &
 		<hr />
 		<p>
 			This taglib is part of an extensible suite of interoperable, context-aware,
-			<a href="https://aoindustries.com/ao-encoding/">auto-encoding</a> taglibs.
+			<a href="https://oss.aoapps.com/encoding/">auto-encoding</a> taglibs.
 			All auto-encoding tags generate correct output for their context, provide context information for nested
 			tags, and validate the output of nested tags.  For example,
-			<a href="https://aoindustries.com/ao-taglib/]]>&aoTld;<![CDATA[/tag-message">&lt;ao:message&gt;</a> within
+			<a href="https://oss.aoapps.com/taglib/]]>&aoTld;<![CDATA[/tag-message">&lt;ao:message&gt;</a> within
 			<a href="@{project.url}]]>&tld;<![CDATA[/tag-comment">&lt;payment:comment&gt;</a> will write its output
-			encoded as <a href="https://aoindustries.com/ao-encoding/apidocs/com/aoindustries/encoding/MediaType.html#TEXT">TEXT</a>.
+			encoded as <a href="https://oss.aoapps.com/encoding/apidocs/com/aoindustries/encoding/MediaType.html#TEXT">TEXT</a>.
 		</p>
 		<p>
 			This suite includes, but is not limited to:
 		</p>
 		<ul>
-			<li><a href="https://aoindustries.com/ao-encoding/taglib/]]>&aoEncodingTld;<![CDATA[/">AO Encoding Taglib</a></li>
-			<li><a href="https://aoindustries.com/ao-taglib/]]>&aoTld;<![CDATA[/">AO Taglib</a></li>
+			<li><a href="https://oss.aoapps.com/encoding/taglib/]]>&aoEncodingTld;<![CDATA[/">AO Encoding Taglib</a></li>
+			<li><a href="https://oss.aoapps.com/taglib/]]>&aoTld;<![CDATA[/">AO Taglib</a></li>
 			<li><a href="https://aoindustries.com/aoweb-struts/core/aoweb-struts-skin.tld/">AOWeb Struts Core Skin Taglib</a></li>
 			<li><a href="https://oss.newmediaworks.com/email-taglib/]]>&nmwEmailTld;<![CDATA[/">NMW Email Taglib</a></li>
 			<li><a href="@{project.url}]]>&tld;<![CDATA[/">NMW Payment Taglib</a> (this taglib)</li>

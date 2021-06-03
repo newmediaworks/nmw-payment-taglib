@@ -1,5 +1,5 @@
 /*
- * nmw-payment-taglib - JSP taglib encapsulating the AO Credit Cards API.
+ * nmw-payment-taglib - JSP taglib encapsulating the AO Payments API.
  * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020, 2021  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
