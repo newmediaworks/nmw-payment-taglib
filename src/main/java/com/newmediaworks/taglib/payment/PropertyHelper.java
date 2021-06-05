@@ -22,7 +22,7 @@
  */
 package com.newmediaworks.taglib.payment;
 
-import com.aoindustries.util.function.BiConsumerE;
+import com.aoapps.lang.function.BiConsumerE;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import javax.servlet.ServletRequest;

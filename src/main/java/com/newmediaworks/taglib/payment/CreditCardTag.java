@@ -22,8 +22,8 @@
  */
 package com.newmediaworks.taglib.payment;
 
-import com.aoindustries.creditcards.CreditCard;
-import com.aoindustries.lang.Strings;
+import com.aoapps.lang.Strings;
+import com.aoapps.payments.CreditCard;
 import java.util.Optional;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;

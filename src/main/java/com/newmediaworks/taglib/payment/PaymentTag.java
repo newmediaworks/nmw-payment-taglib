@@ -22,11 +22,11 @@
  */
 package com.newmediaworks.taglib.payment;
 
-import com.aoindustries.creditcards.AuthorizationResult;
-import com.aoindustries.creditcards.CreditCard;
-import com.aoindustries.creditcards.MerchantServicesProvider;
-import com.aoindustries.creditcards.TransactionRequest;
-import com.aoindustries.lang.Strings;
+import com.aoapps.lang.Strings;
+import com.aoapps.payments.AuthorizationResult;
+import com.aoapps.payments.CreditCard;
+import com.aoapps.payments.MerchantServicesProvider;
+import com.aoapps.payments.TransactionRequest;
 import java.util.Currency;
 import java.util.Optional;
 import javax.servlet.ServletRequest;
@@ -38,8 +38,8 @@ import javax.servlet.jsp.tagext.TryCatchFinally;
 /**
  * Processes a credit card transaction.
  *
- * @see  MerchantServicesProvider#sale(com.aoindustries.creditcards.TransactionRequest, com.aoindustries.creditcards.CreditCard)
- * @see  MerchantServicesProvider#authorize(com.aoindustries.creditcards.TransactionRequest, com.aoindustries.creditcards.CreditCard)
+ * @see  MerchantServicesProvider#sale(com.aoapps.payments.TransactionRequest, com.aoapps.payments.CreditCard)
+ * @see  MerchantServicesProvider#authorize(com.aoapps.payments.TransactionRequest, com.aoapps.payments.CreditCard)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

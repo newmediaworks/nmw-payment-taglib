@@ -22,9 +22,9 @@
  */
 package com.newmediaworks.taglib.payment;
 
-import com.aoindustries.creditcards.AuthorizationResult;
-import com.aoindustries.encoding.MediaType;
-import com.aoindustries.encoding.taglib.EncodingNullTag;
+import com.aoapps.encoding.MediaType;
+import com.aoapps.encoding.taglib.EncodingNullTag;
+import com.aoapps.payments.AuthorizationResult;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;

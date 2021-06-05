@@ -22,7 +22,7 @@
  */
 package com.newmediaworks.taglib.payment;
 
-import com.aoindustries.lang.Strings;
+import com.aoapps.lang.Strings;
 import java.math.BigDecimal;
 import java.util.Currency;
 

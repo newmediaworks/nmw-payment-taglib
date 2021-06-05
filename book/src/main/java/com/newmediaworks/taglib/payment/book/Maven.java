@@ -22,7 +22,7 @@
  */
 package com.newmediaworks.taglib.payment.book;
 
-import com.aoindustries.util.PropertiesUtils;
+import com.aoapps.lang.util.PropertiesUtils;
 import java.io.IOException;
 import java.util.Properties;
 

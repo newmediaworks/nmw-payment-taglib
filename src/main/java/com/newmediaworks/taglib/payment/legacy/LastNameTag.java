@@ -22,12 +22,12 @@
  */
 package com.newmediaworks.taglib.payment.legacy;
 
-import com.aoindustries.creditcards.CreditCard;
-import com.aoindustries.creditcards.TransactionRequest;
-import com.aoindustries.encoding.MediaType;
-import com.aoindustries.encoding.taglib.legacy.EncodingBufferedBodyTag;
-import com.aoindustries.io.buffer.BufferResult;
-import com.aoindustries.lang.Strings;
+import com.aoapps.encoding.MediaType;
+import com.aoapps.encoding.taglib.legacy.EncodingBufferedBodyTag;
+import com.aoapps.io.buffer.BufferResult;
+import com.aoapps.lang.Strings;
+import com.aoapps.payments.CreditCard;
+import com.aoapps.payments.TransactionRequest;
 import com.newmediaworks.taglib.payment.CreditCardTag;
 import static com.newmediaworks.taglib.payment.LastNameTag.TAG_NAME;
 import com.newmediaworks.taglib.payment.PropertyHelper;

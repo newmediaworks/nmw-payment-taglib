@@ -22,8 +22,8 @@
  */
 package com.newmediaworks.taglib.payment;
 
-import com.aoindustries.creditcards.AuthorizationResult;
-import com.aoindustries.creditcards.TransactionResult.CommunicationResult;
+import com.aoapps.payments.AuthorizationResult;
+import com.aoapps.payments.TransactionResult.CommunicationResult;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 

@@ -22,9 +22,9 @@
  */
 package com.newmediaworks.taglib.payment;
 
-import com.aoindustries.creditcards.CreditCard;
-import com.aoindustries.creditcards.MerchantServicesProvider;
-import com.aoindustries.lang.Strings;
+import com.aoapps.lang.Strings;
+import com.aoapps.payments.CreditCard;
+import com.aoapps.payments.MerchantServicesProvider;
 import java.io.IOException;
 import java.util.Optional;
 import javax.servlet.ServletRequest;
@@ -36,7 +36,7 @@ import javax.servlet.jsp.tagext.TryCatchFinally;
 /**
  * Stores a credit card number to a bank-provided, CISP-compliant storage mechanism.
  *
- * @see  MerchantServicesProvider#storeCreditCard(com.aoindustries.creditcards.CreditCard)
+ * @see  MerchantServicesProvider#storeCreditCard(com.aoapps.payments.CreditCard)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

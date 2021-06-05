@@ -22,10 +22,10 @@
  */
 package com.newmediaworks.taglib.payment;
 
-import com.aoindustries.creditcards.AuthorizationResult;
-import com.aoindustries.creditcards.CaptureResult;
-import com.aoindustries.creditcards.MerchantServicesProvider;
-import com.aoindustries.lang.Strings;
+import com.aoapps.lang.Strings;
+import com.aoapps.payments.AuthorizationResult;
+import com.aoapps.payments.CaptureResult;
+import com.aoapps.payments.MerchantServicesProvider;
 import java.util.Optional;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
@@ -36,7 +36,7 @@ import javax.servlet.jsp.tagext.TryCatchFinally;
 /**
  * Captures the funds from a previous authorization-only transaction (from {@link PaymentTag} with {@link PaymentTag#setCapture(boolean) capture=false}).
  *
- * @see  MerchantServicesProvider#capture(com.aoindustries.creditcards.AuthorizationResult)
+ * @see  MerchantServicesProvider#capture(com.aoapps.payments.AuthorizationResult)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

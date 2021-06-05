@@ -22,9 +22,9 @@
  */
 package com.newmediaworks.taglib.payment.legacy;
 
-import com.aoindustries.creditcards.AuthorizationResult;
-import com.aoindustries.encoding.MediaType;
-import com.aoindustries.encoding.taglib.legacy.EncodingNullBodyTag;
+import com.aoapps.encoding.MediaType;
+import com.aoapps.encoding.taglib.legacy.EncodingNullBodyTag;
+import com.aoapps.payments.AuthorizationResult;
 import com.newmediaworks.taglib.payment.Functions;
 import static com.newmediaworks.taglib.payment.GetTransactionIdTag.TAG_NAME;
 import java.io.IOException;

@@ -22,10 +22,10 @@
  */
 package com.newmediaworks.taglib.payment.legacy;
 
-import com.aoindustries.creditcards.TransactionRequest;
-import com.aoindustries.encoding.MediaType;
-import com.aoindustries.encoding.taglib.legacy.EncodingBufferedBodyTag;
-import com.aoindustries.io.buffer.BufferResult;
+import com.aoapps.encoding.MediaType;
+import com.aoapps.encoding.taglib.legacy.EncodingBufferedBodyTag;
+import com.aoapps.io.buffer.BufferResult;
+import com.aoapps.payments.TransactionRequest;
 import com.newmediaworks.taglib.payment.PaymentTag;
 import static com.newmediaworks.taglib.payment.TaxExemptTag.TAG_NAME;
 import java.io.IOException;

@@ -22,11 +22,11 @@
  */
 package com.newmediaworks.taglib.payment;
 
-import com.aoindustries.creditcards.AuthorizationResult;
-import com.aoindustries.creditcards.MerchantServicesProvider;
-import com.aoindustries.creditcards.Transaction;
-import com.aoindustries.creditcards.VoidResult;
-import com.aoindustries.lang.Strings;
+import com.aoapps.lang.Strings;
+import com.aoapps.payments.AuthorizationResult;
+import com.aoapps.payments.MerchantServicesProvider;
+import com.aoapps.payments.Transaction;
+import com.aoapps.payments.VoidResult;
 import java.util.Optional;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
@@ -37,7 +37,7 @@ import javax.servlet.jsp.tagext.TryCatchFinally;
 /**
  * Voids a previous transaction (from {@link PaymentTag}).
  *
- * @see  MerchantServicesProvider#voidTransaction(com.aoindustries.creditcards.Transaction)
+ * @see  MerchantServicesProvider#voidTransaction(com.aoapps.payments.Transaction)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

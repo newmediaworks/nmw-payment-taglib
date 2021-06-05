@@ -22,7 +22,7 @@
  */
 package com.newmediaworks.taglib.payment;
 
-import com.aoindustries.creditcards.MerchantServicesProvider;
+import com.aoapps.payments.MerchantServicesProvider;
 
 /**
  * Attribute keys used in the payment taglib.

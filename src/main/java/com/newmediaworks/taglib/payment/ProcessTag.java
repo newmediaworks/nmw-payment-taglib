@@ -22,7 +22,7 @@
  */
 package com.newmediaworks.taglib.payment;
 
-import com.aoindustries.creditcards.MerchantServicesProvider;
+import com.aoapps.payments.MerchantServicesProvider;
 import java.util.Optional;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
@@ -35,10 +35,10 @@ import javax.servlet.jsp.tagext.TagSupport;
  * {@link CaptureTag},
  * {@link VoidTag} is processed.
  *
- * @see  MerchantServicesProvider#sale(com.aoindustries.creditcards.TransactionRequest, com.aoindustries.creditcards.CreditCard)
- * @see  MerchantServicesProvider#authorize(com.aoindustries.creditcards.TransactionRequest, com.aoindustries.creditcards.CreditCard)
- * @see  MerchantServicesProvider#capture(com.aoindustries.creditcards.AuthorizationResult)
- * @see  MerchantServicesProvider#voidTransaction(com.aoindustries.creditcards.Transaction)
+ * @see  MerchantServicesProvider#sale(com.aoapps.payments.TransactionRequest, com.aoapps.payments.CreditCard)
+ * @see  MerchantServicesProvider#authorize(com.aoapps.payments.TransactionRequest, com.aoapps.payments.CreditCard)
+ * @see  MerchantServicesProvider#capture(com.aoapps.payments.AuthorizationResult)
+ * @see  MerchantServicesProvider#voidTransaction(com.aoapps.payments.Transaction)
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */

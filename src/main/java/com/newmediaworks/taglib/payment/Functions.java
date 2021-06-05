@@ -22,12 +22,12 @@
  */
 package com.newmediaworks.taglib.payment;
 
-import com.aoindustries.creditcards.AuthorizationResult;
-import com.aoindustries.creditcards.AuthorizationResult.ApprovalResult;
-import com.aoindustries.creditcards.CreditCard;
-import com.aoindustries.creditcards.TransactionResult;
-import com.aoindustries.creditcards.TransactionResult.CommunicationResult;
-import static com.aoindustries.servlet.filter.FunctionContext.getRequest;
+import com.aoapps.payments.AuthorizationResult;
+import com.aoapps.payments.AuthorizationResult.ApprovalResult;
+import com.aoapps.payments.CreditCard;
+import com.aoapps.payments.TransactionResult;
+import com.aoapps.payments.TransactionResult.CommunicationResult;
+import static com.aoapps.servlet.filter.FunctionContext.getRequest;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;

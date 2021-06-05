@@ -22,14 +22,14 @@
  */
 package com.newmediaworks.taglib.payment;
 
-import com.aoindustries.creditcards.MerchantServicesProvider;
-import com.aoindustries.creditcards.authorizeNet.AuthorizeNet;
-import com.aoindustries.creditcards.payflowPro.PayflowPro;
-import com.aoindustries.creditcards.stripe.Stripe;
-import com.aoindustries.creditcards.test.TestMerchantServicesProvider;
-import com.aoindustries.creditcards.usaepay.USAePay;
-import com.aoindustries.lang.Coercion;
-import com.aoindustries.lang.Strings;
+import com.aoapps.lang.Coercion;
+import com.aoapps.lang.Strings;
+import com.aoapps.payments.MerchantServicesProvider;
+import com.aoapps.payments.authorizeNet.AuthorizeNet;
+import com.aoapps.payments.payflowPro.PayflowPro;
+import com.aoapps.payments.stripe.Stripe;
+import com.aoapps.payments.test.TestMerchantServicesProvider;
+import com.aoapps.payments.usaepay.USAePay;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

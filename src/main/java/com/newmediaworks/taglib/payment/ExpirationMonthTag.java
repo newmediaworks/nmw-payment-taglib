@@ -22,11 +22,11 @@
  */
 package com.newmediaworks.taglib.payment;
 
-import com.aoindustries.creditcards.CreditCard;
-import com.aoindustries.encoding.MediaType;
-import com.aoindustries.encoding.MediaValidator;
-import com.aoindustries.encoding.taglib.EncodingBufferedTag;
-import com.aoindustries.io.buffer.BufferResult;
+import com.aoapps.encoding.MediaType;
+import com.aoapps.encoding.MediaValidator;
+import com.aoapps.encoding.taglib.EncodingBufferedTag;
+import com.aoapps.io.buffer.BufferResult;
+import com.aoapps.payments.CreditCard;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
