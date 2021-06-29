@@ -42,7 +42,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
 	version="2.1">
 	<!-- datePublished="2013-01-24T05:22:33-06:00" -->
-	<!-- dateModified="2021-06-03T22:53:21-05:00" -->
+	<!-- dateModified="2021-06-16T13:09:39-05:00" -->
 <!-- </common> -->
 	<!-- allowRobots="false" -->
 <!-- <common> -->
@@ -77,7 +77,7 @@ When JSP scriptlets are not required, please use &lt;a href=&quot;@{project.url}
 			tags, and validate the output of nested tags.  For example,
 			<a href="https://oss.aoapps.com/taglib/]]>&aoTld;<![CDATA[/tag-message">&lt;ao:message&gt;</a> within
 			<a href="@{project.url}]]>&tld;<![CDATA[/tag-comment">&lt;payment:comment&gt;</a> will write its output
-			encoded as <a href="https://oss.aoapps.com/encoding/apidocs/com/aoapps/encoding/MediaType.html#TEXT">TEXT</a>.
+			encoded as <a href="https://oss.aoapps.com/encoding/apidocs/com.aoapps.encoding/com/aoapps/encoding/MediaType.html#TEXT">TEXT</a>.
 		</p>
 		<p>
 			This suite includes, but is not limited to:

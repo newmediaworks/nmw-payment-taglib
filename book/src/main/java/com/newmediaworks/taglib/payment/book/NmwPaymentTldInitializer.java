@@ -36,7 +36,7 @@ public class NmwPaymentTldInitializer extends TagReferenceInitializer {
 			Maven.properties.getProperty("documented.javadoc.link.javase"),
 			Maven.properties.getProperty("documented.javadoc.link.javaee"),
 			// Self
-			"com.newmediaworks.taglib.payment", Maven.properties.getProperty("project.url") + "apidocs/"
+			"com.newmediaworks.taglib.payment", Maven.properties.getProperty("project.url") + "apidocs/com.newmediaworks.taglib.payment/"
 		);
 	}
 }

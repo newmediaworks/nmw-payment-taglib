@@ -37,7 +37,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-05-26T16:13:02-05:00"
-		dateModified="2021-06-03T22:53:21-05:00"
+		dateModified="2021-06-27T16:13:41-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -51,6 +51,12 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 				<ul>
 					<li>Updated to <ao:a rel="nofollow" href="https://www.oracle.com/java/technologies/javaee/javaeetechnologies.html#javaee7">Java™ EE 7 Web Profile</ao:a> (Servlet 3.1, JSP 2.3, EL 3.0, and JSTL 1.2).</li>
 					<li>Minimum Java version changed from 1.8 to 11.</li>
+					<li>
+						Now supports Java 9+ modules.  Due to still having filename-based automatic module dependencies,
+						*-SNAPSHOT versions include <code>module-info.class</code> while releases include the
+						<code>Automatic-Module-Name</code> manifest entry.  To minimize the difference between these
+						modes, <code>module-info.java</code> does not perform any transitive requires.
+					</li>
 					<li><ao:a href="https://github.com/aoindustries/ao-credit-cards-sagePayments">AO Credit Cards Sage Payment Solutions</ao:a> is end-of-life.</li>
 				</ul>
 			</changelog:release>
@@ -101,7 +107,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 					<p>
 						As an example, use of <ao:a href="https://oss.aoapps.com/taglib/ao.tld/tag-out"><![CDATA[&lt;ao:out&gt;]]></ao:a>
 						within <core:link page="nmw-payment.tld/tag-comment" /> will automatically encode its output
-						as <ao:a href="https://oss.aoapps.com/encoding/apidocs/com/aoapps/encoding/MediaType.html#TEXT">TEXT</ao:a>.
+						as <ao:a href="https://oss.aoapps.com/encoding/apidocs/com.aoapps.encoding/com/aoapps/encoding/MediaType.html#TEXT">TEXT</ao:a>.
 					</p>
 				</li>
 				<li>
