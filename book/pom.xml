@@ -95,6 +95,11 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+		<!-- See http://stackoverflow.com/questions/1164043/maven-how-to-include-jars-which-are-not-available-in-reps-into-a-j2ee-project -->
+		<repository>
+			<id>project-repository</id>
+			<url>file://${project.basedir}/../repository</url>
+		</repository>
 	</repositories>
 
 	<build>
@@ -141,6 +146,7 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 					<dependency>
 						<groupId>com.newmediaworks</groupId><artifactId>nmw-payment-taglib</artifactId><version>2.1.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 						<type>jar</type>
+						<exclusions><exclusion><groupId>*</groupId><artifactId>*</artifactId></exclusion></exclusions>
 					</dependency>
 				</dependencies>
 			</plugin>
