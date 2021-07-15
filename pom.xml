@@ -94,6 +94,11 @@ along with nmw-payment-taglib.  If not, see <http://www.gnu.org/licenses />.
 		<url>https://github.com/newmediaworks/nmw-payment-taglib/issues</url>
 	</issueManagement>
 
+	<ciManagement>
+		<system>GitHub Actions</system>
+		<url>https://github.com/newmediaworks/nmw-payment-taglib/actions</url>
+	</ciManagement>
+
 	<repositories>
 		<!-- Repository required here, too, so can find parent -->
 		<repository>
