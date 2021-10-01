@@ -27,6 +27,7 @@ import com.aoapps.payments.AuthorizationResult;
 import com.aoapps.payments.MerchantServicesProvider;
 import com.aoapps.payments.Transaction;
 import com.aoapps.payments.VoidResult;
+import com.aoapps.servlet.attribute.ScopeEE;
 import java.util.Optional;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
@@ -48,11 +49,12 @@ public class VoidTag extends BodyTagSupport implements TryCatchFinally {
 	/**
 	 * The name of the request-scope attribute containing the current void tag.
 	 */
-	private static final String REQUEST_ATTRIBUTE_NAME = VoidTag.class.getName();
+	private static final ScopeEE.Request.Attribute<VoidTag> REQUEST_ATTRIBUTE_NAME =
+		ScopeEE.REQUEST.attribute(VoidTag.class.getName());
 
 	// Java 9: module-private
 	public static Optional<VoidTag> getCurrent(ServletRequest request) {
-		return Optional.ofNullable((VoidTag)request.getAttribute(REQUEST_ATTRIBUTE_NAME));
+		return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
 	}
 	// Java 9: module-private
 	public static VoidTag requireCurrent(String fromName, ServletRequest request) throws JspException {
@@ -95,18 +97,18 @@ public class VoidTag extends BodyTagSupport implements TryCatchFinally {
 	public int doStartTag() throws JspException {
 		ServletRequest request = pageContext.getRequest();
 		// Make sure the processor is set
-		MerchantServicesProvider processor = (MerchantServicesProvider)request.getAttribute(Constants.processor);
+		MerchantServicesProvider processor = Constants.PROCESSOR.context(request).get();
 		if(processor == null) throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
 		// Store this on the request
 		if(getCurrent(request).isPresent()) throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
-		request.setAttribute(REQUEST_ATTRIBUTE_NAME, this);
+		REQUEST_ATTRIBUTE_NAME.context(request).set(this);
 		requestAttributeSet = true;
 		return EVAL_BODY_INCLUDE;
 	}
 
 	void process() throws JspException {
 		// Make sure the processor is set
-		MerchantServicesProvider processor = (MerchantServicesProvider)pageContext.getRequest().getAttribute(Constants.processor);
+		MerchantServicesProvider processor = Constants.PROCESSOR.context(pageContext.getRequest()).get();
 		if(processor == null) throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
 
 		voidResult = processor.voidTransaction(
@@ -157,7 +159,7 @@ public class VoidTag extends BodyTagSupport implements TryCatchFinally {
 	@Override
 	public void doFinally() {
 		if(requestAttributeSet) {
-			pageContext.getRequest().removeAttribute(REQUEST_ATTRIBUTE_NAME);
+			REQUEST_ATTRIBUTE_NAME.context(pageContext.getRequest()).remove();
 		}
 		init();
 	}

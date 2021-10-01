@@ -23,6 +23,7 @@
 package com.newmediaworks.taglib.payment;
 
 import com.aoapps.payments.MerchantServicesProvider;
+import com.aoapps.servlet.attribute.ScopeEE;
 
 /**
  * Attribute keys used in the payment taglib.
@@ -40,6 +41,19 @@ public final class Constants {
 	 * Stores an implementation of {@link MerchantServicesProvider}.
 	 *
 	 * @see  UseProcessorTag
+	 *
+	 * @deprecated  Please use {@link #PROCESSOR} instead.
 	 */
+	@Deprecated
 	public static final String processor = "PROCESSOR";
+
+	/**
+	 * The request attribute key for the current credit card processor.
+	 *
+	 * Stores an implementation of {@link MerchantServicesProvider}.
+	 *
+	 * @see  UseProcessorTag
+	 */
+	public static final ScopeEE.Request.Attribute<MerchantServicesProvider> PROCESSOR =
+		ScopeEE.REQUEST.attribute(processor);
 }

@@ -30,6 +30,7 @@ import com.aoapps.payments.payflowPro.PayflowPro;
 import com.aoapps.payments.stripe.Stripe;
 import com.aoapps.payments.test.TestMerchantServicesProvider;
 import com.aoapps.payments.usaepay.USAePay;
+import com.aoapps.servlet.attribute.ScopeEE;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -150,11 +151,12 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 	/**
 	 * The name of the request-scope attribute containing the current use processor tag.
 	 */
-	private static final String REQUEST_ATTRIBUTE_NAME = UseProcessorTag.class.getName();
+	private static final ScopeEE.Request.Attribute<UseProcessorTag> REQUEST_ATTRIBUTE_NAME =
+		ScopeEE.REQUEST.attribute(UseProcessorTag.class.getName());
 
 	// Java 9: module-private
 	public static Optional<UseProcessorTag> getCurrent(ServletRequest request) {
-		return Optional.ofNullable((UseProcessorTag)request.getAttribute(REQUEST_ATTRIBUTE_NAME));
+		return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
 	}
 	// Java 9: module-private
 	public static UseProcessorTag requireCurrent(String fromName, ServletRequest request) throws JspException {
@@ -182,7 +184,7 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 	private Map<String, String> parameters;
 	/**
 	 * Adds a parameter.
-	 * 
+	 *
 	 * @throws IllegalStateException if name already set.
 	 */
 	public void addParameter(String name, String value) throws IllegalStateException {
@@ -222,7 +224,7 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 		ServletRequest request = pageContext.getRequest();
 		// Store this on the request
 		if(getCurrent(request).isPresent()) throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
-		request.setAttribute(REQUEST_ATTRIBUTE_NAME, this);
+		REQUEST_ATTRIBUTE_NAME.context(request).set(this);
 		requestAttributeSet = true;
 		return super.doStartTag();
 	}
@@ -270,7 +272,7 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 		}
 
 		// Set in the request attributes
-		pageContext.getRequest().setAttribute(Constants.processor, provider);
+		Constants.PROCESSOR.context(pageContext.getRequest()).set(provider);
 
 		return EVAL_PAGE;
 	}
@@ -283,7 +285,7 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 	@Override
 	public void doFinally() {
 		if(requestAttributeSet) {
-			pageContext.getRequest().removeAttribute(REQUEST_ATTRIBUTE_NAME);
+			REQUEST_ATTRIBUTE_NAME.context(pageContext.getRequest()).remove();
 		}
 		init();
 	}

@@ -24,6 +24,7 @@ package com.newmediaworks.taglib.payment;
 
 import com.aoapps.lang.Strings;
 import com.aoapps.payments.TransactionRequest;
+import com.aoapps.servlet.attribute.ScopeEE;
 import java.util.Optional;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
@@ -53,11 +54,12 @@ public class ShippingAddressTag extends BodyTagSupport implements TryCatchFinall
 	/**
 	 * The name of the request-scope attribute containing the current shipping address tag.
 	 */
-	private static final String REQUEST_ATTRIBUTE_NAME = ShippingAddressTag.class.getName();
+	private static final ScopeEE.Request.Attribute<ShippingAddressTag> REQUEST_ATTRIBUTE_NAME =
+		ScopeEE.REQUEST.attribute(ShippingAddressTag.class.getName());
 
 	// Java 9: module-private
 	public static Optional<ShippingAddressTag> getCurrent(ServletRequest request) {
-		return Optional.ofNullable((ShippingAddressTag)request.getAttribute(REQUEST_ATTRIBUTE_NAME));
+		return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
 	}
 	// Java 9: module-private
 	public static ShippingAddressTag requireCurrent(String fromName, ServletRequest request) throws JspException {
@@ -130,7 +132,7 @@ public class ShippingAddressTag extends BodyTagSupport implements TryCatchFinall
 		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest());
 		// Store this on the request
 		if(getCurrent(request).isPresent()) throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
-		request.setAttribute(REQUEST_ATTRIBUTE_NAME, this);
+		REQUEST_ATTRIBUTE_NAME.context(request).set(this);
 		requestAttributeSet = true;
 		return EVAL_BODY_INCLUDE;
 	}
@@ -143,7 +145,7 @@ public class ShippingAddressTag extends BodyTagSupport implements TryCatchFinall
 	@Override
 	public void doFinally() {
 		if(requestAttributeSet) {
-			pageContext.getRequest().removeAttribute(REQUEST_ATTRIBUTE_NAME);
+			REQUEST_ATTRIBUTE_NAME.context(pageContext.getRequest()).remove();
 		}
 		init();
 	}

@@ -24,6 +24,7 @@ package com.newmediaworks.taglib.payment;
 
 import com.aoapps.lang.Strings;
 import com.aoapps.payments.CreditCard;
+import com.aoapps.servlet.attribute.ScopeEE;
 import java.util.Optional;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
@@ -45,11 +46,12 @@ public class CreditCardTag extends BodyTagSupport implements TryCatchFinally {
 	/**
 	 * The name of the request-scope attribute containing the current credit card tag.
 	 */
-	private static final String REQUEST_ATTRIBUTE_NAME = CreditCardTag.class.getName();
+	private static final ScopeEE.Request.Attribute<CreditCardTag> REQUEST_ATTRIBUTE_NAME =
+		ScopeEE.REQUEST.attribute(CreditCardTag.class.getName());
 
 	// Java 9: module-private
 	public static Optional<CreditCardTag> getCurrent(ServletRequest request) {
-		return Optional.ofNullable((CreditCardTag)request.getAttribute(REQUEST_ATTRIBUTE_NAME));
+		return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
 	}
 	// Java 9: module-private
 	public static CreditCardTag requireCurrent(String fromName, ServletRequest request) throws JspException {
@@ -218,7 +220,7 @@ public class CreditCardTag extends BodyTagSupport implements TryCatchFinally {
 		PaymentTag.requireCurrent(TAG_NAME, request);
 		// Store this on the request
 		if(getCurrent(request).isPresent()) throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
-		request.setAttribute(REQUEST_ATTRIBUTE_NAME, this);
+		REQUEST_ATTRIBUTE_NAME.context(request).set(this);
 		requestAttributeSet = true;
 		return EVAL_BODY_INCLUDE;
 	}
@@ -231,7 +233,7 @@ public class CreditCardTag extends BodyTagSupport implements TryCatchFinally {
 	@Override
 	public void doFinally() {
 		if(requestAttributeSet) {
-			pageContext.getRequest().removeAttribute(REQUEST_ATTRIBUTE_NAME);
+			REQUEST_ATTRIBUTE_NAME.context(pageContext.getRequest()).remove();
 		}
 		init();
 	}

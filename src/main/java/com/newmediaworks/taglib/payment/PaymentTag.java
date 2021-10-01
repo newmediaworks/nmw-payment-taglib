@@ -27,6 +27,7 @@ import com.aoapps.payments.AuthorizationResult;
 import com.aoapps.payments.CreditCard;
 import com.aoapps.payments.MerchantServicesProvider;
 import com.aoapps.payments.TransactionRequest;
+import com.aoapps.servlet.attribute.ScopeEE;
 import java.util.Currency;
 import java.util.Optional;
 import javax.servlet.ServletRequest;
@@ -50,11 +51,12 @@ public class PaymentTag extends BodyTagSupport implements TryCatchFinally {
 	/**
 	 * The name of the request-scope attribute containing the current payment tag.
 	 */
-	private static final String REQUEST_ATTRIBUTE_NAME = PaymentTag.class.getName();
+	private static final ScopeEE.Request.Attribute<PaymentTag> REQUEST_ATTRIBUTE_NAME =
+		ScopeEE.REQUEST.attribute(PaymentTag.class.getName());
 
 	// Java 9: module-private
 	public static Optional<PaymentTag> getCurrent(ServletRequest request) {
-		return Optional.ofNullable((PaymentTag)request.getAttribute(REQUEST_ATTRIBUTE_NAME));
+		return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
 	}
 	// Java 9: module-private
 	public static PaymentTag requireCurrent(String fromName, ServletRequest request) throws JspException {
@@ -178,11 +180,11 @@ public class PaymentTag extends BodyTagSupport implements TryCatchFinally {
 	public int doStartTag() throws JspException {
 		ServletRequest request = pageContext.getRequest();
 		// Make sure the processor is set
-		MerchantServicesProvider processor = (MerchantServicesProvider)request.getAttribute(Constants.processor);
+		MerchantServicesProvider processor = Constants.PROCESSOR.context(request).get();
 		if(processor == null) throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
 		// Store this on the request
 		if(getCurrent(request).isPresent()) throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
-		request.setAttribute(REQUEST_ATTRIBUTE_NAME, this);
+		REQUEST_ATTRIBUTE_NAME.context(request).set(this);
 		requestAttributeSet = true;
 		return EVAL_BODY_INCLUDE;
 	}
@@ -190,7 +192,7 @@ public class PaymentTag extends BodyTagSupport implements TryCatchFinally {
 	void process() throws JspException {
 		ServletRequest request = pageContext.getRequest();
 		// Make sure the processor is set
-		MerchantServicesProvider processor = (MerchantServicesProvider)request.getAttribute(Constants.processor);
+		MerchantServicesProvider processor = Constants.PROCESSOR.context(request).get();
 		if(processor == null) throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
 
 		transactionRequest.setCustomerIp(request.getRemoteAddr());
@@ -213,7 +215,7 @@ public class PaymentTag extends BodyTagSupport implements TryCatchFinally {
 	@Override
 	public void doFinally() {
 		if(requestAttributeSet) {
-			pageContext.getRequest().removeAttribute(REQUEST_ATTRIBUTE_NAME);
+			REQUEST_ATTRIBUTE_NAME.context(pageContext.getRequest()).remove();
 		}
 		init();
 	}

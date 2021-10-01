@@ -35,6 +35,7 @@ module com.newmediaworks.taglib.payment {
 	requires com.aoapps.payments.test; // <groupId>com.aoapps</groupId><artifactId>ao-payments-test</artifactId>
 	requires com.aoapps.payments.usaepay; // <groupId>com.aoapps</groupId><artifactId>ao-payments-usaepay</artifactId>
 	requires com.aoapps.servlet.filter; // <groupId>com.aoapps</groupId><artifactId>ao-servlet-filter</artifactId>
+	requires com.aoapps.servlet.util; // <groupId>com.aoapps</groupId><artifactId>ao-servlet-util</artifactId>
 	requires javax.servlet.api; // <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId>
 	requires javax.servlet.jsp.api; // <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId>
 	// Java SE
