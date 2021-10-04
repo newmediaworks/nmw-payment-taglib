@@ -67,7 +67,7 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 	private static final String PARAM_ATTRIBUTE_PREFIX = "param.";
 
 	/** The previously created processors are reused. */
-	private final static List<TestMerchantServicesProvider> testMerchantServicesProviders = new ArrayList<>();
+	private static final List<TestMerchantServicesProvider> testMerchantServicesProviders = new ArrayList<>();
 	private static TestMerchantServicesProvider getTestMerchantServicesProvider(byte errorChance, byte rejectionChance) {
 		synchronized(testMerchantServicesProviders) {
 			for(TestMerchantServicesProvider tmsp : testMerchantServicesProviders) {
@@ -83,7 +83,7 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 	}
 
 	/** The previously created processors are reused. */
-	private final static List<PayflowPro> payflowPros = new ArrayList<>();
+	private static final List<PayflowPro> payflowPros = new ArrayList<>();
 	private static PayflowPro getPayflowPro(String user, String vendor, String partner, String password, ServletContext servletContext) {
 		synchronized(payflowPros) {
 			for(PayflowPro payflowPro : payflowPros) {
@@ -101,7 +101,7 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 	}
 
 	/** The previously created processors are reused. */
-	private final static List<USAePay> usaePays = new ArrayList<>();
+	private static final List<USAePay> usaePays = new ArrayList<>();
 	private static USAePay getUSAePay(String postUrl, String key, String pin) {
 		synchronized(usaePays) {
 			for(USAePay usaePay : usaePays) {
@@ -118,7 +118,7 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 	}
 
 	/** The previously created processors are reused. */
-	private final static List<AuthorizeNet> authorizeNets = new ArrayList<>();
+	private static final List<AuthorizeNet> authorizeNets = new ArrayList<>();
 	private static AuthorizeNet getAuthorizeNet(String x_login, String x_tran_key) {
 		synchronized(authorizeNets) {
 			for(AuthorizeNet authorizeNet : authorizeNets) {
@@ -134,7 +134,7 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 	}
 
 	/** The previously created processors are reused. */
-	private final static List<Stripe> stripes = new ArrayList<>();
+	private static final List<Stripe> stripes = new ArrayList<>();
 	private static Stripe getStripe(String apiKey) {
 		synchronized(stripes) {
 			for(Stripe stripe : stripes) {

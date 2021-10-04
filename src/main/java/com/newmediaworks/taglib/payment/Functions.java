@@ -38,7 +38,7 @@ import javax.servlet.jsp.JspTagException;
 /**
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-final public class Functions {
+public final class Functions {
 
 	private static final Logger logger = Logger.getLogger(Functions.class.getName());
 
