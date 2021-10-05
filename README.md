@@ -17,7 +17,7 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.newmediaworks%3Anmw-payment-taglib&metric=sqale_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.newmediaworks%3Anmw-payment-taglib&metric=Maintainability)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.newmediaworks%3Anmw-payment-taglib&metric=coverage)](https://sonarcloud.io/component_measures?branch=master&id=com.newmediaworks%3Anmw-payment-taglib&metric=Coverage)
 
-JSP taglib encapsulating the [AO Payments API](https://github.com/aoindustries/ao-payments-api).
+JSP taglib encapsulating the [AO Payments API](https://github.com/ao-apps/ao-payments-api).
 
 ## Project Links
 * [Project Home](https://oss.newmediaworks.com/payment-taglib/)
@@ -29,8 +29,8 @@ JSP taglib encapsulating the [AO Payments API](https://github.com/aoindustries/a
 * [GitHub](https://github.com/newmediaworks/nmw-payment-taglib)
 
 ## Related Projects
-* [AO Payments](https://github.com/aoindustries/ao-payments)
-* [AO Encoding Taglib](https://github.com/aoindustries/ao-encoding-taglib)
+* [AO Payments](https://github.com/ao-apps/ao-payments)
+* [AO Encoding Taglib](https://github.com/ao-apps/ao-encoding-taglib)
 
 ## Contact Us
 For questions or support, please [contact us](https://www.newmediaworks.com/html/contact.html):
