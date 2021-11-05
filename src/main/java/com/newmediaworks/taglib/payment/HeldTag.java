@@ -43,9 +43,6 @@ public class HeldTag extends BodyTagSupport {
 
 	public static final String TAG_NAME = "<payment:held>";
 
-	public HeldTag() {
-	}
-
 	private static final long serialVersionUID = 1L;
 
 	@Override

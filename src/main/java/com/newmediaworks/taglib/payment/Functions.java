@@ -38,12 +38,12 @@ import javax.servlet.jsp.JspTagException;
 /**
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public final class Functions {
+public abstract class Functions {
+
+	/** Make no instances. */
+	private Functions() {throw new AssertionError();}
 
 	private static final Logger logger = Logger.getLogger(Functions.class.getName());
-
-	private Functions() {
-	}
 
 	/**
 	 * @see  MaskCardNumberTag

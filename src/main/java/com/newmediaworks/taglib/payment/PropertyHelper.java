@@ -36,9 +36,10 @@ import javax.servlet.jsp.JspTagException;
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
 // Java 9: module-private
-public class PropertyHelper {
+public abstract class PropertyHelper {
 
-	private PropertyHelper() {}
+	/** Make no instances. */
+	private PropertyHelper() {throw new AssertionError();}
 
 	/**
 	 * Sets a value on a {@link StoreCreditCardTag} or {@link CreditCardTag} while verifying correct tag nesting.

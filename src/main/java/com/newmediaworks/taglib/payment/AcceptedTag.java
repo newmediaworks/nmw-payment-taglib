@@ -43,9 +43,6 @@ public class AcceptedTag extends BodyTagSupport {
 
 	public static final String TAG_NAME = "<payment:accepted>";
 
-	public AcceptedTag() {
-	}
-
 	private static final long serialVersionUID = 1L;
 
 	@Override

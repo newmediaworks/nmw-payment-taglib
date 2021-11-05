@@ -45,9 +45,6 @@ public class ErrorTag extends BodyTagSupport {
 
 	public static final String TAG_NAME = "<payment:error>";
 
-	public ErrorTag() {
-	}
-
 	private static final long serialVersionUID = 1L;
 
 	@Override

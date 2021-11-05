@@ -43,9 +43,6 @@ public class RejectedTag extends BodyTagSupport {
 
 	public static final String TAG_NAME = "<payment:rejected>";
 
-	public RejectedTag() {
-	}
-
 	private static final long serialVersionUID = 1L;
 
 	@Override

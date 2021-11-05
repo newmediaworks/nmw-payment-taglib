@@ -30,10 +30,10 @@ import com.aoapps.servlet.attribute.ScopeEE;
  *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
-public final class Constants {
+public abstract class Constants {
 
-	private Constants() {
-	}
+	/** Make no instances. */
+	private Constants() {throw new AssertionError();}
 
 	/**
 	 * The request attribute key for the current credit card processor.

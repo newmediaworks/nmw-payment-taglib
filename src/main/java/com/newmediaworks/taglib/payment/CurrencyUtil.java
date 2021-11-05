@@ -32,7 +32,10 @@ import java.util.Currency;
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
 // Java 9: module-private
-public final class CurrencyUtil {
+public abstract class CurrencyUtil {
+
+	/** Make no instances. */
+	private CurrencyUtil() {throw new AssertionError();}
 
 	/**
 	 * Parsing for a currency.  Strips all <code>'$'</code> or <code>','</code>
@@ -49,11 +52,5 @@ public final class CurrencyUtil {
 		value = Strings.trimNullIfEmpty(value);
 		if(value == null) return null;
 		return new BigDecimal(value.replace("$", "").replace(",", ""));
-	}
-
-	/**
-	 * Make no instances.
-	 */
-	private CurrencyUtil() {
 	}
 }

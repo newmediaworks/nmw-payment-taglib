@@ -46,9 +46,6 @@ public class ProcessTag extends TagSupport {
 
 	public static final String TAG_NAME = "<payment:process>";
 
-	public ProcessTag() {
-	}
-
 	private static final long serialVersionUID = 1L;
 
 	@Override
