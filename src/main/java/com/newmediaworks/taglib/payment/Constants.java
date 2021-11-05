@@ -44,7 +44,7 @@ public abstract class Constants {
 	 *
 	 * @deprecated  Please use {@link #PROCESSOR} instead.
 	 */
-	@Deprecated
+	@Deprecated(forRemoval = true)
 	public static final String processor = "PROCESSOR";
 
 	/**
