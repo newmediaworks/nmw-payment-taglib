@@ -49,6 +49,13 @@ def upstreamProjects = [
 	'../../ao/oss/javaee-web-api-bom', // <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom</artifactId>
 ]
 
+// Include project-repository in sparse checkout paths
+sparseCheckoutPaths = [
+	[path:'/.gitignore'],
+	[path:'/book/'],
+	[path:'/repository/']
+]
+
 /******************************************************************************************
  *                                                                                        *
  * Everything below this line is identical for all projects,                              *
