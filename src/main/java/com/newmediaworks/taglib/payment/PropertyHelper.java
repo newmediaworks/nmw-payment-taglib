@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Payments API.
- * Copyright (C) 2020, 2021  New Media Works
+ * Copyright (C) 2020, 2021, 2022  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -36,7 +36,7 @@ import javax.servlet.jsp.JspTagException;
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
 // Java 9: module-private
-public abstract class PropertyHelper {
+public final class PropertyHelper {
 
 	/** Make no instances. */
 	private PropertyHelper() {throw new AssertionError();}

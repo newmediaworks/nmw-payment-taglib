@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Payments API.
- * Copyright (C) 2013, 2019, 2021  New Media Works
+ * Copyright (C) 2013, 2019, 2021, 2022  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -32,7 +32,7 @@ import java.util.Currency;
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
 // Java 9: module-private
-public abstract class CurrencyUtil {
+public final class CurrencyUtil {
 
 	/** Make no instances. */
 	private CurrencyUtil() {throw new AssertionError();}
