@@ -43,76 +43,78 @@ import javax.servlet.jsp.JspException;
 public class ParameterTag extends EncodingBufferedBodyTag {
 
 /* SimpleTag only:
-	public static final String TAG_NAME = "<payment:parameter>";
+  public static final String TAG_NAME = "<payment:parameter>";
 /**/
 
-	public ParameterTag() {
-		init();
-	}
+  public ParameterTag() {
+    init();
+  }
 
-	@Override
-	public MediaType getContentType() {
-		return MediaType.TEXT;
-	}
+  @Override
+  public MediaType getContentType() {
+    return MediaType.TEXT;
+  }
 
-	@Override
-	public MediaType getOutputType() {
-		return null;
-	}
+  @Override
+  public MediaType getOutputType() {
+    return null;
+  }
 
 /* BodyTag only: */
-	private static final long serialVersionUID = 2L;
+  private static final long serialVersionUID = 2L;
 /**/
 
-	private String name;
-	public void setName(String name) {
-		this.name = Strings.trim(name);
-	}
+  private String name;
+  public void setName(String name) {
+    this.name = Strings.trim(name);
+  }
 
-	private String value;
-	public void setValue(String value) {
-		this.value = Strings.trimNullIfEmpty(value);
-	}
+  private String value;
+  public void setValue(String value) {
+    this.value = Strings.trimNullIfEmpty(value);
+  }
 
-	private void init() {
-		name = null;
-		value = null;
-	}
+  private void init() {
+    name = null;
+    value = null;
+  }
 
-	@Override
+  @Override
 /* BodyTag only: */
-	protected int doStartTag(Writer out) throws JspException, IOException {
-		return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+  protected int doStartTag(Writer out) throws JspException, IOException {
+    return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
 /**/
 /* SimpleTag only:
-	protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
-		if(value == null) super.invoke(body, captureValidator);
+  protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+    if (value == null) {
+      super.invoke(body, captureValidator);
+    }
 /**/
-	}
+  }
 
-	@Override
+  @Override
 /* BodyTag only: */
-	protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+  protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
 /* SimpleTag only:
-	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-		PageContext pageContext = (PageContext)getJspContext();
+  protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+    PageContext pageContext = (PageContext)getJspContext();
 /**/
-		UseProcessorTag.requireCurrent(TAG_NAME, pageContext.getRequest())
-			.addParameter(name, (value != null) ? value : capturedBody.trim().toString());
+    UseProcessorTag.requireCurrent(TAG_NAME, pageContext.getRequest())
+      .addParameter(name, (value != null) ? value : capturedBody.trim().toString());
 /* BodyTag only: */
-		return EVAL_PAGE;
+    return EVAL_PAGE;
 /**/
-	}
+  }
 
 /* BodyTag only: */
-	@Override
-	public void doFinally() {
-		try {
-			init();
-		} finally {
-			super.doFinally();
-		}
-	}
+  @Override
+  public void doFinally() {
+    try {
+      init();
+    } finally {
+      super.doFinally();
+    }
+  }
 /**/
 }

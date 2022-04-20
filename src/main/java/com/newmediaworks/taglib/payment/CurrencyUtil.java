@@ -35,23 +35,27 @@ import java.util.Currency;
 // Java 9: module-private
 public final class CurrencyUtil {
 
-	/** Make no instances. */
-	private CurrencyUtil() {throw new AssertionError();}
+  /** Make no instances. */
+  private CurrencyUtil() {
+    throw new AssertionError();
+  }
 
-	/**
-	 * Parsing for a currency.  Strips all <code>'$'</code> or <code>','</code>
-	 * then parses with {@link BigDecimal#BigDecimal(java.lang.String)}.
-	 * <p>
-	 * TODO: This is a US-locale specific implementation.
-	 * Should probably not make public again until a more locale-aware implementation is provided.
-	 * </p>
-	 *
-	 * @param  value  When {@code null} or empty (after trimming), returns {@code null}
-	 */
-	// Java 9: module-private
-	public static BigDecimal parseCurrency(String value) {
-		value = Strings.trimNullIfEmpty(value);
-		if(value == null) return null;
-		return new BigDecimal(value.replace("$", "").replace(",", ""));
-	}
+  /**
+   * Parsing for a currency.  Strips all <code>'$'</code> or <code>','</code>
+   * then parses with {@link BigDecimal#BigDecimal(java.lang.String)}.
+   * <p>
+   * TODO: This is a US-locale specific implementation.
+   * Should probably not make public again until a more locale-aware implementation is provided.
+   * </p>
+   *
+   * @param  value  When {@code null} or empty (after trimming), returns {@code null}
+   */
+  // Java 9: module-private
+  public static BigDecimal parseCurrency(String value) {
+    value = Strings.trimNullIfEmpty(value);
+    if (value == null) {
+      return null;
+    }
+    return new BigDecimal(value.replace("$", "").replace(",", ""));
+  }
 }

@@ -45,80 +45,86 @@ import javax.servlet.jsp.tagext.JspFragment;
 public class TaxExemptTag extends EncodingBufferedTag {
 
 /* SimpleTag only: */
-	public static final String TAG_NAME = "<payment:taxExempt>";
+  public static final String TAG_NAME = "<payment:taxExempt>";
 /**/
 
-	public TaxExemptTag() {
-		init();
-	}
+  public TaxExemptTag() {
+    init();
+  }
 
-	@Override
-	public MediaType getContentType() {
-		return MediaType.TEXT;
-	}
+  @Override
+  public MediaType getContentType() {
+    return MediaType.TEXT;
+  }
 
-	@Override
-	public MediaType getOutputType() {
-		return null;
-	}
+  @Override
+  public MediaType getOutputType() {
+    return null;
+  }
 
 /* BodyTag only:
-	private static final long serialVersionUID = 2L;
+  private static final long serialVersionUID = 2L;
 /**/
 
-	private Boolean value;
-	public void setValue(Boolean value) {
-		this.value = value;
-	}
+  private Boolean value;
+  public void setValue(Boolean value) {
+    this.value = value;
+  }
 
-	private void init() {
-		value = null;
-	}
+  private void init() {
+    value = null;
+  }
 
-	@Override
+  @Override
 /* BodyTag only:
-	protected int doStartTag(Writer out) throws JspException, IOException {
-		return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+  protected int doStartTag(Writer out) throws JspException, IOException {
+    return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
 /**/
 /* SimpleTag only: */
-	protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
-		if(value == null) super.invoke(body, captureValidator);
+  protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+    if (value == null) {
+      super.invoke(body, captureValidator);
+    }
 /**/
-	}
+  }
 
-	@Override
+  @Override
 /* BodyTag only:
-	protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+  protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
 /* SimpleTag only: */
-	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-		PageContext pageContext = (PageContext)getJspContext();
+  protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+    PageContext pageContext = (PageContext)getJspContext();
 /**/
-		boolean taxExempt;
-		if(value != null) {
-			taxExempt = value;
-		} else {
-			String taxExemptString = capturedBody.trim().toString();
-			if("true".equalsIgnoreCase(taxExemptString)) taxExempt = true;
-			else if("false".equalsIgnoreCase(taxExemptString)) taxExempt = false;
-			else throw new JspTagException("Invalid value for " + TAG_NAME + ", should be either true or false: " + taxExemptString);
-		}
+    boolean taxExempt;
+    if (value != null) {
+      taxExempt = value;
+    } else {
+      String taxExemptString = capturedBody.trim().toString();
+      if ("true".equalsIgnoreCase(taxExemptString)) {
+        taxExempt = true;
+      } else if ("false".equalsIgnoreCase(taxExemptString)) {
+        taxExempt = false;
+      } else {
+        throw new JspTagException("Invalid value for " + TAG_NAME + ", should be either true or false: " + taxExemptString);
+      }
+    }
 
-		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest())
-			.setTaxExempt(taxExempt);
+    PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest())
+      .setTaxExempt(taxExempt);
 /* BodyTag only:
-		return EVAL_PAGE;
+    return EVAL_PAGE;
 /**/
-	}
+  }
 
 /* BodyTag only:
-	@Override
-	public void doFinally() {
-		try {
-			init();
-		} finally {
-			super.doFinally();
-		}
-	}
+  @Override
+  public void doFinally() {
+    try {
+      init();
+    } finally {
+      super.doFinally();
+    }
+  }
 /**/
 }

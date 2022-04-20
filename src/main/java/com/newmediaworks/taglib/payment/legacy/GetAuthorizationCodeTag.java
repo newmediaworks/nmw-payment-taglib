@@ -43,30 +43,32 @@ import javax.servlet.jsp.JspException;
 public class GetAuthorizationCodeTag extends EncodingNullBodyTag {
 
 /* SimpleTag only:
-	public static final String TAG_NAME = "<payment:getAuthorizationCode>";
+  public static final String TAG_NAME = "<payment:getAuthorizationCode>";
 /**/
 
-	@Override
-	public MediaType getOutputType() {
-		return MediaType.TEXT;
-	}
+  @Override
+  public MediaType getOutputType() {
+    return MediaType.TEXT;
+  }
 
 /* BodyTag only: */
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 /**/
 
-	@Override
+  @Override
 /* BodyTag only: */
-	protected int doStartTag(Writer out) throws JspException, IOException {
+  protected int doStartTag(Writer out) throws JspException, IOException {
 /**/
 /* SimpleTag only:
-	protected void doTag(Writer out) throws JspException, IOException {
-		PageContext pageContext = (PageContext)getJspContext();
+  protected void doTag(Writer out) throws JspException, IOException {
+    PageContext pageContext = (PageContext)getJspContext();
 /**/
-		String authorizationCode = Functions.getAuthorizationCode(TAG_NAME, pageContext.getRequest());
-		if(authorizationCode != null) out.write(authorizationCode);
+    String authorizationCode = Functions.getAuthorizationCode(TAG_NAME, pageContext.getRequest());
+    if (authorizationCode != null) {
+      out.write(authorizationCode);
+    }
 /* BodyTag only: */
-		return SKIP_BODY;
+    return SKIP_BODY;
 /**/
-	}
+  }
 }

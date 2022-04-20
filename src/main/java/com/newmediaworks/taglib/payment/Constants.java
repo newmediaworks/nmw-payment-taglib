@@ -33,28 +33,30 @@ import com.aoapps.servlet.attribute.ScopeEE;
  */
 public final class Constants {
 
-	/** Make no instances. */
-	private Constants() {throw new AssertionError();}
+  /** Make no instances. */
+  private Constants() {
+    throw new AssertionError();
+  }
 
-	/**
-	 * The request attribute key for the current credit card processor.
-	 *
-	 * Stores an implementation of {@link MerchantServicesProvider}.
-	 *
-	 * @see  UseProcessorTag
-	 *
-	 * @deprecated  Please use {@link #PROCESSOR} instead.
-	 */
-	@Deprecated(forRemoval = true)
-	public static final String processor = "PROCESSOR";
+  /**
+   * The request attribute key for the current credit card processor.
+   *
+   * Stores an implementation of {@link MerchantServicesProvider}.
+   *
+   * @see  UseProcessorTag
+   *
+   * @deprecated  Please use {@link #PROCESSOR} instead.
+   */
+  @Deprecated(forRemoval = true)
+  public static final String processor = "PROCESSOR";
 
-	/**
-	 * The request attribute key for the current credit card processor.
-	 *
-	 * Stores an implementation of {@link MerchantServicesProvider}.
-	 *
-	 * @see  UseProcessorTag
-	 */
-	public static final ScopeEE.Request.Attribute<MerchantServicesProvider> PROCESSOR =
-		ScopeEE.REQUEST.attribute(processor);
+  /**
+   * The request attribute key for the current credit card processor.
+   *
+   * Stores an implementation of {@link MerchantServicesProvider}.
+   *
+   * @see  UseProcessorTag
+   */
+  public static final ScopeEE.Request.Attribute<MerchantServicesProvider> PROCESSOR =
+    ScopeEE.REQUEST.attribute(processor);
 }

@@ -47,177 +47,189 @@ import javax.servlet.jsp.tagext.TryCatchFinally;
  */
 public class PaymentTag extends BodyTagSupport implements TryCatchFinally {
 
-	public static final String TAG_NAME = "<payment:payment>";
+  public static final String TAG_NAME = "<payment:payment>";
 
-	/**
-	 * The name of the request-scope attribute containing the current payment tag.
-	 */
-	private static final ScopeEE.Request.Attribute<PaymentTag> REQUEST_ATTRIBUTE_NAME =
-		ScopeEE.REQUEST.attribute(PaymentTag.class.getName());
+  /**
+   * The name of the request-scope attribute containing the current payment tag.
+   */
+  private static final ScopeEE.Request.Attribute<PaymentTag> REQUEST_ATTRIBUTE_NAME =
+    ScopeEE.REQUEST.attribute(PaymentTag.class.getName());
 
-	// Java 9: module-private
-	public static Optional<PaymentTag> getCurrent(ServletRequest request) {
-		return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
-	}
-	// Java 9: module-private
-	public static PaymentTag requireCurrent(String fromName, ServletRequest request) throws JspException {
-		return getCurrent(request).orElseThrow(
-			() -> new JspTagException(fromName + " must be within " + TAG_NAME)
-		);
-	}
+  // Java 9: module-private
+  public static Optional<PaymentTag> getCurrent(ServletRequest request) {
+    return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
+  }
+  // Java 9: module-private
+  public static PaymentTag requireCurrent(String fromName, ServletRequest request) throws JspException {
+    return getCurrent(request).orElseThrow(
+      () -> new JspTagException(fromName + " must be within " + TAG_NAME)
+    );
+  }
 
-	public PaymentTag() {
-		init();
-	}
+  public PaymentTag() {
+    init();
+  }
 
-	private static final long serialVersionUID = 2L;
+  private static final long serialVersionUID = 2L;
 
-	private transient boolean requestAttributeSet;
+  private transient boolean requestAttributeSet;
 
-	private transient CreditCard creditCard;
-	CreditCard getCreditCard() {
-		if(creditCard == null) throw new AssertionError("creditCard is null");
-		return creditCard;
-	}
+  private transient CreditCard creditCard;
+  CreditCard getCreditCard() {
+    if (creditCard == null) {
+      throw new AssertionError("creditCard is null");
+    }
+    return creditCard;
+  }
 
-	private transient TransactionRequest transactionRequest;
-	TransactionRequest getTransactionRequest() {
-		if(creditCard == null) throw new AssertionError("transactionRequest is null");
-		return transactionRequest;
-	}
+  private transient TransactionRequest transactionRequest;
+  TransactionRequest getTransactionRequest() {
+    if (creditCard == null) {
+      throw new AssertionError("transactionRequest is null");
+    }
+    return transactionRequest;
+  }
 
-	// <editor-fold desc="Attributes">
-	private boolean capture;
-	public void setCapture(boolean capture) {
-		this.capture = capture;
-	}
+  // <editor-fold desc="Attributes">
+  private boolean capture;
+  public void setCapture(boolean capture) {
+    this.capture = capture;
+  }
 
-	public void setTest(boolean test) {
-		transactionRequest.setTestMode(test);
-	}
+  public void setTest(boolean test) {
+    transactionRequest.setTestMode(test);
+  }
 
-	public void setOrderNumber(String orderNumber) {
-		transactionRequest.setOrderNumber(Strings.trimNullIfEmpty(orderNumber));
-	}
+  public void setOrderNumber(String orderNumber) {
+    transactionRequest.setOrderNumber(Strings.trimNullIfEmpty(orderNumber));
+  }
 
-	public void setCurrencyCode(String currencyCode) {
-		currencyCode = Strings.trimNullIfEmpty(currencyCode);
-		if(currencyCode != null) transactionRequest.setCurrency(Currency.getInstance(currencyCode));
-	}
+  public void setCurrencyCode(String currencyCode) {
+    currencyCode = Strings.trimNullIfEmpty(currencyCode);
+    if (currencyCode != null) {
+      transactionRequest.setCurrency(Currency.getInstance(currencyCode));
+    }
+  }
 
-	public void setAmount(String amount) throws IllegalArgumentException {
-		try {
-			transactionRequest.setAmount(CurrencyUtil.parseCurrency(amount));
-		} catch(NumberFormatException err) {
-			throw new IllegalArgumentException("Invalid amount: " + amount, err);
-		}
-	}
+  public void setAmount(String amount) throws IllegalArgumentException {
+    try {
+      transactionRequest.setAmount(CurrencyUtil.parseCurrency(amount));
+    } catch (NumberFormatException err) {
+      throw new IllegalArgumentException("Invalid amount: " + amount, err);
+    }
+  }
 
-	public void setTaxAmount(String taxAmount) throws IllegalArgumentException {
-		try {
-			transactionRequest.setTaxAmount(CurrencyUtil.parseCurrency(taxAmount));
-		} catch(NumberFormatException err) {
-			throw new IllegalArgumentException("Invalid taxAmount: " + taxAmount, err);
-		}
-	}
+  public void setTaxAmount(String taxAmount) throws IllegalArgumentException {
+    try {
+      transactionRequest.setTaxAmount(CurrencyUtil.parseCurrency(taxAmount));
+    } catch (NumberFormatException err) {
+      throw new IllegalArgumentException("Invalid taxAmount: " + taxAmount, err);
+    }
+  }
 
-	public void setTaxExempt(boolean taxExempt) {
-		transactionRequest.setTaxExempt(taxExempt);
-	}
+  public void setTaxExempt(boolean taxExempt) {
+    transactionRequest.setTaxExempt(taxExempt);
+  }
 
-	public void setShippingAmount(String shippingAmount) throws IllegalArgumentException {
-		try {
-			transactionRequest.setShippingAmount(CurrencyUtil.parseCurrency(shippingAmount));
-		} catch(NumberFormatException err) {
-			throw new IllegalArgumentException("Invalid shippingAmount: " + shippingAmount, err);
-		}
-	}
+  public void setShippingAmount(String shippingAmount) throws IllegalArgumentException {
+    try {
+      transactionRequest.setShippingAmount(CurrencyUtil.parseCurrency(shippingAmount));
+    } catch (NumberFormatException err) {
+      throw new IllegalArgumentException("Invalid shippingAmount: " + shippingAmount, err);
+    }
+  }
 
-	public void setDutyAmount(String dutyAmount) throws IllegalArgumentException {
-		try {
-			transactionRequest.setDutyAmount(CurrencyUtil.parseCurrency(dutyAmount));
-		} catch(NumberFormatException err) {
-			throw new IllegalArgumentException("Invalid dutyAmount: " + dutyAmount, err);
-		}
-	}
+  public void setDutyAmount(String dutyAmount) throws IllegalArgumentException {
+    try {
+      transactionRequest.setDutyAmount(CurrencyUtil.parseCurrency(dutyAmount));
+    } catch (NumberFormatException err) {
+      throw new IllegalArgumentException("Invalid dutyAmount: " + dutyAmount, err);
+    }
+  }
 
-	public void setMerchantEmail(String merchantEmail) {
-		transactionRequest.setMerchantEmail(Strings.trimNullIfEmpty(merchantEmail));
-	}
+  public void setMerchantEmail(String merchantEmail) {
+    transactionRequest.setMerchantEmail(Strings.trimNullIfEmpty(merchantEmail));
+  }
 
-	public void setInvoiceNumber(String invoiceNumber) {
-		transactionRequest.setInvoiceNumber(Strings.trimNullIfEmpty(invoiceNumber));
-	}
+  public void setInvoiceNumber(String invoiceNumber) {
+    transactionRequest.setInvoiceNumber(Strings.trimNullIfEmpty(invoiceNumber));
+  }
 
-	public void setPurchaseOrderNumber(String purchaseOrderNumber) {
-		transactionRequest.setPurchaseOrderNumber(Strings.trimNullIfEmpty(purchaseOrderNumber));
-	}
+  public void setPurchaseOrderNumber(String purchaseOrderNumber) {
+    transactionRequest.setPurchaseOrderNumber(Strings.trimNullIfEmpty(purchaseOrderNumber));
+  }
 
-	public void setComment(String comment) {
-		transactionRequest.setDescription(Strings.trimNullIfEmpty(comment));
-	}
-	// </editor-fold>
+  public void setComment(String comment) {
+    transactionRequest.setDescription(Strings.trimNullIfEmpty(comment));
+  }
+  // </editor-fold>
 
-	// <editor-fold desc="The result of the processing">
-	private transient AuthorizationResult authorizationResult;
-	// Java 9: module-private
-	public AuthorizationResult getAuthorizationResult() {
-		return authorizationResult;
-	}
-	// </editor-fold>
+  // <editor-fold desc="The result of the processing">
+  private transient AuthorizationResult authorizationResult;
+  // Java 9: module-private
+  public AuthorizationResult getAuthorizationResult() {
+    return authorizationResult;
+  }
+  // </editor-fold>
 
-	private void init() {
-		requestAttributeSet = false;
-		// Used by nested tags
-		transactionRequest = new TransactionRequest();
-		creditCard = new CreditCard();
-		// Attributes
-		capture = true;
-		// The result of the processing
-		authorizationResult = null;
-	}
+  private void init() {
+    requestAttributeSet = false;
+    // Used by nested tags
+    transactionRequest = new TransactionRequest();
+    creditCard = new CreditCard();
+    // Attributes
+    capture = true;
+    // The result of the processing
+    authorizationResult = null;
+  }
 
-	@Override
-	public int doStartTag() throws JspException {
-		ServletRequest request = pageContext.getRequest();
-		// Make sure the processor is set
-		MerchantServicesProvider processor = Constants.PROCESSOR.context(request).get();
-		if(processor == null) throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
-		// Store this on the request
-		if(getCurrent(request).isPresent()) throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
-		REQUEST_ATTRIBUTE_NAME.context(request).set(this);
-		requestAttributeSet = true;
-		return EVAL_BODY_INCLUDE;
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    ServletRequest request = pageContext.getRequest();
+    // Make sure the processor is set
+    MerchantServicesProvider processor = Constants.PROCESSOR.context(request).get();
+    if (processor == null) {
+      throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
+    }
+    // Store this on the request
+    if (getCurrent(request).isPresent()) {
+      throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
+    }
+    REQUEST_ATTRIBUTE_NAME.context(request).set(this);
+    requestAttributeSet = true;
+    return EVAL_BODY_INCLUDE;
+  }
 
-	void process() throws JspException {
-		ServletRequest request = pageContext.getRequest();
-		// Make sure the processor is set
-		MerchantServicesProvider processor = Constants.PROCESSOR.context(request).get();
-		if(processor == null) throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
+  void process() throws JspException {
+    ServletRequest request = pageContext.getRequest();
+    // Make sure the processor is set
+    MerchantServicesProvider processor = Constants.PROCESSOR.context(request).get();
+    if (processor == null) {
+      throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
+    }
 
-		transactionRequest.setCustomerIp(request.getRemoteAddr());
-		if(creditCard.getProviderId() == null) {
-			creditCard.setProviderId(processor.getProviderId());
-		}
+    transactionRequest.setCustomerIp(request.getRemoteAddr());
+    if (creditCard.getProviderId() == null) {
+      creditCard.setProviderId(processor.getProviderId());
+    }
 
-		if(capture) {
-			this.authorizationResult = processor.sale(transactionRequest, creditCard).getAuthorizationResult();
-		} else {
-			this.authorizationResult = processor.authorize(transactionRequest, creditCard);
-		}
-	}
+    if (capture) {
+      this.authorizationResult = processor.sale(transactionRequest, creditCard).getAuthorizationResult();
+    } else {
+      this.authorizationResult = processor.authorize(transactionRequest, creditCard);
+    }
+  }
 
-	@Override
-	public void doCatch(Throwable t) throws Throwable {
-		throw t;
-	}
+  @Override
+  public void doCatch(Throwable t) throws Throwable {
+    throw t;
+  }
 
-	@Override
-	public void doFinally() {
-		if(requestAttributeSet) {
-			REQUEST_ATTRIBUTE_NAME.context(pageContext.getRequest()).remove();
-		}
-		init();
-	}
+  @Override
+  public void doFinally() {
+    if (requestAttributeSet) {
+      REQUEST_ATTRIBUTE_NAME.context(pageContext.getRequest()).remove();
+    }
+    init();
+  }
 }

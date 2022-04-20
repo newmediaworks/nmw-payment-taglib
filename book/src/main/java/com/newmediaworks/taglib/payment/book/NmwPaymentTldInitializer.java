@@ -27,17 +27,17 @@ import com.semanticcms.tagreference.TagReferenceInitializer;
 
 public class NmwPaymentTldInitializer extends TagReferenceInitializer {
 
-	public NmwPaymentTldInitializer() {
-		super(
-			Maven.properties.getProperty("documented.name") + " Reference",
-			"Taglib Reference",
-			"/payment-taglib",
-			"/nmw-payment.tld",
-			true,
-			Maven.properties.getProperty("documented.javadoc.link.javase"),
-			Maven.properties.getProperty("documented.javadoc.link.javaee"),
-			// Self
-			"com.newmediaworks.taglib.payment", Maven.properties.getProperty("project.url") + "apidocs/com.newmediaworks.taglib.payment/"
-		);
-	}
+  public NmwPaymentTldInitializer() {
+    super(
+      Maven.properties.getProperty("documented.name") + " Reference",
+      "Taglib Reference",
+      "/payment-taglib",
+      "/nmw-payment.tld",
+      true,
+      Maven.properties.getProperty("documented.javadoc.link.javase"),
+      Maven.properties.getProperty("documented.javadoc.link.javaee"),
+      // Self
+      "com.newmediaworks.taglib.payment", Maven.properties.getProperty("project.url") + "apidocs/com.newmediaworks.taglib.payment/"
+    );
+  }
 }

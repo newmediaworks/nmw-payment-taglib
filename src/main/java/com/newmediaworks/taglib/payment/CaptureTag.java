@@ -44,107 +44,113 @@ import javax.servlet.jsp.tagext.TryCatchFinally;
  */
 public class CaptureTag extends BodyTagSupport implements TryCatchFinally {
 
-	public static final String TAG_NAME = "<payment:capture>";
+  public static final String TAG_NAME = "<payment:capture>";
 
-	/**
-	 * The name of the request-scope attribute containing the current capture tag.
-	 */
-	private static final ScopeEE.Request.Attribute<CaptureTag> REQUEST_ATTRIBUTE_NAME =
-		ScopeEE.REQUEST.attribute(CaptureTag.class.getName());
+  /**
+   * The name of the request-scope attribute containing the current capture tag.
+   */
+  private static final ScopeEE.Request.Attribute<CaptureTag> REQUEST_ATTRIBUTE_NAME =
+    ScopeEE.REQUEST.attribute(CaptureTag.class.getName());
 
-	// Java 9: module-private
-	public static Optional<CaptureTag> getCurrent(ServletRequest request) {
-		return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
-	}
-	// Java 9: module-private
-	public static CaptureTag requireCurrent(String fromName, ServletRequest request) throws JspException {
-		return getCurrent(request).orElseThrow(
-			() -> new JspTagException(fromName + " must be within " + TAG_NAME)
-		);
-	}
+  // Java 9: module-private
+  public static Optional<CaptureTag> getCurrent(ServletRequest request) {
+    return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
+  }
+  // Java 9: module-private
+  public static CaptureTag requireCurrent(String fromName, ServletRequest request) throws JspException {
+    return getCurrent(request).orElseThrow(
+      () -> new JspTagException(fromName + " must be within " + TAG_NAME)
+    );
+  }
 
-	public CaptureTag() {
-		init();
-	}
+  public CaptureTag() {
+    init();
+  }
 
-	private static final long serialVersionUID = 2L;
+  private static final long serialVersionUID = 2L;
 
-	private transient boolean requestAttributeSet;
+  private transient boolean requestAttributeSet;
 
-	// <editor-fold desc="Attributes">
-	private String transactionId;
-	public void setTransactionId(String transactionId) {
-		this.transactionId = Strings.trimNullIfEmpty(transactionId);
-	}
-	// </editor-fold>
+  // <editor-fold desc="Attributes">
+  private String transactionId;
+  public void setTransactionId(String transactionId) {
+    this.transactionId = Strings.trimNullIfEmpty(transactionId);
+  }
+  // </editor-fold>
 
-	// <editor-fold desc="The result of the processing">
-	private transient CaptureResult captureResult;
-	CaptureResult getCaptureResult() {
-		return captureResult;
-	}
-	// </editor-fold>
+  // <editor-fold desc="The result of the processing">
+  private transient CaptureResult captureResult;
+  CaptureResult getCaptureResult() {
+    return captureResult;
+  }
+  // </editor-fold>
 
-	private void init() {
-		requestAttributeSet = false;
-		// Attributes
-		transactionId = null;
-		// The result of the processing
-		captureResult = null;
-	}
+  private void init() {
+    requestAttributeSet = false;
+    // Attributes
+    transactionId = null;
+    // The result of the processing
+    captureResult = null;
+  }
 
-	@Override
-	public int doStartTag() throws JspException {
-		ServletRequest request = pageContext.getRequest();
-		// Make sure the processor is set
-		MerchantServicesProvider processor = Constants.PROCESSOR.context(request).get();
-		if(processor == null) throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
-		// Store this on the request
-		if(getCurrent(request).isPresent()) throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
-		REQUEST_ATTRIBUTE_NAME.context(request).set(this);
-		requestAttributeSet = true;
-		return EVAL_BODY_INCLUDE;
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    ServletRequest request = pageContext.getRequest();
+    // Make sure the processor is set
+    MerchantServicesProvider processor = Constants.PROCESSOR.context(request).get();
+    if (processor == null) {
+      throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
+    }
+    // Store this on the request
+    if (getCurrent(request).isPresent()) {
+      throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
+    }
+    REQUEST_ATTRIBUTE_NAME.context(request).set(this);
+    requestAttributeSet = true;
+    return EVAL_BODY_INCLUDE;
+  }
 
-	void process() throws JspException {
-		// Make sure the processor is set
-		MerchantServicesProvider processor = Constants.PROCESSOR.context(pageContext.getRequest()).get();
-		if(processor == null) throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
+  void process() throws JspException {
+    // Make sure the processor is set
+    MerchantServicesProvider processor = Constants.PROCESSOR.context(pageContext.getRequest()).get();
+    if (processor == null) {
+      throw new JspTagException("processor not set, please set processor with " + UseProcessorTag.TAG_NAME + " first");
+    }
 
-		captureResult = processor.capture(
-			new AuthorizationResult(
-				processor.getProviderId(),
-				null,
-				null,
-				null,
-				null,
-				transactionId,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-			)
-		);
-	}
+    captureResult = processor.capture(
+      new AuthorizationResult(
+        processor.getProviderId(),
+        null,
+        null,
+        null,
+        null,
+        transactionId,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      )
+    );
+  }
 
-	@Override
-	public void doCatch(Throwable t) throws Throwable {
-		throw t;
-	}
+  @Override
+  public void doCatch(Throwable t) throws Throwable {
+    throw t;
+  }
 
-	@Override
-	public void doFinally() {
-		if(requestAttributeSet) {
-			REQUEST_ATTRIBUTE_NAME.context(pageContext.getRequest()).remove();
-		}
-		init();
-	}
+  @Override
+  public void doFinally() {
+    if (requestAttributeSet) {
+      REQUEST_ATTRIBUTE_NAME.context(pageContext.getRequest()).remove();
+    }
+    init();
+  }
 }

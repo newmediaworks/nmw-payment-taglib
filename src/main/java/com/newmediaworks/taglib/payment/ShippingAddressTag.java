@@ -50,104 +50,106 @@ import javax.servlet.jsp.tagext.TryCatchFinally;
  */
 public class ShippingAddressTag extends BodyTagSupport implements TryCatchFinally {
 
-	public static final String TAG_NAME = "<payment:shippingAddress>";
+  public static final String TAG_NAME = "<payment:shippingAddress>";
 
-	/**
-	 * The name of the request-scope attribute containing the current shipping address tag.
-	 */
-	private static final ScopeEE.Request.Attribute<ShippingAddressTag> REQUEST_ATTRIBUTE_NAME =
-		ScopeEE.REQUEST.attribute(ShippingAddressTag.class.getName());
+  /**
+   * The name of the request-scope attribute containing the current shipping address tag.
+   */
+  private static final ScopeEE.Request.Attribute<ShippingAddressTag> REQUEST_ATTRIBUTE_NAME =
+    ScopeEE.REQUEST.attribute(ShippingAddressTag.class.getName());
 
-	// Java 9: module-private
-	public static Optional<ShippingAddressTag> getCurrent(ServletRequest request) {
-		return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
-	}
-	// Java 9: module-private
-	public static ShippingAddressTag requireCurrent(String fromName, ServletRequest request) throws JspException {
-		return getCurrent(request).orElseThrow(
-			() -> new JspTagException(fromName + " must be within " + TAG_NAME)
-		);
-	}
+  // Java 9: module-private
+  public static Optional<ShippingAddressTag> getCurrent(ServletRequest request) {
+    return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
+  }
+  // Java 9: module-private
+  public static ShippingAddressTag requireCurrent(String fromName, ServletRequest request) throws JspException {
+    return getCurrent(request).orElseThrow(
+      () -> new JspTagException(fromName + " must be within " + TAG_NAME)
+    );
+  }
 
-	public ShippingAddressTag() {
-		init();
-	}
+  public ShippingAddressTag() {
+    init();
+  }
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private transient boolean requestAttributeSet;
+  private transient boolean requestAttributeSet;
 
-	public void setFirstName(String firstName) throws JspException {
-		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
-			.setShippingFirstName(Strings.trimNullIfEmpty(firstName));
-	}
+  public void setFirstName(String firstName) throws JspException {
+    PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
+      .setShippingFirstName(Strings.trimNullIfEmpty(firstName));
+  }
 
-	public void setLastName(String lastName) throws JspException {
-		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
-			.setShippingLastName(Strings.trimNullIfEmpty(lastName));
-	}
+  public void setLastName(String lastName) throws JspException {
+    PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
+      .setShippingLastName(Strings.trimNullIfEmpty(lastName));
+  }
 
-	public void setCompanyName(String companyName) throws JspException {
-		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
-			.setShippingCompanyName(Strings.trimNullIfEmpty(companyName));
-	}
+  public void setCompanyName(String companyName) throws JspException {
+    PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
+      .setShippingCompanyName(Strings.trimNullIfEmpty(companyName));
+  }
 
-	public void setStreetAddress1(String streetAddress1) throws JspException {
-		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
-			.setShippingStreetAddress1(Strings.trimNullIfEmpty(streetAddress1));
-	}
+  public void setStreetAddress1(String streetAddress1) throws JspException {
+    PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
+      .setShippingStreetAddress1(Strings.trimNullIfEmpty(streetAddress1));
+  }
 
-	public void setStreetAddress2(String streetAddress2) throws JspException {
-		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
-			.setShippingStreetAddress2(Strings.trimNullIfEmpty(streetAddress2));
-	}
+  public void setStreetAddress2(String streetAddress2) throws JspException {
+    PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
+      .setShippingStreetAddress2(Strings.trimNullIfEmpty(streetAddress2));
+  }
 
-	public void setCity(String city) throws JspException {
-		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
-			.setShippingCity(Strings.trimNullIfEmpty(city));
-	}
+  public void setCity(String city) throws JspException {
+    PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
+      .setShippingCity(Strings.trimNullIfEmpty(city));
+  }
 
-	public void setState(String state) throws JspException {
-		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
-			.setShippingState(Strings.trimNullIfEmpty(state));
-	}
+  public void setState(String state) throws JspException {
+    PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
+      .setShippingState(Strings.trimNullIfEmpty(state));
+  }
 
-	public void setPostalCode(String postalCode) throws JspException {
-		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
-			.setShippingPostalCode(Strings.trimNullIfEmpty(postalCode));
-	}
+  public void setPostalCode(String postalCode) throws JspException {
+    PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
+      .setShippingPostalCode(Strings.trimNullIfEmpty(postalCode));
+  }
 
-	public void setCountryCode(String countryCode) throws JspException {
-		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
-			.setShippingCountryCode(Strings.trimNullIfEmpty(countryCode));
-	}
+  public void setCountryCode(String countryCode) throws JspException {
+    PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getTransactionRequest()
+      .setShippingCountryCode(Strings.trimNullIfEmpty(countryCode));
+  }
 
-	private void init() {
-		requestAttributeSet = false;
-	}
+  private void init() {
+    requestAttributeSet = false;
+  }
 
-	@Override
-	public int doStartTag() throws JspException {
-		ServletRequest request = pageContext.getRequest();
-		// Make sure nested in payment tag
-		PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest());
-		// Store this on the request
-		if(getCurrent(request).isPresent()) throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
-		REQUEST_ATTRIBUTE_NAME.context(request).set(this);
-		requestAttributeSet = true;
-		return EVAL_BODY_INCLUDE;
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    ServletRequest request = pageContext.getRequest();
+    // Make sure nested in payment tag
+    PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest());
+    // Store this on the request
+    if (getCurrent(request).isPresent()) {
+      throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
+    }
+    REQUEST_ATTRIBUTE_NAME.context(request).set(this);
+    requestAttributeSet = true;
+    return EVAL_BODY_INCLUDE;
+  }
 
-	@Override
-	public void doCatch(Throwable t) throws Throwable {
-		throw t;
-	}
+  @Override
+  public void doCatch(Throwable t) throws Throwable {
+    throw t;
+  }
 
-	@Override
-	public void doFinally() {
-		if(requestAttributeSet) {
-			REQUEST_ATTRIBUTE_NAME.context(pageContext.getRequest()).remove();
-		}
-		init();
-	}
+  @Override
+  public void doFinally() {
+    if (requestAttributeSet) {
+      REQUEST_ATTRIBUTE_NAME.context(pageContext.getRequest()).remove();
+    }
+    init();
+  }
 }

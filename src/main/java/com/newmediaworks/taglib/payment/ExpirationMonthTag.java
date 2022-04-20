@@ -46,87 +46,89 @@ import javax.servlet.jsp.tagext.JspFragment;
 public class ExpirationMonthTag extends EncodingBufferedTag {
 
 /* SimpleTag only: */
-	public static final String TAG_NAME = "<payment:expirationMonth>";
+  public static final String TAG_NAME = "<payment:expirationMonth>";
 /**/
 
-	public ExpirationMonthTag() {
-		init();
-	}
+  public ExpirationMonthTag() {
+    init();
+  }
 
-	@Override
-	public MediaType getContentType() {
-		return MediaType.TEXT;
-	}
+  @Override
+  public MediaType getContentType() {
+    return MediaType.TEXT;
+  }
 
-	@Override
-	public MediaType getOutputType() {
-		return null;
-	}
+  @Override
+  public MediaType getOutputType() {
+    return null;
+  }
 
 /* BodyTag only:
-	private static final long serialVersionUID = 2L;
+  private static final long serialVersionUID = 2L;
 /**/
 
-	private Byte value;
-	public void setValue(byte value) {
-		this.value = value;
-	}
+  private Byte value;
+  public void setValue(byte value) {
+    this.value = value;
+  }
 
-	private void init() {
-		value = null;
-	}
+  private void init() {
+    value = null;
+  }
 
-	@Override
+  @Override
 /* BodyTag only:
-	protected int doStartTag(Writer out) throws JspException, IOException {
-		return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+  protected int doStartTag(Writer out) throws JspException, IOException {
+    return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
 /**/
 /* SimpleTag only: */
-	protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
-		if(value == null) super.invoke(body, captureValidator);
+  protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+    if (value == null) {
+      super.invoke(body, captureValidator);
+    }
 /**/
-	}
+  }
 
-	@Override
+  @Override
 /* BodyTag only:
-	protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+  protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 /**/
 /* SimpleTag only: */
-	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-		PageContext pageContext = (PageContext)getJspContext();
+  protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+    PageContext pageContext = (PageContext)getJspContext();
 /**/
-		byte expirationMonth;
-		if(value != null) {
-			expirationMonth = value;
-		} else {
-			String expirationMonthString = capturedBody.trim().toString();
-			try {
-				expirationMonth = Byte.parseByte(expirationMonthString);
-			} catch(NumberFormatException err) {
-				throw new JspTagException("Invalid value for " + TAG_NAME + ": " + expirationMonthString, err);
-			}
-		}
+    byte expirationMonth;
+    if (value != null) {
+      expirationMonth = value;
+    } else {
+      String expirationMonthString = capturedBody.trim().toString();
+      try {
+        expirationMonth = Byte.parseByte(expirationMonthString);
+      } catch (NumberFormatException err) {
+        throw new JspTagException("Invalid value for " + TAG_NAME + ": " + expirationMonthString, err);
+      }
+    }
 
-		PropertyHelper.setCardProperty(
-			expirationMonth,
-			TAG_NAME,
-			pageContext.getRequest(),
-			StoreCreditCardTag::setExpirationMonth,
-			CreditCardTag::setExpirationMonth
-		);
+    PropertyHelper.setCardProperty(
+      expirationMonth,
+      TAG_NAME,
+      pageContext.getRequest(),
+      StoreCreditCardTag::setExpirationMonth,
+      CreditCardTag::setExpirationMonth
+    );
 /* BodyTag only:
-		return EVAL_PAGE;
+    return EVAL_PAGE;
 /**/
-	}
+  }
 
 /* BodyTag only:
-	@Override
-	public void doFinally() {
-		try {
-			init();
-		} finally {
-			super.doFinally();
-		}
-	}
+  @Override
+  public void doFinally() {
+    try {
+      init();
+    } finally {
+      super.doFinally();
+    }
+  }
 /**/
 }

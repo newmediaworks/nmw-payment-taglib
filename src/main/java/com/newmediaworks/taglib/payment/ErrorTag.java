@@ -44,12 +44,12 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class ErrorTag extends BodyTagSupport {
 
-	public static final String TAG_NAME = "<payment:error>";
+  public static final String TAG_NAME = "<payment:error>";
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Override
-	public int doStartTag() throws JspException {
-		return Functions.isError(TAG_NAME, pageContext.getRequest()) ? EVAL_BODY_INCLUDE : SKIP_BODY;
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    return Functions.isError(TAG_NAME, pageContext.getRequest()) ? EVAL_BODY_INCLUDE : SKIP_BODY;
+  }
 }

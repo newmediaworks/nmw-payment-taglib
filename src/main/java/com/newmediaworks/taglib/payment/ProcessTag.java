@@ -45,29 +45,29 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class ProcessTag extends TagSupport {
 
-	public static final String TAG_NAME = "<payment:process>";
+  public static final String TAG_NAME = "<payment:process>";
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Override
-	public int doStartTag() throws JspException {
-		ServletRequest request = pageContext.getRequest();
-		Optional<PaymentTag> paymentTag = PaymentTag.getCurrent(request);
-		if(paymentTag.isPresent()) {
-			paymentTag.get().process();
-		} else {
-			Optional<CaptureTag> captureTag = CaptureTag.getCurrent(request);
-			if(captureTag.isPresent()) {
-				captureTag.get().process();
-			} else {
-				Optional<VoidTag> voidTag = VoidTag.getCurrent(request);
-				if(voidTag.isPresent()) {
-					voidTag.get().process();
-				} else {
-					throw new JspTagException(TAG_NAME + " must be within " + PaymentTag.TAG_NAME + ", " + CaptureTag.TAG_NAME + ", or " + VoidTag.TAG_NAME);
-				}
-			}
-		}
-		return SKIP_BODY;
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    ServletRequest request = pageContext.getRequest();
+    Optional<PaymentTag> paymentTag = PaymentTag.getCurrent(request);
+    if (paymentTag.isPresent()) {
+      paymentTag.get().process();
+    } else {
+      Optional<CaptureTag> captureTag = CaptureTag.getCurrent(request);
+      if (captureTag.isPresent()) {
+        captureTag.get().process();
+      } else {
+        Optional<VoidTag> voidTag = VoidTag.getCurrent(request);
+        if (voidTag.isPresent()) {
+          voidTag.get().process();
+        } else {
+          throw new JspTagException(TAG_NAME + " must be within " + PaymentTag.TAG_NAME + ", " + CaptureTag.TAG_NAME + ", or " + VoidTag.TAG_NAME);
+        }
+      }
+    }
+    return SKIP_BODY;
+  }
 }

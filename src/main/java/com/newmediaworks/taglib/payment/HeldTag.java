@@ -42,12 +42,12 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class HeldTag extends BodyTagSupport {
 
-	public static final String TAG_NAME = "<payment:held>";
+  public static final String TAG_NAME = "<payment:held>";
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Override
-	public int doStartTag() throws JspException {
-		return Functions.isHeld(TAG_NAME, pageContext.getRequest()) ? EVAL_BODY_INCLUDE : SKIP_BODY;
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    return Functions.isHeld(TAG_NAME, pageContext.getRequest()) ? EVAL_BODY_INCLUDE : SKIP_BODY;
+  }
 }

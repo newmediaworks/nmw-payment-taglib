@@ -42,12 +42,12 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class AcceptedTag extends BodyTagSupport {
 
-	public static final String TAG_NAME = "<payment:accepted>";
+  public static final String TAG_NAME = "<payment:accepted>";
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Override
-	public int doStartTag() throws JspException {
-		return Functions.isAccepted(TAG_NAME, pageContext.getRequest()) ? EVAL_BODY_INCLUDE : SKIP_BODY;
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    return Functions.isAccepted(TAG_NAME, pageContext.getRequest()) ? EVAL_BODY_INCLUDE : SKIP_BODY;
+  }
 }

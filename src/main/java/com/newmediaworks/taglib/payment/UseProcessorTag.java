@@ -60,234 +60,250 @@ import javax.servlet.jsp.tagext.TryCatchFinally;
  */
 public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, DynamicAttributes {
 
-	public static final String TAG_NAME = "<payment:useProcessor>";
+  public static final String TAG_NAME = "<payment:useProcessor>";
 
-	/**
-	 * The prefix for <code>param.*</code> dynamic attributes.
-	 */
-	private static final String PARAM_ATTRIBUTE_PREFIX = "param.";
+  /**
+   * The prefix for <code>param.*</code> dynamic attributes.
+   */
+  private static final String PARAM_ATTRIBUTE_PREFIX = "param.";
 
-	/** The previously created processors are reused. */
-	private static final List<TestMerchantServicesProvider> testMerchantServicesProviders = new ArrayList<>();
-	private static TestMerchantServicesProvider getTestMerchantServicesProvider(byte errorChance, byte rejectionChance) {
-		synchronized(testMerchantServicesProviders) {
-			for(TestMerchantServicesProvider tmsp : testMerchantServicesProviders) {
-				if(
-					tmsp.getErrorChance()==errorChance
-					&& tmsp.getDeclineChance()==rejectionChance
-				) return tmsp;
-			}
-			TestMerchantServicesProvider tmsp = new TestMerchantServicesProvider("Test", errorChance, rejectionChance);
-			testMerchantServicesProviders.add(tmsp);
-			return tmsp;
-		}
-	}
+  /** The previously created processors are reused. */
+  private static final List<TestMerchantServicesProvider> testMerchantServicesProviders = new ArrayList<>();
+  private static TestMerchantServicesProvider getTestMerchantServicesProvider(byte errorChance, byte rejectionChance) {
+    synchronized (testMerchantServicesProviders) {
+      for (TestMerchantServicesProvider tmsp : testMerchantServicesProviders) {
+        if (
+          tmsp.getErrorChance() == errorChance
+          && tmsp.getDeclineChance() == rejectionChance
+        ) {
+          return tmsp;
+        }
+      }
+      TestMerchantServicesProvider tmsp = new TestMerchantServicesProvider("Test", errorChance, rejectionChance);
+      testMerchantServicesProviders.add(tmsp);
+      return tmsp;
+    }
+  }
 
-	/** The previously created processors are reused. */
-	private static final List<PayflowPro> payflowPros = new ArrayList<>();
-	private static PayflowPro getPayflowPro(String user, String vendor, String partner, String password, ServletContext servletContext) {
-		synchronized(payflowPros) {
-			for(PayflowPro payflowPro : payflowPros) {
-				if(
-					Objects.equals(payflowPro.getUser(), user)
-					&& Objects.equals(payflowPro.getVendor(), vendor)
-					&& Objects.equals(payflowPro.getPartner(), partner)
-					&& Objects.equals(payflowPro.getPassword(), password)
-				) return payflowPro;
-			}
-			PayflowPro payflowPro = new PayflowPro("Payflow Pro", user, vendor, partner, password);
-			payflowPros.add(payflowPro);
-			return payflowPro;
-		}
-	}
+  /** The previously created processors are reused. */
+  private static final List<PayflowPro> payflowPros = new ArrayList<>();
+  private static PayflowPro getPayflowPro(String user, String vendor, String partner, String password, ServletContext servletContext) {
+    synchronized (payflowPros) {
+      for (PayflowPro payflowPro : payflowPros) {
+        if (
+          Objects.equals(payflowPro.getUser(), user)
+          && Objects.equals(payflowPro.getVendor(), vendor)
+          && Objects.equals(payflowPro.getPartner(), partner)
+          && Objects.equals(payflowPro.getPassword(), password)
+        ) {
+          return payflowPro;
+        }
+      }
+      PayflowPro payflowPro = new PayflowPro("Payflow Pro", user, vendor, partner, password);
+      payflowPros.add(payflowPro);
+      return payflowPro;
+    }
+  }
 
-	/** The previously created processors are reused. */
-	private static final List<USAePay> usaePays = new ArrayList<>();
-	private static USAePay getUSAePay(String postUrl, String key, String pin) {
-		synchronized(usaePays) {
-			for(USAePay usaePay : usaePays) {
-				if(
-					Objects.equals(usaePay.getPostUrl(), postUrl)
-					&& Objects.equals(usaePay.getKey(), key)
-					&& Objects.equals(usaePay.getPin(), pin)
-				) return usaePay;
-			}
-			USAePay usaePay = new USAePay("USAePay", postUrl, key, pin);
-			usaePays.add(usaePay);
-			return usaePay;
-		}
-	}
+  /** The previously created processors are reused. */
+  private static final List<USAePay> usaePays = new ArrayList<>();
+  private static USAePay getUSAePay(String postUrl, String key, String pin) {
+    synchronized (usaePays) {
+      for (USAePay usaePay : usaePays) {
+        if (
+          Objects.equals(usaePay.getPostUrl(), postUrl)
+          && Objects.equals(usaePay.getKey(), key)
+          && Objects.equals(usaePay.getPin(), pin)
+        ) {
+          return usaePay;
+        }
+      }
+      USAePay usaePay = new USAePay("USAePay", postUrl, key, pin);
+      usaePays.add(usaePay);
+      return usaePay;
+    }
+  }
 
-	/** The previously created processors are reused. */
-	private static final List<AuthorizeNet> authorizeNets = new ArrayList<>();
-	private static AuthorizeNet getAuthorizeNet(String x_login, String x_tran_key) {
-		synchronized(authorizeNets) {
-			for(AuthorizeNet authorizeNet : authorizeNets) {
-				if(
-					Objects.equals(authorizeNet.getX_login(), x_login)
-					&& Objects.equals(authorizeNet.getX_tran_key(), x_tran_key)
-				) return authorizeNet;
-			}
-			AuthorizeNet authorizeNet = new AuthorizeNet("Authorize.Net", x_login, x_tran_key);
-			authorizeNets.add(authorizeNet);
-			return authorizeNet;
-		}
-	}
+  /** The previously created processors are reused. */
+  private static final List<AuthorizeNet> authorizeNets = new ArrayList<>();
+  private static AuthorizeNet getAuthorizeNet(String x_login, String x_tran_key) {
+    synchronized (authorizeNets) {
+      for (AuthorizeNet authorizeNet : authorizeNets) {
+        if (
+          Objects.equals(authorizeNet.getX_login(), x_login)
+          && Objects.equals(authorizeNet.getX_tran_key(), x_tran_key)
+        ) {
+          return authorizeNet;
+        }
+      }
+      AuthorizeNet authorizeNet = new AuthorizeNet("Authorize.Net", x_login, x_tran_key);
+      authorizeNets.add(authorizeNet);
+      return authorizeNet;
+    }
+  }
 
-	/** The previously created processors are reused. */
-	private static final List<Stripe> stripes = new ArrayList<>();
-	private static Stripe getStripe(String apiKey) {
-		synchronized(stripes) {
-			for(Stripe stripe : stripes) {
-				if(
-					Objects.equals(stripe.getApiKey(), apiKey)
-				) return stripe;
-			}
-			Stripe stripe = new Stripe("Stripe", apiKey);
-			stripes.add(stripe);
-			return stripe;
-		}
-	}
+  /** The previously created processors are reused. */
+  private static final List<Stripe> stripes = new ArrayList<>();
+  private static Stripe getStripe(String apiKey) {
+    synchronized (stripes) {
+      for (Stripe stripe : stripes) {
+        if (
+          Objects.equals(stripe.getApiKey(), apiKey)
+        ) {
+          return stripe;
+        }
+      }
+      Stripe stripe = new Stripe("Stripe", apiKey);
+      stripes.add(stripe);
+      return stripe;
+    }
+  }
 
-	/**
-	 * The name of the request-scope attribute containing the current use processor tag.
-	 */
-	private static final ScopeEE.Request.Attribute<UseProcessorTag> REQUEST_ATTRIBUTE_NAME =
-		ScopeEE.REQUEST.attribute(UseProcessorTag.class.getName());
+  /**
+   * The name of the request-scope attribute containing the current use processor tag.
+   */
+  private static final ScopeEE.Request.Attribute<UseProcessorTag> REQUEST_ATTRIBUTE_NAME =
+    ScopeEE.REQUEST.attribute(UseProcessorTag.class.getName());
 
-	// Java 9: module-private
-	public static Optional<UseProcessorTag> getCurrent(ServletRequest request) {
-		return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
-	}
-	// Java 9: module-private
-	public static UseProcessorTag requireCurrent(String fromName, ServletRequest request) throws JspException {
-		return getCurrent(request).orElseThrow(
-			() -> new JspTagException(fromName + " must be within " + TAG_NAME)
-		);
-	}
+  // Java 9: module-private
+  public static Optional<UseProcessorTag> getCurrent(ServletRequest request) {
+    return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
+  }
+  // Java 9: module-private
+  public static UseProcessorTag requireCurrent(String fromName, ServletRequest request) throws JspException {
+    return getCurrent(request).orElseThrow(
+      () -> new JspTagException(fromName + " must be within " + TAG_NAME)
+    );
+  }
 
-	public UseProcessorTag() {
-		init();
-	}
+  public UseProcessorTag() {
+    init();
+  }
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private transient boolean requestAttributeSet;
+  private transient boolean requestAttributeSet;
 
-	private String connectorName;
-	/**
-	 * Sets the connector name.
-	 */
-	public void setConnectorName(String connectorName) {
-		this.connectorName = Strings.trimNullIfEmpty(connectorName);
-	}
+  private String connectorName;
+  /**
+   * Sets the connector name.
+   */
+  public void setConnectorName(String connectorName) {
+    this.connectorName = Strings.trimNullIfEmpty(connectorName);
+  }
 
-	private Map<String, String> parameters;
-	/**
-	 * Adds a parameter.
-	 *
-	 * @throws IllegalStateException if name already set.
-	 */
-	public void addParameter(String name, String value) throws IllegalStateException {
-		if(this.parameters.containsKey(name)) throw new IllegalStateException("parameter already set: " + name);
-		this.parameters.put(name, value);
-	}
+  private Map<String, String> parameters;
+  /**
+   * Adds a parameter.
+   *
+   * @throws IllegalStateException if name already set.
+   */
+  public void addParameter(String name, String value) throws IllegalStateException {
+    if (this.parameters.containsKey(name)) {
+      throw new IllegalStateException("parameter already set: " + name);
+    }
+    this.parameters.put(name, value);
+  }
 
-	@Override
-	public void setDynamicAttribute(String uri, String localName, Object value) throws JspException {
-		if(
-			uri == null
-			&& localName.startsWith(PARAM_ATTRIBUTE_PREFIX)
-		) {
-			if(value != null) {
-				addParameter(
-					localName.substring(PARAM_ATTRIBUTE_PREFIX.length()),
-					Coercion.toString(value)
-				);
-			}
-		} else {
-			throw new JspTagException("Unexpected dynamic attribute for " + TAG_NAME + ": \"" + localName + "\", only expecting \"" + PARAM_ATTRIBUTE_PREFIX + "*\"");
-		}
-	}
+  @Override
+  public void setDynamicAttribute(String uri, String localName, Object value) throws JspException {
+    if (
+      uri == null
+      && localName.startsWith(PARAM_ATTRIBUTE_PREFIX)
+    ) {
+      if (value != null) {
+        addParameter(
+          localName.substring(PARAM_ATTRIBUTE_PREFIX.length()),
+          Coercion.toString(value)
+        );
+      }
+    } else {
+      throw new JspTagException("Unexpected dynamic attribute for " + TAG_NAME + ": \"" + localName + "\", only expecting \"" + PARAM_ATTRIBUTE_PREFIX + "*\"");
+    }
+  }
 
-	private void init() {
-		requestAttributeSet = false;
-		connectorName = null;
-		if(parameters == null) {
-			parameters = new HashMap<>();
-		} else {
-			parameters.clear();
-		}
-	}
+  private void init() {
+    requestAttributeSet = false;
+    connectorName = null;
+    if (parameters == null) {
+      parameters = new HashMap<>();
+    } else {
+      parameters.clear();
+    }
+  }
 
-	@Override
-	public int doStartTag() throws JspException {
-		ServletRequest request = pageContext.getRequest();
-		// Store this on the request
-		if(getCurrent(request).isPresent()) throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
-		REQUEST_ATTRIBUTE_NAME.context(request).set(this);
-		requestAttributeSet = true;
-		return super.doStartTag();
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    ServletRequest request = pageContext.getRequest();
+    // Store this on the request
+    if (getCurrent(request).isPresent()) {
+      throw new JspTagException(TAG_NAME + " may not be nested within " + TAG_NAME);
+    }
+    REQUEST_ATTRIBUTE_NAME.context(request).set(this);
+    requestAttributeSet = true;
+    return super.doStartTag();
+  }
 
-	/**
-	 * Sets the processor at end tag because connector name and parameters are set in nested tags.
-	 */
-	@Override
-	public int doEndTag() throws JspException {
-		if(connectorName==null) throw new JspTagException("connectorName not set");
+  /**
+   * Sets the processor at end tag because connector name and parameters are set in nested tags.
+   */
+  @Override
+  public int doEndTag() throws JspException {
+    if (connectorName == null) {
+      throw new JspTagException("connectorName not set");
+    }
 
-		MerchantServicesProvider provider;
-		if("Test".equalsIgnoreCase(connectorName)) {
-			String errorChance = parameters.get("errorChance");
-			String rejectionChance = parameters.get("rejectionChance");
-			provider = getTestMerchantServicesProvider(
-				errorChance==null || errorChance.length()==0 ? (byte)10 : Byte.parseByte(errorChance),
-				rejectionChance==null || rejectionChance.length()==0 ? (byte)20 : Byte.parseByte(rejectionChance)
-			);
-		} else if("Payflow Pro".equalsIgnoreCase(connectorName)) {
-			provider = getPayflowPro(
-				parameters.get("user"),
-				parameters.get("vendor"),
-				parameters.get("partner"),
-				parameters.get("password"),
-				pageContext.getServletContext()
-			);
-		} else if("USAePay".equalsIgnoreCase(connectorName)) {
-			provider = getUSAePay(
-				parameters.get("postUrl"),
-				parameters.get("key"),
-				parameters.get("pin")
-			);
-		} else if("Authorize.Net".equalsIgnoreCase(connectorName)) {
-			provider = getAuthorizeNet(
-				parameters.get("x_login"),
-				parameters.get("x_tran_key")
-			);
-		} else if("Stripe".equalsIgnoreCase(connectorName)) {
-			provider = getStripe(
-				parameters.get("apiKey")
-			);
-		} else {
-			throw new JspTagException("Unsupported connectorName: "+connectorName);
-		}
+    MerchantServicesProvider provider;
+    if ("Test".equalsIgnoreCase(connectorName)) {
+      String errorChance = parameters.get("errorChance");
+      String rejectionChance = parameters.get("rejectionChance");
+      provider = getTestMerchantServicesProvider(
+        errorChance == null || errorChance.length() == 0 ? (byte)10 : Byte.parseByte(errorChance),
+        rejectionChance == null || rejectionChance.length() == 0 ? (byte)20 : Byte.parseByte(rejectionChance)
+      );
+    } else if ("Payflow Pro".equalsIgnoreCase(connectorName)) {
+      provider = getPayflowPro(
+        parameters.get("user"),
+        parameters.get("vendor"),
+        parameters.get("partner"),
+        parameters.get("password"),
+        pageContext.getServletContext()
+      );
+    } else if ("USAePay".equalsIgnoreCase(connectorName)) {
+      provider = getUSAePay(
+        parameters.get("postUrl"),
+        parameters.get("key"),
+        parameters.get("pin")
+      );
+    } else if ("Authorize.Net".equalsIgnoreCase(connectorName)) {
+      provider = getAuthorizeNet(
+        parameters.get("x_login"),
+        parameters.get("x_tran_key")
+      );
+    } else if ("Stripe".equalsIgnoreCase(connectorName)) {
+      provider = getStripe(
+        parameters.get("apiKey")
+      );
+    } else {
+      throw new JspTagException("Unsupported connectorName: "+connectorName);
+    }
 
-		// Set in the request attributes
-		Constants.PROCESSOR.context(pageContext.getRequest()).set(provider);
+    // Set in the request attributes
+    Constants.PROCESSOR.context(pageContext.getRequest()).set(provider);
 
-		return EVAL_PAGE;
-	}
+    return EVAL_PAGE;
+  }
 
-	@Override
-	public void doCatch(Throwable t) throws Throwable {
-		throw t;
-	}
+  @Override
+  public void doCatch(Throwable t) throws Throwable {
+    throw t;
+  }
 
-	@Override
-	public void doFinally() {
-		if(requestAttributeSet) {
-			REQUEST_ATTRIBUTE_NAME.context(pageContext.getRequest()).remove();
-		}
-		init();
-	}
+  @Override
+  public void doFinally() {
+    if (requestAttributeSet) {
+      REQUEST_ATTRIBUTE_NAME.context(pageContext.getRequest()).remove();
+    }
+    init();
+  }
 }
