@@ -41,33 +41,34 @@ import javax.servlet.jsp.PageContext;
  */
 public class GetAvsResultTag extends EncodingNullTag {
 
-/* SimpleTag only: */
+  /* SimpleTag only: */
   public static final String TAG_NAME = "<payment:getAvsResult>";
-/**/
+
+  /**/
 
   @Override
   public MediaType getOutputType() {
     return MediaType.TEXT;
   }
 
-/* BodyTag only:
-  private static final long serialVersionUID = 1L;
-/**/
+  /* BodyTag only:
+    private static final long serialVersionUID = 1L;
+  /**/
 
   @Override
-/* BodyTag only:
-  protected int doStartTag(Writer out) throws JspException, IOException {
-/**/
-/* SimpleTag only: */
+  /* BodyTag only:
+    protected int doStartTag(Writer out) throws JspException, IOException {
+  /**/
+  /* SimpleTag only: */
   protected void doTag(Writer out) throws JspException, IOException {
-    PageContext pageContext = (PageContext)getJspContext();
-/**/
+    PageContext pageContext = (PageContext) getJspContext();
+    /**/
     String avsResult = Functions.getAvsResult(TAG_NAME, pageContext.getRequest());
     if (avsResult != null) {
       out.write(avsResult);
     }
-/* BodyTag only:
-    return SKIP_BODY;
-/**/
+    /* BodyTag only:
+      return SKIP_BODY;
+  /**/
   }
 }

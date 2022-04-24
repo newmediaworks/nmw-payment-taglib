@@ -52,9 +52,9 @@ import javax.servlet.jsp.JspTagException;
  */
 public class CommentTag extends EncodingBufferedBodyTag {
 
-/* SimpleTag only:
-  public static final String TAG_NAME = "<payment:comment>";
-/**/
+  /* SimpleTag only:
+    public static final String TAG_NAME = "<payment:comment>";
+  /**/
 
   public CommentTag() {
     init();
@@ -70,11 +70,12 @@ public class CommentTag extends EncodingBufferedBodyTag {
     return null;
   }
 
-/* BodyTag only: */
+  /* BodyTag only: */
   private static final long serialVersionUID = 2L;
-/**/
+  /**/
 
   private String value;
+
   public void setValue(String value) {
     this.value = Strings.trimNullIfEmpty(value);
   }
@@ -84,26 +85,26 @@ public class CommentTag extends EncodingBufferedBodyTag {
   }
 
   @Override
-/* BodyTag only: */
+  /* BodyTag only: */
   protected int doStartTag(Writer out) throws JspException, IOException {
     return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
-/**/
-/* SimpleTag only:
-  protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
-    if (value == null) {
-      super.invoke(body, captureValidator);
-    }
-/**/
+    /**/
+    /* SimpleTag only:
+    protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+      if (value == null) {
+        super.invoke(body, captureValidator);
+      }
+  /**/
   }
 
   @Override
-/* BodyTag only: */
+  /* BodyTag only: */
   protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-/**/
-/* SimpleTag only:
-  protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-    PageContext pageContext = (PageContext)getJspContext();
-/**/
+    /**/
+    /* SimpleTag only:
+      protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+        PageContext pageContext = (PageContext)getJspContext();
+    /**/
     ServletRequest request = pageContext.getRequest();
     String comment = (value != null) ? value : capturedBody.trim().toString();
     Optional<StoreCreditCardTag> storeCreditCardTag = StoreCreditCardTag.getCurrent(request);
@@ -122,12 +123,12 @@ public class CommentTag extends EncodingBufferedBodyTag {
         }
       }
     }
-/* BodyTag only: */
+    /* BodyTag only: */
     return EVAL_PAGE;
-/**/
+    /**/
   }
 
-/* BodyTag only: */
+  /* BodyTag only: */
   @Override
   public void doFinally() {
     try {
@@ -136,5 +137,5 @@ public class CommentTag extends EncodingBufferedBodyTag {
       super.doFinally();
     }
   }
-/**/
+  /**/
 }

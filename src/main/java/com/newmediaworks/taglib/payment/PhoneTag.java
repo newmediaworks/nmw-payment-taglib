@@ -45,9 +45,10 @@ import javax.servlet.jsp.tagext.JspFragment;
  */
 public class PhoneTag extends EncodingBufferedTag {
 
-/* SimpleTag only: */
+  /* SimpleTag only: */
   public static final String TAG_NAME = "<payment:phone>";
-/**/
+
+  /**/
 
   public PhoneTag() {
     init();
@@ -63,11 +64,12 @@ public class PhoneTag extends EncodingBufferedTag {
     return null;
   }
 
-/* BodyTag only:
-  private static final long serialVersionUID = 2L;
-/**/
+  /* BodyTag only:
+    private static final long serialVersionUID = 2L;
+  /**/
 
   private String value;
+
   public void setValue(String value) {
     this.value = Strings.trimNullIfEmpty(value);
   }
@@ -77,39 +79,39 @@ public class PhoneTag extends EncodingBufferedTag {
   }
 
   @Override
-/* BodyTag only:
-  protected int doStartTag(Writer out) throws JspException, IOException {
-    return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
-/**/
-/* SimpleTag only: */
+  /* BodyTag only:
+    protected int doStartTag(Writer out) throws JspException, IOException {
+      return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+  /**/
+  /* SimpleTag only: */
   protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
     if (value == null) {
       super.invoke(body, captureValidator);
     }
-/**/
+    /**/
   }
 
   @Override
-/* BodyTag only:
-  protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-/**/
-/* SimpleTag only: */
+  /* BodyTag only:
+    protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+  /**/
+  /* SimpleTag only: */
   protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-    PageContext pageContext = (PageContext)getJspContext();
-/**/
+    PageContext pageContext = (PageContext) getJspContext();
+    /**/
     PropertyHelper.setCardProperty(
-      (value != null) ? value : capturedBody.trim().toString(),
-      TAG_NAME,
-      pageContext.getRequest(),
-      StoreCreditCardTag::setPhone,
-      CreditCardTag::setPhone
+        (value != null) ? value : capturedBody.trim().toString(),
+        TAG_NAME,
+        pageContext.getRequest(),
+        StoreCreditCardTag::setPhone,
+        CreditCardTag::setPhone
     );
-/* BodyTag only:
-    return EVAL_PAGE;
-/**/
+    /* BodyTag only:
+      return EVAL_PAGE;
+  /**/
   }
 
-/* BodyTag only:
+  /* BodyTag only:
   @Override
   public void doFinally() {
     try {

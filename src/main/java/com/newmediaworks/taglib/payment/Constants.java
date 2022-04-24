@@ -58,5 +58,5 @@ public final class Constants {
    * @see  UseProcessorTag
    */
   public static final ScopeEE.Request.Attribute<MerchantServicesProvider> PROCESSOR =
-    ScopeEE.REQUEST.attribute(processor);
+      ScopeEE.REQUEST.attribute(processor);
 }

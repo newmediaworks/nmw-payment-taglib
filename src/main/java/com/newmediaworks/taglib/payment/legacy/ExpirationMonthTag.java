@@ -46,9 +46,9 @@ import javax.servlet.jsp.JspTagException;
  */
 public class ExpirationMonthTag extends EncodingBufferedBodyTag {
 
-/* SimpleTag only:
-  public static final String TAG_NAME = "<payment:expirationMonth>";
-/**/
+  /* SimpleTag only:
+    public static final String TAG_NAME = "<payment:expirationMonth>";
+  /**/
 
   public ExpirationMonthTag() {
     init();
@@ -64,11 +64,12 @@ public class ExpirationMonthTag extends EncodingBufferedBodyTag {
     return null;
   }
 
-/* BodyTag only: */
+  /* BodyTag only: */
   private static final long serialVersionUID = 2L;
-/**/
+  /**/
 
   private Byte value;
+
   public void setValue(byte value) {
     this.value = value;
   }
@@ -78,26 +79,26 @@ public class ExpirationMonthTag extends EncodingBufferedBodyTag {
   }
 
   @Override
-/* BodyTag only: */
+  /* BodyTag only: */
   protected int doStartTag(Writer out) throws JspException, IOException {
     return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
-/**/
-/* SimpleTag only:
-  protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
-    if (value == null) {
-      super.invoke(body, captureValidator);
-    }
-/**/
+    /**/
+    /* SimpleTag only:
+    protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+      if (value == null) {
+        super.invoke(body, captureValidator);
+      }
+  /**/
   }
 
   @Override
-/* BodyTag only: */
+  /* BodyTag only: */
   protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-/**/
-/* SimpleTag only:
-  protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-    PageContext pageContext = (PageContext)getJspContext();
-/**/
+    /**/
+    /* SimpleTag only:
+      protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+        PageContext pageContext = (PageContext)getJspContext();
+    /**/
     byte expirationMonth;
     if (value != null) {
       expirationMonth = value;
@@ -111,18 +112,18 @@ public class ExpirationMonthTag extends EncodingBufferedBodyTag {
     }
 
     PropertyHelper.setCardProperty(
-      expirationMonth,
-      TAG_NAME,
-      pageContext.getRequest(),
-      StoreCreditCardTag::setExpirationMonth,
-      CreditCardTag::setExpirationMonth
+        expirationMonth,
+        TAG_NAME,
+        pageContext.getRequest(),
+        StoreCreditCardTag::setExpirationMonth,
+        CreditCardTag::setExpirationMonth
     );
-/* BodyTag only: */
+    /* BodyTag only: */
     return EVAL_PAGE;
-/**/
+    /**/
   }
 
-/* BodyTag only: */
+  /* BodyTag only: */
   @Override
   public void doFinally() {
     try {
@@ -131,5 +132,5 @@ public class ExpirationMonthTag extends EncodingBufferedBodyTag {
       super.doFinally();
     }
   }
-/**/
+  /**/
 }

@@ -44,9 +44,10 @@ import javax.servlet.jsp.tagext.JspFragment;
  */
 public class AmountTag extends EncodingBufferedTag {
 
-/* SimpleTag only: */
+  /* SimpleTag only: */
   public static final String TAG_NAME = "<payment:amount>";
-/**/
+
+  /**/
 
   public AmountTag() {
     init();
@@ -62,11 +63,12 @@ public class AmountTag extends EncodingBufferedTag {
     return null;
   }
 
-/* BodyTag only:
-  private static final long serialVersionUID = 2L;
-/**/
+  /* BodyTag only:
+    private static final long serialVersionUID = 2L;
+  /**/
 
   private String value;
+
   public void setValue(String value) {
     this.value = Strings.trimNullIfEmpty(value);
   }
@@ -76,34 +78,34 @@ public class AmountTag extends EncodingBufferedTag {
   }
 
   @Override
-/* BodyTag only:
-  protected int doStartTag(Writer out) throws JspException, IOException {
-    return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
-/**/
-/* SimpleTag only: */
+  /* BodyTag only:
+    protected int doStartTag(Writer out) throws JspException, IOException {
+      return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+  /**/
+  /* SimpleTag only: */
   protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
     if (value == null) {
       super.invoke(body, captureValidator);
     }
-/**/
+    /**/
   }
 
   @Override
-/* BodyTag only:
-  protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-/**/
-/* SimpleTag only: */
+  /* BodyTag only:
+    protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+  /**/
+  /* SimpleTag only: */
   protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-    PageContext pageContext = (PageContext)getJspContext();
-/**/
+    PageContext pageContext = (PageContext) getJspContext();
+    /**/
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest())
-      .setAmount((value != null) ? value : capturedBody.trim().toString());
-/* BodyTag only:
-    return EVAL_PAGE;
-/**/
+        .setAmount((value != null) ? value : capturedBody.trim().toString());
+    /* BodyTag only:
+      return EVAL_PAGE;
+  /**/
   }
 
-/* BodyTag only:
+  /* BodyTag only:
   @Override
   public void doFinally() {
     try {

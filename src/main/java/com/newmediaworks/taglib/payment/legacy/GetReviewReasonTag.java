@@ -42,33 +42,34 @@ import javax.servlet.jsp.JspException;
  */
 public class GetReviewReasonTag extends EncodingNullBodyTag {
 
-/* SimpleTag only:
-  public static final String TAG_NAME = "<payment:getReviewReason>";
-/**/
+  /* SimpleTag only:
+    public static final String TAG_NAME = "<payment:getReviewReason>";
+  /**/
 
   @Override
   public MediaType getOutputType() {
     return MediaType.TEXT;
   }
 
-/* BodyTag only: */
+  /* BodyTag only: */
   private static final long serialVersionUID = 1L;
-/**/
+
+  /**/
 
   @Override
-/* BodyTag only: */
+  /* BodyTag only: */
   protected int doStartTag(Writer out) throws JspException, IOException {
-/**/
-/* SimpleTag only:
-  protected void doTag(Writer out) throws JspException, IOException {
-    PageContext pageContext = (PageContext)getJspContext();
-/**/
+    /**/
+    /* SimpleTag only:
+      protected void doTag(Writer out) throws JspException, IOException {
+        PageContext pageContext = (PageContext)getJspContext();
+    /**/
     String reviewReason = Functions.getReviewReason(TAG_NAME, pageContext.getRequest());
     if (reviewReason != null) {
       out.write(reviewReason);
     }
-/* BodyTag only: */
+    /* BodyTag only: */
     return SKIP_BODY;
-/**/
+    /**/
   }
 }

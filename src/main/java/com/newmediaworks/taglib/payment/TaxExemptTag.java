@@ -44,9 +44,10 @@ import javax.servlet.jsp.tagext.JspFragment;
  */
 public class TaxExemptTag extends EncodingBufferedTag {
 
-/* SimpleTag only: */
+  /* SimpleTag only: */
   public static final String TAG_NAME = "<payment:taxExempt>";
-/**/
+
+  /**/
 
   public TaxExemptTag() {
     init();
@@ -62,11 +63,12 @@ public class TaxExemptTag extends EncodingBufferedTag {
     return null;
   }
 
-/* BodyTag only:
-  private static final long serialVersionUID = 2L;
-/**/
+  /* BodyTag only:
+    private static final long serialVersionUID = 2L;
+  /**/
 
   private Boolean value;
+
   public void setValue(Boolean value) {
     this.value = value;
   }
@@ -76,26 +78,26 @@ public class TaxExemptTag extends EncodingBufferedTag {
   }
 
   @Override
-/* BodyTag only:
-  protected int doStartTag(Writer out) throws JspException, IOException {
-    return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
-/**/
-/* SimpleTag only: */
+  /* BodyTag only:
+    protected int doStartTag(Writer out) throws JspException, IOException {
+      return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+  /**/
+  /* SimpleTag only: */
   protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
     if (value == null) {
       super.invoke(body, captureValidator);
     }
-/**/
+    /**/
   }
 
   @Override
-/* BodyTag only:
-  protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-/**/
-/* SimpleTag only: */
+  /* BodyTag only:
+    protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+  /**/
+  /* SimpleTag only: */
   protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-    PageContext pageContext = (PageContext)getJspContext();
-/**/
+    PageContext pageContext = (PageContext) getJspContext();
+    /**/
     boolean taxExempt;
     if (value != null) {
       taxExempt = value;
@@ -111,13 +113,13 @@ public class TaxExemptTag extends EncodingBufferedTag {
     }
 
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest())
-      .setTaxExempt(taxExempt);
-/* BodyTag only:
-    return EVAL_PAGE;
-/**/
+        .setTaxExempt(taxExempt);
+    /* BodyTag only:
+      return EVAL_PAGE;
+  /**/
   }
 
-/* BodyTag only:
+  /* BodyTag only:
   @Override
   public void doFinally() {
     try {

@@ -42,33 +42,34 @@ import javax.servlet.jsp.JspException;
  */
 public class GetRejectedReasonTag extends EncodingNullBodyTag {
 
-/* SimpleTag only:
-  public static final String TAG_NAME = "<payment:getRejectedReason>";
-/**/
+  /* SimpleTag only:
+    public static final String TAG_NAME = "<payment:getRejectedReason>";
+  /**/
 
   @Override
   public MediaType getOutputType() {
     return MediaType.TEXT;
   }
 
-/* BodyTag only: */
+  /* BodyTag only: */
   private static final long serialVersionUID = 1L;
-/**/
+
+  /**/
 
   @Override
-/* BodyTag only: */
+  /* BodyTag only: */
   protected int doStartTag(Writer out) throws JspException, IOException {
-/**/
-/* SimpleTag only:
-  protected void doTag(Writer out) throws JspException, IOException {
-    PageContext pageContext = (PageContext)getJspContext();
-/**/
+    /**/
+    /* SimpleTag only:
+      protected void doTag(Writer out) throws JspException, IOException {
+        PageContext pageContext = (PageContext)getJspContext();
+    /**/
     String rejectedReason = Functions.getRejectedReason(TAG_NAME, pageContext.getRequest());
     if (rejectedReason != null) {
       out.write(rejectedReason);
     }
-/* BodyTag only: */
+    /* BodyTag only: */
     return SKIP_BODY;
-/**/
+    /**/
   }
 }

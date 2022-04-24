@@ -42,33 +42,34 @@ import javax.servlet.jsp.JspException;
  */
 public class GetCvvResultTag extends EncodingNullBodyTag {
 
-/* SimpleTag only:
-  public static final String TAG_NAME = "<payment:getCvvResult>";
-/**/
+  /* SimpleTag only:
+    public static final String TAG_NAME = "<payment:getCvvResult>";
+  /**/
 
   @Override
   public MediaType getOutputType() {
     return MediaType.TEXT;
   }
 
-/* BodyTag only: */
+  /* BodyTag only: */
   private static final long serialVersionUID = 1L;
-/**/
+
+  /**/
 
   @Override
-/* BodyTag only: */
+  /* BodyTag only: */
   protected int doStartTag(Writer out) throws JspException, IOException {
-/**/
-/* SimpleTag only:
-  protected void doTag(Writer out) throws JspException, IOException {
-    PageContext pageContext = (PageContext)getJspContext();
-/**/
+    /**/
+    /* SimpleTag only:
+      protected void doTag(Writer out) throws JspException, IOException {
+        PageContext pageContext = (PageContext)getJspContext();
+    /**/
     String cvvResult = Functions.getCvvResult(TAG_NAME, pageContext.getRequest());
     if (cvvResult != null) {
       out.write(cvvResult);
     }
-/* BodyTag only: */
+    /* BodyTag only: */
     return SKIP_BODY;
-/**/
+    /**/
   }
 }

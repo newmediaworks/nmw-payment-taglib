@@ -115,11 +115,11 @@ public final class Functions {
     if (result != null) {
       if (logger.isLoggable(Level.SEVERE)) {
         logger.severe(
-          "Error from credit card transaction:" + System.lineSeparator()
-          + "    providerUniqueId=" + result.getProviderUniqueId() + System.lineSeparator()
-          + "    providerErrorCode=" + result.getProviderErrorCode() + System.lineSeparator()
-          + "    providerErrorMessage=" + result.getProviderErrorMessage() + System.lineSeparator()
-          + "    errorCode=" + result.getErrorCode()
+            "Error from credit card transaction:" + System.lineSeparator()
+                + "    providerUniqueId=" + result.getProviderUniqueId() + System.lineSeparator()
+                + "    providerErrorCode=" + result.getProviderErrorCode() + System.lineSeparator()
+                + "    providerErrorMessage=" + result.getProviderErrorMessage() + System.lineSeparator()
+                + "    errorCode=" + result.getErrorCode()
         );
       }
       return result.getErrorCode().toString();

@@ -51,16 +51,17 @@ public class VoidTag extends BodyTagSupport implements TryCatchFinally {
    * The name of the request-scope attribute containing the current void tag.
    */
   private static final ScopeEE.Request.Attribute<VoidTag> REQUEST_ATTRIBUTE_NAME =
-    ScopeEE.REQUEST.attribute(VoidTag.class.getName());
+      ScopeEE.REQUEST.attribute(VoidTag.class.getName());
 
   // Java 9: module-private
   public static Optional<VoidTag> getCurrent(ServletRequest request) {
     return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
   }
+
   // Java 9: module-private
   public static VoidTag requireCurrent(String fromName, ServletRequest request) throws JspException {
     return getCurrent(request).orElseThrow(
-      () -> new JspTagException(fromName + " must be within " + TAG_NAME)
+        () -> new JspTagException(fromName + " must be within " + TAG_NAME)
     );
   }
 
@@ -74,6 +75,7 @@ public class VoidTag extends BodyTagSupport implements TryCatchFinally {
 
   // <editor-fold desc="Attributes">
   private String transactionId;
+
   public void setTransactionId(String transactionId) {
     this.transactionId = Strings.trimNullIfEmpty(transactionId);
   }
@@ -81,9 +83,11 @@ public class VoidTag extends BodyTagSupport implements TryCatchFinally {
 
   // <editor-fold desc="The result of the processing">
   private transient VoidResult voidResult;
+
   VoidResult getVoidResult() {
     return voidResult;
   }
+
   // </editor-fold>
 
   private void init() {
@@ -119,42 +123,42 @@ public class VoidTag extends BodyTagSupport implements TryCatchFinally {
     }
 
     voidResult = processor.voidTransaction(
-      new Transaction(
-        processor.getProviderId(),
-        null,
-        null,
-        null,
-        null,
-        0,
-        null,
-        new AuthorizationResult(
-          processor.getProviderId(),
-          null,
-          null,
-          null,
-          null,
-          transactionId,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ),
-        0,
-        null,
-        null,
-        0,
-        null,
-        null,
-        null
-      )
+        new Transaction(
+            processor.getProviderId(),
+            null,
+            null,
+            null,
+            null,
+            0,
+            null,
+            new AuthorizationResult(
+                processor.getProviderId(),
+                null,
+                null,
+                null,
+                null,
+                transactionId,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+            ),
+            0,
+            null,
+            null,
+            0,
+            null,
+            null,
+            null
+        )
     );
   }
 

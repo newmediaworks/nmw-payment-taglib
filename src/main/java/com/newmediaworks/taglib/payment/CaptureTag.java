@@ -50,16 +50,17 @@ public class CaptureTag extends BodyTagSupport implements TryCatchFinally {
    * The name of the request-scope attribute containing the current capture tag.
    */
   private static final ScopeEE.Request.Attribute<CaptureTag> REQUEST_ATTRIBUTE_NAME =
-    ScopeEE.REQUEST.attribute(CaptureTag.class.getName());
+      ScopeEE.REQUEST.attribute(CaptureTag.class.getName());
 
   // Java 9: module-private
   public static Optional<CaptureTag> getCurrent(ServletRequest request) {
     return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
   }
+
   // Java 9: module-private
   public static CaptureTag requireCurrent(String fromName, ServletRequest request) throws JspException {
     return getCurrent(request).orElseThrow(
-      () -> new JspTagException(fromName + " must be within " + TAG_NAME)
+        () -> new JspTagException(fromName + " must be within " + TAG_NAME)
     );
   }
 
@@ -73,6 +74,7 @@ public class CaptureTag extends BodyTagSupport implements TryCatchFinally {
 
   // <editor-fold desc="Attributes">
   private String transactionId;
+
   public void setTransactionId(String transactionId) {
     this.transactionId = Strings.trimNullIfEmpty(transactionId);
   }
@@ -80,9 +82,11 @@ public class CaptureTag extends BodyTagSupport implements TryCatchFinally {
 
   // <editor-fold desc="The result of the processing">
   private transient CaptureResult captureResult;
+
   CaptureResult getCaptureResult() {
     return captureResult;
   }
+
   // </editor-fold>
 
   private void init() {
@@ -118,26 +122,26 @@ public class CaptureTag extends BodyTagSupport implements TryCatchFinally {
     }
 
     captureResult = processor.capture(
-      new AuthorizationResult(
-        processor.getProviderId(),
-        null,
-        null,
-        null,
-        null,
-        transactionId,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      )
+        new AuthorizationResult(
+            processor.getProviderId(),
+            null,
+            null,
+            null,
+            null,
+            transactionId,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
     );
   }
 

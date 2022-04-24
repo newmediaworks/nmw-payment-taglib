@@ -53,16 +53,17 @@ public class PaymentTag extends BodyTagSupport implements TryCatchFinally {
    * The name of the request-scope attribute containing the current payment tag.
    */
   private static final ScopeEE.Request.Attribute<PaymentTag> REQUEST_ATTRIBUTE_NAME =
-    ScopeEE.REQUEST.attribute(PaymentTag.class.getName());
+      ScopeEE.REQUEST.attribute(PaymentTag.class.getName());
 
   // Java 9: module-private
   public static Optional<PaymentTag> getCurrent(ServletRequest request) {
     return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
   }
+
   // Java 9: module-private
   public static PaymentTag requireCurrent(String fromName, ServletRequest request) throws JspException {
     return getCurrent(request).orElseThrow(
-      () -> new JspTagException(fromName + " must be within " + TAG_NAME)
+        () -> new JspTagException(fromName + " must be within " + TAG_NAME)
     );
   }
 
@@ -75,6 +76,7 @@ public class PaymentTag extends BodyTagSupport implements TryCatchFinally {
   private transient boolean requestAttributeSet;
 
   private transient CreditCard creditCard;
+
   CreditCard getCreditCard() {
     if (creditCard == null) {
       throw new AssertionError("creditCard is null");
@@ -83,6 +85,7 @@ public class PaymentTag extends BodyTagSupport implements TryCatchFinally {
   }
 
   private transient TransactionRequest transactionRequest;
+
   TransactionRequest getTransactionRequest() {
     if (creditCard == null) {
       throw new AssertionError("transactionRequest is null");
@@ -92,6 +95,7 @@ public class PaymentTag extends BodyTagSupport implements TryCatchFinally {
 
   // <editor-fold desc="Attributes">
   private boolean capture;
+
   public void setCapture(boolean capture) {
     this.capture = capture;
   }
@@ -166,10 +170,12 @@ public class PaymentTag extends BodyTagSupport implements TryCatchFinally {
 
   // <editor-fold desc="The result of the processing">
   private transient AuthorizationResult authorizationResult;
+
   // Java 9: module-private
   public AuthorizationResult getAuthorizationResult() {
     return authorizationResult;
   }
+
   // </editor-fold>
 
   private void init() {

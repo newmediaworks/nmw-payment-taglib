@@ -50,16 +50,17 @@ public class StoreCreditCardTag extends BodyTagSupport implements TryCatchFinall
    * The name of the request-scope attribute containing the current store credit card tag.
    */
   private static final ScopeEE.Request.Attribute<StoreCreditCardTag> REQUEST_ATTRIBUTE_NAME =
-    ScopeEE.REQUEST.attribute(StoreCreditCardTag.class.getName());
+      ScopeEE.REQUEST.attribute(StoreCreditCardTag.class.getName());
 
   // Java 9: module-private
   public static Optional<StoreCreditCardTag> getCurrent(ServletRequest request) {
     return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
   }
+
   // Java 9: module-private
   public static StoreCreditCardTag requireCurrent(String fromName, ServletRequest request) throws JspException {
     return getCurrent(request).orElseThrow(
-      () -> new JspTagException(fromName + " must be within " + TAG_NAME)
+        () -> new JspTagException(fromName + " must be within " + TAG_NAME)
     );
   }
 
@@ -107,7 +108,7 @@ public class StoreCreditCardTag extends BodyTagSupport implements TryCatchFinall
       }
       CreditCard.validateExpirationMonth(expirationMonth, false);
 
-      String expirationYearString = expirationDate.substring(slashPos+1).trim();
+      String expirationYearString = expirationDate.substring(slashPos + 1).trim();
       short expirationYear;
       try {
         expirationYear = Short.parseShort(expirationYearString);

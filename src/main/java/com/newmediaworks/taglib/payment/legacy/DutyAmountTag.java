@@ -43,9 +43,9 @@ import javax.servlet.jsp.JspException;
  */
 public class DutyAmountTag extends EncodingBufferedBodyTag {
 
-/* SimpleTag only:
-  public static final String TAG_NAME = "<payment:dutyAmount>";
-/**/
+  /* SimpleTag only:
+    public static final String TAG_NAME = "<payment:dutyAmount>";
+  /**/
 
   public DutyAmountTag() {
     init();
@@ -61,11 +61,12 @@ public class DutyAmountTag extends EncodingBufferedBodyTag {
     return null;
   }
 
-/* BodyTag only: */
+  /* BodyTag only: */
   private static final long serialVersionUID = 2L;
-/**/
+  /**/
 
   private String value;
+
   public void setValue(String value) {
     this.value = Strings.trimNullIfEmpty(value);
   }
@@ -75,34 +76,34 @@ public class DutyAmountTag extends EncodingBufferedBodyTag {
   }
 
   @Override
-/* BodyTag only: */
+  /* BodyTag only: */
   protected int doStartTag(Writer out) throws JspException, IOException {
     return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
-/**/
-/* SimpleTag only:
-  protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
-    if (value == null) {
-      super.invoke(body, captureValidator);
-    }
-/**/
+    /**/
+    /* SimpleTag only:
+    protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
+      if (value == null) {
+        super.invoke(body, captureValidator);
+      }
+  /**/
   }
 
   @Override
-/* BodyTag only: */
+  /* BodyTag only: */
   protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-/**/
-/* SimpleTag only:
-  protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-    PageContext pageContext = (PageContext)getJspContext();
-/**/
+    /**/
+    /* SimpleTag only:
+      protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+        PageContext pageContext = (PageContext)getJspContext();
+    /**/
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest())
-      .setDutyAmount((value != null) ? value : capturedBody.trim().toString());
-/* BodyTag only: */
+        .setDutyAmount((value != null) ? value : capturedBody.trim().toString());
+    /* BodyTag only: */
     return EVAL_PAGE;
-/**/
+    /**/
   }
 
-/* BodyTag only: */
+  /* BodyTag only: */
   @Override
   public void doFinally() {
     try {
@@ -111,5 +112,5 @@ public class DutyAmountTag extends EncodingBufferedBodyTag {
       super.doFinally();
     }
   }
-/**/
+  /**/
 }

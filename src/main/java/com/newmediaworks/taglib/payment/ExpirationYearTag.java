@@ -45,9 +45,10 @@ import javax.servlet.jsp.tagext.JspFragment;
  */
 public class ExpirationYearTag extends EncodingBufferedTag {
 
-/* SimpleTag only: */
+  /* SimpleTag only: */
   public static final String TAG_NAME = "<payment:expirationYear>";
-/**/
+
+  /**/
 
   public ExpirationYearTag() {
     init();
@@ -63,11 +64,12 @@ public class ExpirationYearTag extends EncodingBufferedTag {
     return null;
   }
 
-/* BodyTag only:
-  private static final long serialVersionUID = 2L;
-/**/
+  /* BodyTag only:
+    private static final long serialVersionUID = 2L;
+  /**/
 
   private Short value;
+
   public void setValue(short value) {
     this.value = value;
   }
@@ -77,26 +79,26 @@ public class ExpirationYearTag extends EncodingBufferedTag {
   }
 
   @Override
-/* BodyTag only:
-  protected int doStartTag(Writer out) throws JspException, IOException {
-    return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
-/**/
-/* SimpleTag only: */
+  /* BodyTag only:
+    protected int doStartTag(Writer out) throws JspException, IOException {
+      return (value != null) ? SKIP_BODY : EVAL_BODY_BUFFERED;
+  /**/
+  /* SimpleTag only: */
   protected void invoke(JspFragment body, MediaValidator captureValidator) throws JspException, IOException {
     if (value == null) {
       super.invoke(body, captureValidator);
     }
-/**/
+    /**/
   }
 
   @Override
-/* BodyTag only:
-  protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-/**/
-/* SimpleTag only: */
+  /* BodyTag only:
+    protected int doEndTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+  /**/
+  /* SimpleTag only: */
   protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-    PageContext pageContext = (PageContext)getJspContext();
-/**/
+    PageContext pageContext = (PageContext) getJspContext();
+    /**/
     short expirationYear;
     if (value != null) {
       expirationYear = value;
@@ -110,18 +112,18 @@ public class ExpirationYearTag extends EncodingBufferedTag {
     }
 
     PropertyHelper.setCardProperty(
-      expirationYear,
-      TAG_NAME,
-      pageContext.getRequest(),
-      StoreCreditCardTag::setExpirationYear,
-      CreditCardTag::setExpirationYear
+        expirationYear,
+        TAG_NAME,
+        pageContext.getRequest(),
+        StoreCreditCardTag::setExpirationYear,
+        CreditCardTag::setExpirationYear
     );
-/* BodyTag only:
-    return EVAL_PAGE;
-/**/
+    /* BodyTag only:
+      return EVAL_PAGE;
+  /**/
   }
 
-/* BodyTag only:
+  /* BodyTag only:
   @Override
   public void doFinally() {
     try {

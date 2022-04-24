@@ -43,34 +43,35 @@ import javax.servlet.jsp.PageContext;
  */
 public class GetErrorReasonTag extends EncodingNullTag {
 
-/* SimpleTag only: */
+  /* SimpleTag only: */
   public static final String TAG_NAME = "<payment:getErrorReason>";
-/**/
+
+  /**/
 
   @Override
   public MediaType getOutputType() {
     return MediaType.TEXT;
   }
 
-/* BodyTag only:
-  private static final long serialVersionUID = 1L;
-/**/
+  /* BodyTag only:
+    private static final long serialVersionUID = 1L;
+  /**/
 
   @Override
   @SuppressWarnings("UseOfSystemOutOrSystemErr")
-/* BodyTag only:
-  protected int doStartTag(Writer out) throws JspException, IOException {
-/**/
-/* SimpleTag only: */
+  /* BodyTag only:
+    protected int doStartTag(Writer out) throws JspException, IOException {
+  /**/
+  /* SimpleTag only: */
   protected void doTag(Writer out) throws JspException, IOException {
-    PageContext pageContext = (PageContext)getJspContext();
-/**/
+    PageContext pageContext = (PageContext) getJspContext();
+    /**/
     String errorReason = Functions.getErrorReason(TAG_NAME, pageContext.getRequest());
     if (errorReason != null) {
       out.write(errorReason);
     }
-/* BodyTag only:
-    return SKIP_BODY;
-/**/
+    /* BodyTag only:
+      return SKIP_BODY;
+  /**/
   }
 }

@@ -48,16 +48,17 @@ public class CreditCardTag extends BodyTagSupport implements TryCatchFinally {
    * The name of the request-scope attribute containing the current credit card tag.
    */
   private static final ScopeEE.Request.Attribute<CreditCardTag> REQUEST_ATTRIBUTE_NAME =
-    ScopeEE.REQUEST.attribute(CreditCardTag.class.getName());
+      ScopeEE.REQUEST.attribute(CreditCardTag.class.getName());
 
   // Java 9: module-private
   public static Optional<CreditCardTag> getCurrent(ServletRequest request) {
     return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
   }
+
   // Java 9: module-private
   public static CreditCardTag requireCurrent(String fromName, ServletRequest request) throws JspException {
     return getCurrent(request).orElseThrow(
-      () -> new JspTagException(fromName + " must be within " + TAG_NAME)
+        () -> new JspTagException(fromName + " must be within " + TAG_NAME)
     );
   }
 
@@ -71,24 +72,24 @@ public class CreditCardTag extends BodyTagSupport implements TryCatchFinally {
 
   public void setCardNumber(String cardNumber) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setCardNumber(Strings.trimNullIfEmpty(cardNumber));
+        .setCardNumber(Strings.trimNullIfEmpty(cardNumber));
   }
 
   public void setMaskedCardNumber(String maskedCardNumber) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setMaskedCardNumber(Strings.trimNullIfEmpty(maskedCardNumber));
+        .setMaskedCardNumber(Strings.trimNullIfEmpty(maskedCardNumber));
   }
 
   public void setExpirationMonth(byte expirationMonth) throws IllegalArgumentException, JspException {
     CreditCard.validateExpirationMonth(expirationMonth, false);
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setExpirationMonth(expirationMonth);
+        .setExpirationMonth(expirationMonth);
   }
 
   public void setExpirationYear(short expirationYear) throws IllegalArgumentException, JspException {
     CreditCard.validateExpirationYear(expirationYear, false);
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setExpirationYear(expirationYear);
+        .setExpirationYear(expirationYear);
   }
 
   public void setExpirationDate(String expirationDate) throws IllegalArgumentException, JspException {
@@ -112,7 +113,7 @@ public class CreditCardTag extends BodyTagSupport implements TryCatchFinally {
       }
       CreditCard.validateExpirationMonth(expirationMonth, false);
 
-      String expirationYearString = expirationDate.substring(slashPos+1).trim();
+      String expirationYearString = expirationDate.substring(slashPos + 1).trim();
       short expirationYear;
       try {
         expirationYear = Short.parseShort(expirationYearString);
@@ -129,87 +130,87 @@ public class CreditCardTag extends BodyTagSupport implements TryCatchFinally {
 
   public void setCardCode(String cardCode) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setCardCode(Strings.trimNullIfEmpty(cardCode));
+        .setCardCode(Strings.trimNullIfEmpty(cardCode));
   }
 
   public void setCreditCardGUID(String creditCardGUID) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setProviderUniqueId(Strings.trimNullIfEmpty(creditCardGUID));
+        .setProviderUniqueId(Strings.trimNullIfEmpty(creditCardGUID));
   }
 
   public void setFirstName(String firstName) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setFirstName(Strings.trimNullIfEmpty(firstName));
+        .setFirstName(Strings.trimNullIfEmpty(firstName));
   }
 
   public void setLastName(String lastName) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setLastName(Strings.trimNullIfEmpty(lastName));
+        .setLastName(Strings.trimNullIfEmpty(lastName));
   }
 
   public void setCompanyName(String companyName) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setCompanyName(Strings.trimNullIfEmpty(companyName));
+        .setCompanyName(Strings.trimNullIfEmpty(companyName));
   }
 
   public void setEmail(String email) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setEmail(Strings.trimNullIfEmpty(email));
+        .setEmail(Strings.trimNullIfEmpty(email));
   }
 
   public void setPhone(String phone) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setPhone(Strings.trimNullIfEmpty(phone));
+        .setPhone(Strings.trimNullIfEmpty(phone));
   }
 
   public void setFax(String fax) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setFax(Strings.trimNullIfEmpty(fax));
+        .setFax(Strings.trimNullIfEmpty(fax));
   }
 
   public void setCustomerId(String customerId) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setCustomerId(Strings.trimNullIfEmpty(customerId));
+        .setCustomerId(Strings.trimNullIfEmpty(customerId));
   }
 
   public void setCustomerTaxId(String customerTaxId) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setCustomerTaxId(Strings.trimNullIfEmpty(customerTaxId));
+        .setCustomerTaxId(Strings.trimNullIfEmpty(customerTaxId));
   }
 
   public void setStreetAddress1(String streetAddress1) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setStreetAddress1(Strings.trimNullIfEmpty(streetAddress1));
+        .setStreetAddress1(Strings.trimNullIfEmpty(streetAddress1));
   }
 
   public void setStreetAddress2(String streetAddress2) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setStreetAddress2(Strings.trimNullIfEmpty(streetAddress2));
+        .setStreetAddress2(Strings.trimNullIfEmpty(streetAddress2));
   }
 
   public void setCity(String city) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setCity(Strings.trimNullIfEmpty(city));
+        .setCity(Strings.trimNullIfEmpty(city));
   }
 
   public void setState(String state) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setState(Strings.trimNullIfEmpty(state));
+        .setState(Strings.trimNullIfEmpty(state));
   }
 
   public void setPostalCode(String postalCode) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setPostalCode(Strings.trimNullIfEmpty(postalCode));
+        .setPostalCode(Strings.trimNullIfEmpty(postalCode));
   }
 
   public void setCountryCode(String countryCode) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setCountryCode(Strings.trimNullIfEmpty(countryCode));
+        .setCountryCode(Strings.trimNullIfEmpty(countryCode));
   }
 
   public void setComment(String comment) throws JspException {
     PaymentTag.requireCurrent(TAG_NAME, pageContext.getRequest()).getCreditCard()
-      .setComments(Strings.trimNullIfEmpty(comment));
+        .setComments(Strings.trimNullIfEmpty(comment));
   }
 
   private void init() {

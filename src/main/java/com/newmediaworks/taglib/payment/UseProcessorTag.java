@@ -69,12 +69,13 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 
   /** The previously created processors are reused. */
   private static final List<TestMerchantServicesProvider> testMerchantServicesProviders = new ArrayList<>();
+
   private static TestMerchantServicesProvider getTestMerchantServicesProvider(byte errorChance, byte rejectionChance) {
     synchronized (testMerchantServicesProviders) {
       for (TestMerchantServicesProvider tmsp : testMerchantServicesProviders) {
         if (
-          tmsp.getErrorChance() == errorChance
-          && tmsp.getDeclineChance() == rejectionChance
+            tmsp.getErrorChance() == errorChance
+                && tmsp.getDeclineChance() == rejectionChance
         ) {
           return tmsp;
         }
@@ -87,14 +88,15 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 
   /** The previously created processors are reused. */
   private static final List<PayflowPro> payflowPros = new ArrayList<>();
+
   private static PayflowPro getPayflowPro(String user, String vendor, String partner, String password, ServletContext servletContext) {
     synchronized (payflowPros) {
       for (PayflowPro payflowPro : payflowPros) {
         if (
-          Objects.equals(payflowPro.getUser(), user)
-          && Objects.equals(payflowPro.getVendor(), vendor)
-          && Objects.equals(payflowPro.getPartner(), partner)
-          && Objects.equals(payflowPro.getPassword(), password)
+            Objects.equals(payflowPro.getUser(), user)
+                && Objects.equals(payflowPro.getVendor(), vendor)
+                && Objects.equals(payflowPro.getPartner(), partner)
+                && Objects.equals(payflowPro.getPassword(), password)
         ) {
           return payflowPro;
         }
@@ -107,13 +109,14 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 
   /** The previously created processors are reused. */
   private static final List<USAePay> usaePays = new ArrayList<>();
+
   private static USAePay getUSAePay(String postUrl, String key, String pin) {
     synchronized (usaePays) {
       for (USAePay usaePay : usaePays) {
         if (
-          Objects.equals(usaePay.getPostUrl(), postUrl)
-          && Objects.equals(usaePay.getKey(), key)
-          && Objects.equals(usaePay.getPin(), pin)
+            Objects.equals(usaePay.getPostUrl(), postUrl)
+                && Objects.equals(usaePay.getKey(), key)
+                && Objects.equals(usaePay.getPin(), pin)
         ) {
           return usaePay;
         }
@@ -126,12 +129,13 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 
   /** The previously created processors are reused. */
   private static final List<AuthorizeNet> authorizeNets = new ArrayList<>();
+
   private static AuthorizeNet getAuthorizeNet(String x_login, String x_tran_key) {
     synchronized (authorizeNets) {
       for (AuthorizeNet authorizeNet : authorizeNets) {
         if (
-          Objects.equals(authorizeNet.getX_login(), x_login)
-          && Objects.equals(authorizeNet.getX_tran_key(), x_tran_key)
+            Objects.equals(authorizeNet.getX_login(), x_login)
+                && Objects.equals(authorizeNet.getX_tran_key(), x_tran_key)
         ) {
           return authorizeNet;
         }
@@ -144,11 +148,12 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
 
   /** The previously created processors are reused. */
   private static final List<Stripe> stripes = new ArrayList<>();
+
   private static Stripe getStripe(String apiKey) {
     synchronized (stripes) {
       for (Stripe stripe : stripes) {
         if (
-          Objects.equals(stripe.getApiKey(), apiKey)
+            Objects.equals(stripe.getApiKey(), apiKey)
         ) {
           return stripe;
         }
@@ -163,16 +168,17 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
    * The name of the request-scope attribute containing the current use processor tag.
    */
   private static final ScopeEE.Request.Attribute<UseProcessorTag> REQUEST_ATTRIBUTE_NAME =
-    ScopeEE.REQUEST.attribute(UseProcessorTag.class.getName());
+      ScopeEE.REQUEST.attribute(UseProcessorTag.class.getName());
 
   // Java 9: module-private
   public static Optional<UseProcessorTag> getCurrent(ServletRequest request) {
     return Optional.ofNullable(REQUEST_ATTRIBUTE_NAME.context(request).get());
   }
+
   // Java 9: module-private
   public static UseProcessorTag requireCurrent(String fromName, ServletRequest request) throws JspException {
     return getCurrent(request).orElseThrow(
-      () -> new JspTagException(fromName + " must be within " + TAG_NAME)
+        () -> new JspTagException(fromName + " must be within " + TAG_NAME)
     );
   }
 
@@ -185,6 +191,7 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
   private transient boolean requestAttributeSet;
 
   private String connectorName;
+
   /**
    * Sets the connector name.
    */
@@ -193,6 +200,7 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
   }
 
   private Map<String, String> parameters;
+
   /**
    * Adds a parameter.
    *
@@ -208,13 +216,13 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
   @Override
   public void setDynamicAttribute(String uri, String localName, Object value) throws JspException {
     if (
-      uri == null
-      && localName.startsWith(PARAM_ATTRIBUTE_PREFIX)
+        uri == null
+            && localName.startsWith(PARAM_ATTRIBUTE_PREFIX)
     ) {
       if (value != null) {
         addParameter(
-          localName.substring(PARAM_ATTRIBUTE_PREFIX.length()),
-          Coercion.toString(value)
+            localName.substring(PARAM_ATTRIBUTE_PREFIX.length()),
+            Coercion.toString(value)
         );
       }
     } else {
@@ -258,34 +266,34 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
       String errorChance = parameters.get("errorChance");
       String rejectionChance = parameters.get("rejectionChance");
       provider = getTestMerchantServicesProvider(
-        errorChance == null || errorChance.length() == 0 ? (byte)10 : Byte.parseByte(errorChance),
-        rejectionChance == null || rejectionChance.length() == 0 ? (byte)20 : Byte.parseByte(rejectionChance)
+          errorChance == null || errorChance.length() == 0 ? (byte) 10 : Byte.parseByte(errorChance),
+          rejectionChance == null || rejectionChance.length() == 0 ? (byte) 20 : Byte.parseByte(rejectionChance)
       );
     } else if ("Payflow Pro".equalsIgnoreCase(connectorName)) {
       provider = getPayflowPro(
-        parameters.get("user"),
-        parameters.get("vendor"),
-        parameters.get("partner"),
-        parameters.get("password"),
-        pageContext.getServletContext()
+          parameters.get("user"),
+          parameters.get("vendor"),
+          parameters.get("partner"),
+          parameters.get("password"),
+          pageContext.getServletContext()
       );
     } else if ("USAePay".equalsIgnoreCase(connectorName)) {
       provider = getUSAePay(
-        parameters.get("postUrl"),
-        parameters.get("key"),
-        parameters.get("pin")
+          parameters.get("postUrl"),
+          parameters.get("key"),
+          parameters.get("pin")
       );
     } else if ("Authorize.Net".equalsIgnoreCase(connectorName)) {
       provider = getAuthorizeNet(
-        parameters.get("x_login"),
-        parameters.get("x_tran_key")
+          parameters.get("x_login"),
+          parameters.get("x_tran_key")
       );
     } else if ("Stripe".equalsIgnoreCase(connectorName)) {
       provider = getStripe(
-        parameters.get("apiKey")
+          parameters.get("apiKey")
       );
     } else {
-      throw new JspTagException("Unsupported connectorName: "+connectorName);
+      throw new JspTagException("Unsupported connectorName: " + connectorName);
     }
 
     // Set in the request attributes
