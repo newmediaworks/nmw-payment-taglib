@@ -40,8 +40,9 @@ public final class Constants {
 
   /**
    * The request attribute key for the current credit card processor.
-   *
+   * <p>
    * Stores an implementation of {@link MerchantServicesProvider}.
+   * </p>
    *
    * @see  UseProcessorTag
    *
@@ -52,8 +53,9 @@ public final class Constants {
 
   /**
    * The request attribute key for the current credit card processor.
-   *
+   * <p>
    * Stores an implementation of {@link MerchantServicesProvider}.
+   * </p>
    *
    * @see  UseProcessorTag
    */

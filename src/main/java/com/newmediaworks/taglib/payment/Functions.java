@@ -23,12 +23,13 @@
 
 package com.newmediaworks.taglib.payment;
 
+import static com.aoapps.servlet.filter.FunctionContext.getRequest;
+
 import com.aoapps.payments.AuthorizationResult;
 import com.aoapps.payments.AuthorizationResult.ApprovalResult;
 import com.aoapps.payments.CreditCard;
 import com.aoapps.payments.TransactionResult;
 import com.aoapps.payments.TransactionResult.CommunicationResult;
-import static com.aoapps.servlet.filter.FunctionContext.getRequest;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +38,8 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 
 /**
+ * Tag library function implementations.
+ *
  * @author  <a href="mailto:info@newmediaworks.com">New Media Works</a>
  */
 public final class Functions {
@@ -49,6 +52,8 @@ public final class Functions {
   private static final Logger logger = Logger.getLogger(Functions.class.getName());
 
   /**
+   * Masks a credit card number by only showing the first and last digits, hiding all the middle digits.
+   *
    * @see  MaskCardNumberTag
    * @see  CreditCard#maskCreditCardNumber(java.lang.String)
    */

@@ -23,12 +23,13 @@
 
 package com.newmediaworks.taglib.payment.legacy;
 
+import static com.newmediaworks.taglib.payment.InvoiceNumberTag.TAG_NAME;
+
 import com.aoapps.encoding.MediaType;
 import com.aoapps.encoding.taglib.legacy.EncodingBufferedBodyTag;
 import com.aoapps.io.buffer.BufferResult;
 import com.aoapps.lang.Strings;
 import com.aoapps.payments.TransactionRequest;
-import static com.newmediaworks.taglib.payment.InvoiceNumberTag.TAG_NAME;
 import com.newmediaworks.taglib.payment.PaymentTag;
 import java.io.IOException;
 import java.io.Writer;

@@ -23,6 +23,8 @@
 
 package com.newmediaworks.taglib.payment.legacy;
 
+import static com.newmediaworks.taglib.payment.StreetAddress2Tag.TAG_NAME;
+
 import com.aoapps.encoding.MediaType;
 import com.aoapps.encoding.taglib.legacy.EncodingBufferedBodyTag;
 import com.aoapps.io.buffer.BufferResult;
@@ -33,7 +35,6 @@ import com.newmediaworks.taglib.payment.CreditCardTag;
 import com.newmediaworks.taglib.payment.PropertyHelper;
 import com.newmediaworks.taglib.payment.ShippingAddressTag;
 import com.newmediaworks.taglib.payment.StoreCreditCardTag;
-import static com.newmediaworks.taglib.payment.StreetAddress2Tag.TAG_NAME;
 import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;

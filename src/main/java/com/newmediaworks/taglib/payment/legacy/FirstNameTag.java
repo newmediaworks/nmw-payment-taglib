@@ -23,6 +23,8 @@
 
 package com.newmediaworks.taglib.payment.legacy;
 
+import static com.newmediaworks.taglib.payment.FirstNameTag.TAG_NAME;
+
 import com.aoapps.encoding.MediaType;
 import com.aoapps.encoding.taglib.legacy.EncodingBufferedBodyTag;
 import com.aoapps.io.buffer.BufferResult;
@@ -30,7 +32,6 @@ import com.aoapps.lang.Strings;
 import com.aoapps.payments.CreditCard;
 import com.aoapps.payments.TransactionRequest;
 import com.newmediaworks.taglib.payment.CreditCardTag;
-import static com.newmediaworks.taglib.payment.FirstNameTag.TAG_NAME;
 import com.newmediaworks.taglib.payment.PropertyHelper;
 import com.newmediaworks.taglib.payment.ShippingAddressTag;
 import com.newmediaworks.taglib.payment.StoreCreditCardTag;
