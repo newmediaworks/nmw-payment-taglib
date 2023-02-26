@@ -25,7 +25,7 @@ JSP taglib encapsulating the [AO Payments API](https://github.com/ao-apps/ao-pay
 * [Taglib Reference](https://oss.newmediaworks.com/payment-taglib/nmw-payment.tld/)
 * [Taglib Reference (Legacy)](https://oss.newmediaworks.com/payment-taglib/nmw-payment-legacy.tld/)
 * [API Docs](https://oss.newmediaworks.com/payment-taglib/apidocs/)
-* [Maven Central Repository](https://search.maven.org/artifact/com.newmediaworks/nmw-payment-taglib)
+* [Maven Central Repository](https://central.sonatype.com/search?namespace=com.newmediaworks&q=a%3Anmw-payment-taglib)
 * [GitHub](https://github.com/newmediaworks/nmw-payment-taglib)
 
 ## Related Projects
