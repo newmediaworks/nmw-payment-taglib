@@ -37,7 +37,7 @@ along with nmw-payment-taglib.  If not, see <https://www.gnu.org/licenses/>.
     shortTitle="Changelog"
     tocLevels="1"
     datePublished="2019-05-26T16:13:02-05:00"
-    dateModified="2023-02-26T14:03:56Z"
+    dateModified="2023-04-14T16:43:04Z"
   >
     <c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
       <changelog:release
@@ -100,7 +100,7 @@ along with nmw-payment-taglib.  If not, see <https://www.gnu.org/licenses/>.
         <li>Updated dependencies.</li>
         <li>
           <p>
-            Upgraded to current version of <ao:a href="https://central.sonatype.com/search?namespace=com.stripe&amp;q=a%3Astripe-java/20.37.0/jar">com.stripe:stripe-java:jar:20.37.0</ao:a>,
+            Upgraded to current version of <ao:a href="https://central.sonatype.com/artifact/com.stripe/stripe-java/20.37.0">com.stripe:stripe-java:jar:20.37.0</ao:a>,
             which uses <ao:a href="https://stripe.com/docs/upgrades#2020-08-27">Stripe API version 2020-08-27</ao:a>.
           </p>
           <p>
