@@ -427,9 +427,9 @@ along with nmw-payment-taglib.  If not, see <https://www.gnu.org/licenses/>.
       <dependency>
         <groupId>com.google.code.gson</groupId><artifactId>gson</artifactId><version>2.10.1</version>
       </dependency>
-      <!-- BOM -->
+      <!-- Imports -->
       <dependency>
-        <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom</artifactId><version>7.0.1${POST-SNAPSHOT}</version>
+        <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom</artifactId><version>7.0.1-POST-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -479,6 +479,12 @@ along with nmw-payment-taglib.  If not, see <https://www.gnu.org/licenses/>.
     </dependency>
     <dependency>
       <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId>
+    </dependency>
+    <!-- Imports (Reactor build order only) -->
+    <dependency>
+      <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom</artifactId><version>7.0.1-POST-SNAPSHOT</version>
+      <type>pom</type>
+      <exclusions><exclusion><artifactId>*</artifactId><groupId>*</groupId></exclusion></exclusions>
     </dependency>
   </dependencies>
 </project>
