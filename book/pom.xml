@@ -41,6 +41,19 @@ along with nmw-payment-taglib.  If not, see <https://www.gnu.org/licenses/>.
     <documented.artifactId>nmw-payment-taglib</documented.artifactId>
     <documented.name>NMW Payment Taglib</documented.name>
     <documented.description>JSP taglib encapsulating the AO Payments API.</documented.description>
+    <javadoc.breadcrumbs><![CDATA[<a target="${javadoc.target}" href="https://oss.newmediaworks.com/">NMW OSS</a>
+/ <a target="${javadoc.target}" href="${project.url}">Payment Taglib</a>]]></javadoc.breadcrumbs>
+    <javadoc.taglibReference><![CDATA[
+      <li><a target="${javadoc.target}" href="${project.url}nmw-payment.tld/">Taglib Reference</a></li>
+      <li><a target="${javadoc.target}" href="${project.url}nmw-payment-legacy.tld/">Taglib Reference (Legacy)</a></li>
+    ]]></javadoc.taglibReference>
+    <javadoc.relatedProjects><![CDATA[<div>
+      <h2>Related Projects</h2>
+      <ul>
+        <li><a target="${javadoc.target}" href="https://oss.aoapps.com/payments/">AO Payments</a></li>
+        <li><a target="${javadoc.target}" href="https://oss.aoapps.com/encoding/taglib/">AO Encoding Taglib</a></li>
+      </ul>
+    </div>]]></javadoc.relatedProjects>
 
     <description.html><![CDATA[Documentation for <a target="${javadoc.target}" href="${project.url}">${documented.name}</a> in <a target="${javadoc.target}" href="https://semanticcms.com/">SemanticCMS</a> format.]]></description.html>
   </properties>
