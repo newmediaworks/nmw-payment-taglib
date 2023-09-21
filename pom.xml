@@ -49,7 +49,7 @@ along with nmw-payment-taglib.  If not, see <https://www.gnu.org/licenses/>.
         <li><a target="${javadoc.target}" href="https://oss.aoapps.com/encoding/taglib/">AO Encoding Taglib</a></li>
       </ul>
     </div>]]></javadoc.relatedProjects>
-    
+
     <description.html><![CDATA[JSP taglib encapsulating the <a target="${javadoc.target}" href="https://oss.aoapps.com/payments/api/">AO Payments API</a>.]]></description.html>
     <!-- TODO: Implement tests -->
     <sonar.coverage.exclusions>**.*</sonar.coverage.exclusions>
