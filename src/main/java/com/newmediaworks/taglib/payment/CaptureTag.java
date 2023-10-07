@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Payments API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020, 2021, 2022  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020, 2021, 2022, 2023  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -28,6 +28,8 @@ import com.aoapps.payments.AuthorizationResult;
 import com.aoapps.payments.CaptureResult;
 import com.aoapps.payments.MerchantServicesProvider;
 import com.aoapps.servlet.attribute.ScopeEE;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Optional;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
@@ -64,16 +66,21 @@ public class CaptureTag extends BodyTagSupport implements TryCatchFinally {
     );
   }
 
+  private static final long serialVersionUID = 2L;
+
   public CaptureTag() {
     init();
   }
 
-  private static final long serialVersionUID = 2L;
+  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
+    init();
+  }
 
   private transient boolean requestAttributeSet;
 
   // <editor-fold desc="Attributes">
-  private String transactionId;
+  private transient String transactionId;
 
   public void setTransactionId(String transactionId) {
     this.transactionId = Strings.trimNullIfEmpty(transactionId);

@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Payments API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020, 2021, 2022  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2020, 2021, 2022, 2023  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -32,6 +32,8 @@ import com.aoapps.payments.stripe.Stripe;
 import com.aoapps.payments.test.TestMerchantServicesProvider;
 import com.aoapps.payments.usaepay.USAePay;
 import com.aoapps.servlet.attribute.ScopeEE;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -182,15 +184,20 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
     );
   }
 
+  private static final long serialVersionUID = 1L;
+
   public UseProcessorTag() {
     init();
   }
 
-  private static final long serialVersionUID = 1L;
+  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
+    init();
+  }
 
   private transient boolean requestAttributeSet;
 
-  private String connectorName;
+  private transient String connectorName;
 
   /**
    * Sets the connector name.
@@ -199,7 +206,7 @@ public class UseProcessorTag extends BodyTagSupport implements TryCatchFinally, 
     this.connectorName = Strings.trimNullIfEmpty(connectorName);
   }
 
-  private Map<String, String> parameters;
+  private transient Map<String, String> parameters;
 
   /**
    * Adds a parameter.
