@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Payments API.
- * Copyright (C) 2013, 2019, 2021, 2022  New Media Works
+ * Copyright (C) 2013, 2019, 2021, 2022, 2024  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -43,10 +43,9 @@ public final class CurrencyUtil {
   /**
    * Parsing for a currency.  Strips all <code>'$'</code> or <code>','</code>
    * then parses with {@link BigDecimal#BigDecimal(java.lang.String)}.
-   * <p>
-   * TODO: This is a US-locale specific implementation.
-   * Should probably not make public again until a more locale-aware implementation is provided.
-   * </p>
+   *
+   * <p>TODO: This is a US-locale specific implementation.
+   * Should probably not make public again until a more locale-aware implementation is provided.</p>
    *
    * @param  value  When {@code null} or empty (after trimming), returns {@code null}
    */

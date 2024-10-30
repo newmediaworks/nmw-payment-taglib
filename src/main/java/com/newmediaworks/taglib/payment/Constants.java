@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Payments API.
- * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2021, 2022  New Media Works
+ * Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2019, 2021, 2022, 2024  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -40,9 +40,8 @@ public final class Constants {
 
   /**
    * The request attribute key for the current credit card processor.
-   * <p>
-   * Stores an implementation of {@link MerchantServicesProvider}.
-   * </p>
+   *
+   * <p>Stores an implementation of {@link MerchantServicesProvider}.</p>
    *
    * @see  UseProcessorTag
    *
@@ -53,9 +52,8 @@ public final class Constants {
 
   /**
    * The request attribute key for the current credit card processor.
-   * <p>
-   * Stores an implementation of {@link MerchantServicesProvider}.
-   * </p>
+   *
+   * <p>Stores an implementation of {@link MerchantServicesProvider}.</p>
    *
    * @see  UseProcessorTag
    */
