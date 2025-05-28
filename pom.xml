@@ -406,7 +406,7 @@ along with nmw-payment-taglib.  If not, see <https://www.gnu.org/licenses/>.
           "org.apache.commons.beanutils" while commons-validator-1.9.0 references the old name "commons.beanutils".
           Stay on commons-beanutils-1.9.4 util commons-validator-1.9.0 is updated to reference the new module name.
         -->
-        <groupId>commons-beanutils</groupId><artifactId>commons-beanutils</artifactId><version>1.9.4</version>
+        <groupId>commons-beanutils</groupId><artifactId>commons-beanutils</artifactId><version>1.11.0</version>
       </dependency>
       <dependency>
         <groupId>commons-collections</groupId><artifactId>commons-collections</artifactId><version>3.2.2</version>
