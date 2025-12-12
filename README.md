@@ -8,14 +8,14 @@
 [![semantic versioning: 2.0.0](https://oss.newmediaworks.com/ao-badges/semver-2.0.0.svg)](https://semver.org/spec/v2.0.0.html)
 [![license: LGPL v3](https://oss.newmediaworks.com/ao-badges/license-lgpl-3.0.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 
-[![Build](https://github.com/newmediaworks/nmw-payment-taglib/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/newmediaworks/nmw-payment-taglib/actions?query=workflow%3ABuild)
+[![Build](https://github.com/newmediaworks/nmw-payment-taglib/actions/workflows/build.yml/badge.svg?branch=javaee)](https://github.com/newmediaworks/nmw-payment-taglib/actions?query=workflow%3ABuild)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.newmediaworks/nmw-payment-taglib/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.newmediaworks/nmw-payment-taglib)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.newmediaworks%3Anmw-payment-taglib&metric=alert_status)](https://sonarcloud.io/dashboard?branch=master&id=com.newmediaworks%3Anmw-payment-taglib)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.newmediaworks%3Anmw-payment-taglib&metric=ncloc)](https://sonarcloud.io/component_measures?branch=master&id=com.newmediaworks%3Anmw-payment-taglib&metric=ncloc)  
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.newmediaworks%3Anmw-payment-taglib&metric=reliability_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.newmediaworks%3Anmw-payment-taglib&metric=Reliability)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.newmediaworks%3Anmw-payment-taglib&metric=security_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.newmediaworks%3Anmw-payment-taglib&metric=Security)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.newmediaworks%3Anmw-payment-taglib&metric=sqale_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.newmediaworks%3Anmw-payment-taglib&metric=Maintainability)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.newmediaworks%3Anmw-payment-taglib&metric=coverage)](https://sonarcloud.io/component_measures?branch=master&id=com.newmediaworks%3Anmw-payment-taglib&metric=Coverage)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?branch=javaee&project=com.newmediaworks%3Anmw-payment-taglib&metric=alert_status)](https://sonarcloud.io/dashboard?branch=javaee&id=com.newmediaworks%3Anmw-payment-taglib)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?branch=javaee&project=com.newmediaworks%3Anmw-payment-taglib&metric=ncloc)](https://sonarcloud.io/component_measures?branch=javaee&id=com.newmediaworks%3Anmw-payment-taglib&metric=ncloc)  
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?branch=javaee&project=com.newmediaworks%3Anmw-payment-taglib&metric=reliability_rating)](https://sonarcloud.io/component_measures?branch=javaee&id=com.newmediaworks%3Anmw-payment-taglib&metric=Reliability)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?branch=javaee&project=com.newmediaworks%3Anmw-payment-taglib&metric=security_rating)](https://sonarcloud.io/component_measures?branch=javaee&id=com.newmediaworks%3Anmw-payment-taglib&metric=Security)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?branch=javaee&project=com.newmediaworks%3Anmw-payment-taglib&metric=sqale_rating)](https://sonarcloud.io/component_measures?branch=javaee&id=com.newmediaworks%3Anmw-payment-taglib&metric=Maintainability)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?branch=javaee&project=com.newmediaworks%3Anmw-payment-taglib&metric=coverage)](https://sonarcloud.io/component_measures?branch=javaee&id=com.newmediaworks%3Anmw-payment-taglib&metric=Coverage)
 
 JSP taglib encapsulating the [AO Payments API](https://github.com/ao-apps/ao-payments-api).
 
