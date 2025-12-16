@@ -31,7 +31,7 @@ def upstreamProjects = [
 
   // Direct
   '../../ao/oss/encoding', // <groupId>com.aoapps</groupId><artifactId>ao-encoding</artifactId>
-  '../../ao/oss/encoding-taglib', // <groupId>com.aoapps</groupId><artifactId>ao-encoding-taglib</artifactId>
+  '../../ao/oss/encoding-taglib-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-encoding-taglib</artifactId>
   '../../ao/oss/io-buffer', // <groupId>com.aoapps</groupId><artifactId>ao-io-buffer</artifactId>
   '../../ao/oss/lang', // <groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId>
   '../../ao/oss/payments/api', // <groupId>com.aoapps</groupId><artifactId>ao-payments-api</artifactId>
@@ -40,8 +40,8 @@ def upstreamProjects = [
   '../../ao/oss/payments/stripe', // <groupId>com.aoapps</groupId><artifactId>ao-payments-stripe</artifactId>
   '../../ao/oss/payments/test', // <groupId>com.aoapps</groupId><artifactId>ao-payments-test</artifactId>
   '../../ao/oss/payments/usaepay', // <groupId>com.aoapps</groupId><artifactId>ao-payments-usaepay</artifactId>
-  '../../ao/oss/servlet-filter', // <groupId>com.aoapps</groupId><artifactId>ao-servlet-filter</artifactId>
-  '../../ao/oss/servlet-util', // <groupId>com.aoapps</groupId><artifactId>ao-servlet-util</artifactId>
+  '../../ao/oss/servlet-filter-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-servlet-filter</artifactId>
+  '../../ao/oss/servlet-util-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-servlet-util</artifactId>
   // No Jenkins: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId>
   // No Jenkins: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId>
 
