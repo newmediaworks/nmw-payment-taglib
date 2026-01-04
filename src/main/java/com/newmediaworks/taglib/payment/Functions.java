@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Payments API.
- * Copyright (C) 2021, 2022  New Media Works
+ * Copyright (C) 2021, 2022, 2025, 2026  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -30,12 +30,12 @@ import com.aoapps.payments.AuthorizationResult.ApprovalResult;
 import com.aoapps.payments.CreditCard;
 import com.aoapps.payments.TransactionResult;
 import com.aoapps.payments.TransactionResult.CommunicationResult;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspTagException;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletRequest;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
 
 /**
  * Tag library function implementations.
