@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Payments API.
- * Copyright (C) 2021, 2022, 2023, 2024, 2025  New Media Works
+ * Copyright (C) 2021, 2022, 2023, 2024, 2025, 2026  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -52,7 +52,7 @@ def upstreamProjects = [
 ]
 
 // Include project-repository in sparse checkout paths
-sparseCheckoutPaths = [
+def sparseCheckoutPaths = [
   [path:'/.gitignore'],
   [path:'/book/'],
   [path:'/repository/']
