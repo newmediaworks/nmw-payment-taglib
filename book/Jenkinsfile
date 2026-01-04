@@ -56,7 +56,7 @@ def buildJdks = ['17', '21'] // Changes must be copied to matrix axes!
 def testJdks = ['17', '21'] // Changes must be copied to matrix axes!
 
 // Include project-repository in sparse checkout paths
-sparseCheckoutPaths = [
+def sparseCheckoutPaths = [
   [path:'/.gitignore'],
   [path:'/book/'],
   [path:'/repository/']
