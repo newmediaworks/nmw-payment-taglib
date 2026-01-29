@@ -45,7 +45,7 @@ public final class Constants {
    *
    * @see  UseProcessorTag
    *
-   * @deprecated  Please use {@link #PROCESSOR} instead.
+   * @deprecated  Please use {@link Constants#PROCESSOR} instead.
    */
   @Deprecated(forRemoval = true)
   public static final String processor = "PROCESSOR";
