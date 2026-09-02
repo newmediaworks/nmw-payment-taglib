@@ -422,7 +422,7 @@ along with nmw-payment-taglib.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.4.0</version>
       </dependency>
       <dependency>
-        <groupId>commons-validator</groupId><artifactId>commons-validator</artifactId><version>1.10.1</version>
+        <groupId>commons-validator</groupId><artifactId>commons-validator</artifactId><version>1.11.0</version>
       </dependency>
       <!-- jakartaee-web-profile-bom: <groupId>jakarta.el</groupId><artifactId>jakarta.el-api</artifactId> -->
       <dependency>
