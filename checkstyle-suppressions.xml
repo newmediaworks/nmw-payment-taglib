@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 nmw-payment-taglib - JSP taglib encapsulating the AO Payments API.
-Copyright (C) 2022  New Media Works
+Copyright (C) 2022, 2026  New Media Works
     info@newmediaworks.com
     703 2nd Street #465
     Santa Rosa, CA 95404
@@ -32,7 +32,7 @@ along with nmw-payment-taglib.  If not, see <https://www.gnu.org/licenses/>.
 
   <!-- Will not rename -->
   <suppress
-    checks="AbbreviationAsWordInName"
+    checks="(AbbreviationAsWordInName|GoogleMethodName)"
     files="[/\\]com[/\\]newmediaworks[/\\]taglib[/\\]payment[/\\]CreditCardTag\.java$"
     message="'(creditCardGUID|setCreditCardGUID)'"
   />
@@ -42,7 +42,7 @@ along with nmw-payment-taglib.  If not, see <https://www.gnu.org/licenses/>.
     message="'CreditCardGUIDTag'"
   />
   <suppress
-    checks="AbbreviationAsWordInName"
+    checks="(AbbreviationAsWordInName|GoogleMethodName)"
     files="[/\\]com[/\\]newmediaworks[/\\]taglib[/\\]payment[/\\]UseProcessorTag\.java$"
     message="'getUSAePay'"
   />
@@ -52,6 +52,12 @@ along with nmw-payment-taglib.  If not, see <https://www.gnu.org/licenses/>.
     checks="ParameterName"
     files="[/\\]com[/\\]newmediaworks[/\\]taglib[/\\]payment[/\\]UseProcessorTag\.java$"
     message="'(x_login|x_tran_key)'"
+  />
+
+  <!-- Unusual multiline comment style is to minimize diffs between the scriptless and legacy implementations -->
+  <suppress
+    checks="MultilineCommentLeadingAsteriskPresence"
+    files=".*Tag\.java$"
   />
 
 </suppressions>
