@@ -21,8 +21,6 @@
  * along with nmw-payment-taglib.  If not, see <https://www.gnu.org/licenses/>.
  */
 module com.newmediaworks.taglib.payment {
-  exports com.newmediaworks.taglib.payment;
-  exports com.newmediaworks.taglib.payment.legacy;
   // Direct
   requires com.aoapps.encoding; // <groupId>com.aoapps</groupId><artifactId>ao-encoding</artifactId>
   requires com.aoapps.encoding.taglib; // <groupId>com.aoapps</groupId><artifactId>ao-encoding-taglib</artifactId>
@@ -40,4 +38,7 @@ module com.newmediaworks.taglib.payment {
   requires jakarta.servlet.jsp; // <groupId>jakarta.servlet.jsp</groupId><artifactId>jakarta.servlet.jsp-api</artifactId>
   // Java SE
   requires java.logging;
+
+  exports com.newmediaworks.taglib.payment;
+  exports com.newmediaworks.taglib.payment.legacy;
 }
