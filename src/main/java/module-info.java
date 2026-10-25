@@ -1,6 +1,6 @@
 /*
  * nmw-payment-taglib - JSP taglib encapsulating the AO Payments API.
- * Copyright (C) 2021, 2022  New Media Works
+ * Copyright (C) 2021, 2022, 2026  New Media Works
  *     info@newmediaworks.com
  *     703 2nd Street #465
  *     Santa Rosa, CA 95404
@@ -21,8 +21,6 @@
  * along with nmw-payment-taglib.  If not, see <https://www.gnu.org/licenses/>.
  */
 module com.newmediaworks.taglib.payment {
-  exports com.newmediaworks.taglib.payment;
-  exports com.newmediaworks.taglib.payment.legacy;
   // Direct
   requires com.aoapps.encoding; // <groupId>com.aoapps</groupId><artifactId>ao-encoding</artifactId>
   requires com.aoapps.encoding.taglib; // <groupId>com.aoapps</groupId><artifactId>ao-encoding-taglib</artifactId>
@@ -40,4 +38,7 @@ module com.newmediaworks.taglib.payment {
   requires javax.servlet.jsp.api; // <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId>
   // Java SE
   requires java.logging;
+
+  exports com.newmediaworks.taglib.payment;
+  exports com.newmediaworks.taglib.payment.legacy;
 }
